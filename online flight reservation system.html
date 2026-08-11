@@ -1,0 +1,991 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Flight Reservation System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f2f6fa;
+    color:#222;
+}
+
+header{
+    background:#073b66;
+    color:white;
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h1{
+    font-size:24px;
+}
+
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    margin:5px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:30px auto;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #ccc;
+    margin-bottom:20px;
+}
+
+h2{
+    color:#073b66;
+    margin-bottom:20px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:8px 0 15px;
+    border:1px solid #bbb;
+    border-radius:6px;
+}
+
+button{
+    background:#0878c9;
+    color:white;
+    border:none;
+    padding:11px 18px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#055c99;
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.flight{
+    border:1px solid #ddd;
+    padding:18px;
+    border-radius:10px;
+    margin:12px 0;
+    background:#fafafa;
+}
+
+.flight button{
+    float:right;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+th{
+    background:#073b66;
+    color:white;
+}
+
+.message{
+    padding:12px;
+    margin:10px 0;
+    background:#e7f5ff;
+    border-radius:6px;
+}
+
+.danger{
+    background:#d9534f;
+}
+
+footer{
+    text-align:center;
+    background:#073b66;
+    color:white;
+    padding:20px;
+    margin-top:40px;
+}
+
+@media(max-width:700px){
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        flex-direction:column;
+        gap:10px;
+        text-align:center;
+    }
+
+    table{
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>✈ SkyFly Reservation</h1>
+
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('search')">Search Flight</button>
+        <button onclick="showPage('myticket')">My Ticket</button>
+        <button onclick="showPage('feedback')">Feedback</button>
+        <button onclick="showPage('admin')">Admin</button>
+        <button onclick="showPage('login')">Login</button>
+    </nav>
+</header>
+
+<div class="container">
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+    <div class="card">
+        <h2>Online Flight Reservation System</h2>
+        <p>
+            Search flights, check real-time seat availability,
+            book tickets, make payments and manage your reservations
+            easily from one platform.
+        </p>
+        <br>
+        <button onclick="showPage('search')">Search Flights</button>
+    </div>
+
+    <div class="card">
+        <h2>Features</h2>
+        <p>✔ Flight Search</p>
+        <p>✔ Seat Selection</p>
+        <p>✔ Online Booking</p>
+        <p>✔ Secure Payment</p>
+        <p>✔ E-Ticket</p>
+        <p>✔ Booking History</p>
+        <p>✔ Ticket Cancellation</p>
+        <p>✔ Customer Feedback</p>
+        <p>✔ Admin Reports</p>
+    </div>
+
+</section>
+
+
+<!-- LOGIN -->
+<section id="login" class="page">
+
+<div class="card">
+<h2>Customer Login</h2>
+
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPassword" placeholder="Password">
+
+<button onclick="login()">Login</button>
+<button onclick="showPage('register')">Register</button>
+<button onclick="showPage('forgot')">Forgot Password?</button>
+
+<p id="loginMsg"></p>
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+<section id="register" class="page">
+
+<div class="card">
+<h2>Create Account</h2>
+
+<input id="regName" placeholder="Full Name">
+<input id="regEmail" type="email" placeholder="Email">
+<input id="regPassword" type="password" placeholder="Password">
+
+<button onclick="register()">Register</button>
+<button onclick="showPage('login')">Back to Login</button>
+
+<p id="registerMsg"></p>
+</div>
+
+</section>
+
+
+<!-- FORGOT PASSWORD -->
+<section id="forgot" class="page">
+
+<div class="card">
+<h2>Forgot Password</h2>
+
+<input type="email" id="forgotEmail" placeholder="Enter registered email">
+
+<button onclick="resetPassword()">Reset Password</button>
+
+<p id="forgotMsg"></p>
+</div>
+
+</section>
+
+
+<!-- SEARCH FLIGHT -->
+<section id="search" class="page">
+
+<div class="card">
+<h2>Search Flights</h2>
+
+<div class="search-grid">
+
+<div>
+<label>From</label>
+<select id="from">
+<option>Chennai</option>
+<option>Bangalore</option>
+<option>Delhi</option>
+<option>Mumbai</option>
+</select>
+</div>
+
+<div>
+<label>Destination</label>
+<select id="to">
+<option>Delhi</option>
+<option>Mumbai</option>
+<option>Bangalore</option>
+<option>Chennai</option>
+</select>
+</div>
+
+<div>
+<label>Date</label>
+<input type="date" id="flightDate">
+</div>
+
+<div>
+<label>Class</label>
+<select id="flightClass">
+<option>Economy</option>
+<option>Business</option>
+<option>First Class</option>
+</select>
+</div>
+
+</div>
+
+<button onclick="searchFlights()">Search Flights</button>
+
+</div>
+
+<div id="flightResults"></div>
+
+</section>
+
+
+<!-- BOOK TICKET -->
+<section id="booking" class="page">
+
+<div class="card">
+
+<h2>Book Ticket</h2>
+
+<div id="selectedFlight"></div>
+
+<h3>Passenger Details</h3>
+
+<input id="passengerName" placeholder="Passenger Name">
+<input id="passengerAge" type="number" placeholder="Age">
+<input id="passengerPassport" placeholder="Passport / ID Number">
+
+<h3>Select Seat</h3>
+
+<select id="seat">
+<option>1A</option>
+<option>1B</option>
+<option>1C</option>
+<option>2A</option>
+<option>2B</option>
+<option>2C</option>
+<option>3A</option>
+<option>3B</option>
+</select>
+
+<br><br>
+
+<button onclick="proceedPayment()">Continue to Payment</button>
+
+</div>
+
+</section>
+
+
+<!-- PAYMENT -->
+<section id="payment" class="page">
+
+<div class="card">
+
+<h2>Ticket Payment</h2>
+
+<h3 id="paymentAmount"></h3>
+
+<select id="paymentMethod">
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>UPI</option>
+<option>Net Banking</option>
+</select>
+
+<input placeholder="Card / UPI Number">
+
+<input type="password" placeholder="PIN / CVV">
+
+<button onclick="makePayment()">Pay Now</button>
+
+<p id="paymentMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- MY TICKET -->
+<section id="myticket" class="page">
+
+<div class="card">
+
+<h2>My Ticket</h2>
+
+<div id="ticketDetails">
+<p>No ticket booked yet.</p>
+</div>
+
+<br>
+
+<button onclick="printTicket()">Print Ticket</button>
+<button class="danger" onclick="cancelTicket()">Cancel Ticket</button>
+
+</div>
+
+</section>
+
+
+<!-- BOOKING STATUS -->
+<section id="status" class="page">
+
+<div class="card">
+
+<h2>View Booking Status</h2>
+
+<input id="bookingId" placeholder="Enter Booking ID">
+
+<button onclick="checkStatus()">Check Status</button>
+
+<p id="statusResult"></p>
+
+</div>
+
+</section>
+
+
+<!-- FEEDBACK -->
+<section id="feedback" class="page">
+
+<div class="card">
+
+<h2>Customer Feedback</h2>
+
+<input id="feedbackName" placeholder="Your Name">
+
+<select id="rating">
+<option>5 - Excellent</option>
+<option>4 - Very Good</option>
+<option>3 - Good</option>
+<option>2 - Average</option>
+<option>1 - Poor</option>
+</select>
+
+<textarea id="feedbackText"
+placeholder="Write your feedback"
+style="width:100%;height:120px;padding:12px;"></textarea>
+
+<br><br>
+
+<button onclick="submitFeedback()">Submit Feedback</button>
+
+<p id="feedbackMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN LOGIN -->
+<section id="admin" class="page">
+
+<div class="card">
+
+<h2>Administrator Login</h2>
+
+<input id="adminUser" placeholder="Admin Username">
+
+<input id="adminPass" type="password" placeholder="Password">
+
+<button onclick="adminLogin()">Admin Login</button>
+
+<p id="adminMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN PANEL -->
+<section id="adminPanel" class="page">
+
+<div class="card">
+
+<h2>Admin Panel</h2>
+
+<button onclick="showPage('adminFlights')">Manage Flights</button>
+<button onclick="showPage('adminUsers')">Manage Users</button>
+<button onclick="showPage('report')">Admin Report</button>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN FLIGHTS -->
+<section id="adminFlights" class="page">
+
+<div class="card">
+
+<h2>Manage Flight Schedules</h2>
+
+<input id="newFlight" placeholder="Flight Number">
+
+<input id="newRoute" placeholder="Route">
+
+<input id="newSeats" type="number" placeholder="Number of Seats">
+
+<input id="newFare" type="number" placeholder="Fare">
+
+<button onclick="addFlight()">Add Flight</button>
+
+<br><br>
+
+<table>
+
+<thead>
+<tr>
+<th>Flight</th>
+<th>Route</th>
+<th>Seats</th>
+<th>Fare</th>
+</tr>
+</thead>
+
+<tbody id="flightTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN USERS -->
+<section id="adminUsers" class="page">
+
+<div class="card">
+
+<h2>User Accounts</h2>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Arun</td>
+<td>arun@gmail.com</td>
+<td>Active</td>
+</tr>
+
+<tr>
+<td>Priya</td>
+<td>priya@gmail.com</td>
+<td>Active</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- REPORT -->
+<section id="report" class="page">
+
+<div class="card">
+
+<h2>Admin Report</h2>
+
+<table>
+
+<tr>
+<th>Total Flights</th>
+<th>Total Bookings</th>
+<th>Available Seats</th>
+<th>Revenue</th>
+</tr>
+
+<tr>
+<td id="totalFlights">5</td>
+<td id="totalBookings">0</td>
+<td>245</td>
+<td id="revenue">₹0</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+</div>
+
+
+<footer>
+    <p>© 2026 SkyFly Online Flight Reservation System</p>
+</footer>
+
+
+<script>
+
+let selectedFlight = null;
+let booking = null;
+let bookings = 0;
+let revenue = 0;
+
+const flights = [
+{
+    number:"SF101",
+    from:"Chennai",
+    to:"Delhi",
+    time:"06:30 AM",
+    seats:25,
+    fare:5500
+},
+{
+    number:"SF202",
+    from:"Chennai",
+    to:"Mumbai",
+    time:"09:00 AM",
+    seats:18,
+    fare:4800
+},
+{
+    number:"SF303",
+    from:"Bangalore",
+    to:"Delhi",
+    time:"01:30 PM",
+    seats:30,
+    fare:6200
+},
+{
+    number:"SF404",
+    from:"Delhi",
+    to:"Mumbai",
+    time:"05:00 PM",
+    seats:20,
+    fare:4500
+}
+];
+
+
+function showPage(page){
+
+    document.querySelectorAll(".page").forEach(function(p){
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    window.scrollTo(0,0);
+}
+
+
+function register(){
+
+    let name=document.getElementById("regName").value;
+    let email=document.getElementById("regEmail").value;
+    let password=document.getElementById("regPassword").value;
+
+    if(name==="" || email==="" || password===""){
+        document.getElementById("registerMsg").innerHTML="Please fill all fields.";
+        return;
+    }
+
+    localStorage.setItem("userName",name);
+    localStorage.setItem("userEmail",email);
+    localStorage.setItem("userPassword",password);
+
+    document.getElementById("registerMsg").innerHTML=
+    "Registration successful!";
+
+}
+
+
+function login(){
+
+    let email=document.getElementById("loginEmail").value;
+    let password=document.getElementById("loginPassword").value;
+
+    if(
+        email===localStorage.getItem("userEmail") &&
+        password===localStorage.getItem("userPassword")
+    ){
+
+        document.getElementById("loginMsg").innerHTML="Login successful!";
+        showPage("search");
+
+    }else{
+
+        document.getElementById("loginMsg").innerHTML=
+        "Invalid email or password.";
+
+    }
+
+}
+
+
+function resetPassword(){
+
+    let email=document.getElementById("forgotEmail").value;
+
+    if(email===localStorage.getItem("userEmail")){
+
+        document.getElementById("forgotMsg").innerHTML=
+        "Password reset link sent to your email.";
+
+    }else{
+
+        document.getElementById("forgotMsg").innerHTML=
+        "Email not found.";
+
+    }
+
+}
+
+
+function searchFlights(){
+
+    let from=document.getElementById("from").value;
+    let to=document.getElementById("to").value;
+
+    let results=flights.filter(function(f){
+        return f.from===from && f.to===to;
+    });
+
+    let output="";
+
+    if(results.length===0){
+
+        output="<div class='card'><h3>No flights available.</h3></div>";
+
+    }else{
+
+        results.forEach(function(f){
+
+            output+=`
+
+            <div class="flight">
+
+            <h3>✈ ${f.number}</h3>
+
+            <p>${f.from} → ${f.to}</p>
+
+            <p>Departure: ${f.time}</p>
+
+            <p>Available Seats: ${f.seats}</p>
+
+            <p>Fare: ₹${f.fare}</p>
+
+            <button onclick="bookFlight('${f.number}')">
+            Book Ticket
+            </button>
+
+            <br><br>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    document.getElementById("flightResults").innerHTML=output;
+
+}
+
+
+function bookFlight(number){
+
+    selectedFlight=flights.find(function(f){
+        return f.number===number;
+    });
+
+    document.getElementById("selectedFlight").innerHTML=`
+
+        <div class="message">
+        <b>${selectedFlight.number}</b><br>
+        ${selectedFlight.from} → ${selectedFlight.to}<br>
+        Departure: ${selectedFlight.time}<br>
+        Fare: ₹${selectedFlight.fare}
+        </div>
+
+    `;
+
+    showPage("booking");
+
+}
+
+
+function proceedPayment(){
+
+    let name=document.getElementById("passengerName").value;
+    let age=document.getElementById("passengerAge").value;
+
+    if(name==="" || age===""){
+
+        alert("Please enter passenger details.");
+        return;
+
+    }
+
+    document.getElementById("paymentAmount").innerHTML=
+    "Total Amount: ₹"+selectedFlight.fare;
+
+    showPage("payment");
+
+}
+
+
+function makePayment(){
+
+    booking={
+
+        id:"SF"+Math.floor(Math.random()*90000+10000),
+
+        passenger:document.getElementById("passengerName").value,
+
+        flight:selectedFlight.number,
+
+        route:selectedFlight.from+" → "+selectedFlight.to,
+
+        seat:document.getElementById("seat").value,
+
+        amount:selectedFlight.fare,
+
+        status:"Confirmed"
+
+    };
+
+    bookings++;
+
+    revenue+=selectedFlight.fare;
+
+    selectedFlight.seats--;
+
+    document.getElementById("paymentMsg").innerHTML=
+    "Payment successful! Ticket booked.";
+
+    document.getElementById("totalBookings").innerHTML=bookings;
+
+    document.getElementById("revenue").innerHTML="₹"+revenue;
+
+    document.getElementById("ticketDetails").innerHTML=`
+
+        <h3>✈ Booking Confirmed</h3>
+
+        <p><b>Booking ID:</b> ${booking.id}</p>
+        <p><b>Passenger:</b> ${booking.passenger}</p>
+        <p><b>Flight:</b> ${booking.flight}</p>
+        <p><b>Route:</b> ${booking.route}</p>
+        <p><b>Seat:</b> ${booking.seat}</p>
+        <p><b>Amount:</b> ₹${booking.amount}</p>
+        <p><b>Status:</b> ${booking.status}</p>
+
+    `;
+
+    showPage("myticket");
+
+}
+
+
+function cancelTicket(){
+
+    if(!booking){
+
+        alert("No ticket available.");
+        return;
+
+    }
+
+    booking.status="Cancelled";
+
+    document.getElementById("ticketDetails").innerHTML+=
+    "<p style='color:red'><b>Ticket Cancelled</b></p>";
+
+}
+
+
+function printTicket(){
+
+    if(!booking){
+
+        alert("No ticket available.");
+        return;
+
+    }
+
+    window.print();
+
+}
+
+
+function checkStatus(){
+
+    let id=document.getElementById("bookingId").value;
+
+    if(booking && id===booking.id){
+
+        document.getElementById("statusResult").innerHTML=
+        "Booking Status: "+booking.status;
+
+    }else{
+
+        document.getElementById("statusResult").innerHTML=
+        "Booking not found.";
+
+    }
+
+}
+
+
+function submitFeedback(){
+
+    let name=document.getElementById("feedbackName").value;
+    let feedback=document.getElementById("feedbackText").value;
+
+    if(name==="" || feedback===""){
+
+        alert("Please enter feedback.");
+        return;
+
+    }
+
+    document.getElementById("feedbackMsg").innerHTML=
+    "Thank you for your valuable feedback!";
+
+}
+
+
+function adminLogin(){
+
+    let user=document.getElementById("adminUser").value;
+    let pass=document.getElementById("adminPass").value;
+
+    if(user==="admin" && pass==="admin123"){
+
+        document.getElementById("adminMsg").innerHTML=
+        "Admin login successful!";
+
+        setTimeout(function(){
+            showPage("adminPanel");
+        },500);
+
+    }else{
+
+        document.getElementById("adminMsg").innerHTML=
+        "Invalid admin credentials.";
+
+    }
+
+}
+
+
+function addFlight(){
+
+    let number=document.getElementById("newFlight").value;
+    let route=document.getElementById("newRoute").value;
+    let seats=document.getElementById("newSeats").value;
+    let fare=document.getElementById("newFare").value;
+
+    if(number==="" || route==="" || seats==="" || fare===""){
+
+        alert("Please enter all flight details.");
+        return;
+
+    }
+
+    document.getElementById("flightTable").innerHTML+=`
+
+        <tr>
+        <td>${number}</td>
+        <td>${route}</td>
+        <td>${seats}</td>
+        <td>₹${fare}</td>
+        </tr>
+
+    `;
+
+    document.getElementById("totalFlights").innerHTML=
+    parseInt(document.getElementById("totalFlights").innerHTML)+1;
+
+}
+
+</script>
+
+</body>
+</html>
+```
