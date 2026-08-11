@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Train Reservation System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+body{
+    background:#f2f2f2;
+}
+header{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+nav{
+    background:#0059b3;
+    padding:12px;
+    text-align:center;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:15px;
+    font-weight:bold;
+}
+.container{
+    width:90%;
+    margin:auto;
+    padding:20px;
+}
+.section{
+    background:white;
+    padding:20px;
+    margin-top:20px;
+    border-radius:8px;
+    box-shadow:0 0 8px gray;
+}
+h2{
+    color:#003366;
+    margin-bottom:10px;
+}
+input,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+button{
+    background:#003366;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    cursor:pointer;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+table,th,td{
+    border:1px solid #999;
+}
+th{
+    background:#003366;
+    color:white;
+}
+th,td{
+    padding:10px;
+    text-align:center;
+}
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:20px;
+}
+ul{
+    margin-left:20px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Online Train Reservation System</h1>
+<p>Book Train Tickets Easily</p>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Search Train</a>
+<a href="#">Book Ticket</a>
+<a href="#">PNR Status</a>
+<a href="#">Login</a>
+<a href="#">Register</a>
+</nav>
+
+<div class="container">
+
+<div class="section">
+<h2>Search Train</h2>
+
+<form>
+
+<input type="text" placeholder="From Station">
+
+<input type="text" placeholder="To Station">
+
+<input type="date">
+
+<select>
+<option>Select Class</option>
+<option>Sleeper</option>
+<option>3A</option>
+<option>2A</option>
+<option>1A</option>
+</select>
+
+<button>Search Train</button>
+
+</form>
+
+</div>
+
+<div class="section">
+
+<h2>Available Trains</h2>
+
+<table>
+
+<tr>
+<th>Train No</th>
+<th>Train Name</th>
+<th>Departure</th>
+<th>Arrival</th>
+<th>Seats</th>
+</tr>
+
+<tr>
+<td>12623</td>
+<td>Chennai Express</td>
+<td>08:00 AM</td>
+<td>04:00 PM</td>
+<td>120</td>
+</tr>
+
+<tr>
+<td>12645</td>
+<td>Super Fast Express</td>
+<td>09:30 AM</td>
+<td>06:30 PM</td>
+<td>75</td>
+</tr>
+
+<tr>
+<td>12789</td>
+<td>Intercity Express</td>
+<td>11:00 AM</td>
+<td>08:00 PM</td>
+<td>90</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>Book Ticket</h2>
+
+<form>
+
+<input type="text" placeholder="Passenger Name">
+
+<input type="number" placeholder="Age">
+
+<select>
+<option>Gender</option>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+<input type="text" placeholder="Origin Station">
+
+<input type="text" placeholder="Destination Station">
+
+<select>
+<option>Select Class</option>
+<option>Sleeper</option>
+<option>3A</option>
+<option>2A</option>
+<option>1A</option>
+</select>
+
+<button>Book Ticket</button>
+
+</form>
+
+</div>
+
+<div class="section">
+
+<h2>Check PNR Status</h2>
+
+<form>
+
+<input type="text" placeholder="Enter PNR Number">
+
+<button>Check Status</button>
+
+</form>
+
+</div>
+
+<div class="section">
+
+<h2>User Features</h2>
+
+<ul>
+<li>User Registration</li>
+<li>User Login</li>
+<li>Search Trains</li>
+<li>Seat Availability</li>
+<li>Book Tickets</li>
+<li>View Booking History</li>
+<li>Print Ticket</li>
+<li>Cancel Ticket</li>
+<li>Online/Offline Payment</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>Admin Features</h2>
+
+<ul>
+<li>Manage Train Details</li>
+<li>Manage Train Schedule</li>
+<li>Manage Seat Availability</li>
+<li>Manage User Accounts</li>
+<li>Manage Fare Details</li>
+<li>Manage PNR Details</li>
+<li>Manage Refund Requests</li>
+<li>Generate Reports</li>
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>Refund Policy</h2>
+
+<p>
+Passengers can cancel tickets using the PNR number.
+Refunds are processed based on railway cancellation rules and the cancellation date.
+</p>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 Online Train Reservation System</p>
+
+<p>Internet Programming Lab Experiment</p>
+
+</footer>
+
+</body>
+</html>
