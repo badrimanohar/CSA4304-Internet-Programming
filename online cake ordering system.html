@@ -1,0 +1,1414 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Cake Ordering System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#fff5f7;
+    color:#333;
+}
+
+header{
+    background:#d6336c;
+    color:white;
+    padding:18px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header h1{
+    font-size:25px;
+}
+
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    margin:5px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:30px auto;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #ddd;
+}
+
+h2{
+    color:#d6336c;
+    margin-bottom:20px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0 15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    background:#d6336c;
+    color:white;
+    border:none;
+    padding:11px 18px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ad2455;
+}
+
+.hero{
+    text-align:center;
+    padding:60px 20px;
+    background:#ffe0e9;
+    border-radius:15px;
+}
+
+.hero h2{
+    font-size:35px;
+}
+
+.filters{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.cakes{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.cake{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.cake img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.cake-content{
+    padding:18px;
+}
+
+.cake-content h3{
+    color:#d6336c;
+    margin-bottom:8px;
+}
+
+.cake-content button{
+    margin-top:10px;
+}
+
+.cart-item{
+    border-bottom:1px solid #ddd;
+    padding:15px 0;
+}
+
+.price{
+    color:#d6336c;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+th{
+    background:#d6336c;
+    color:white;
+}
+
+.status{
+    padding:7px 12px;
+    background:#ffe0e9;
+    color:#d6336c;
+    border-radius:15px;
+}
+
+footer{
+    background:#d6336c;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+@media(max-width:800px){
+
+    .cakes{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .filters{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+}
+
+@media(max-width:550px){
+
+    .cakes{
+        grid-template-columns:1fr;
+    }
+
+    .filters{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🎂 SweetCake</h1>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('cakes')">Cakes</button>
+<button onclick="showPage('cart')">Cart 🛒</button>
+<button onclick="showPage('orders')">My Orders</button>
+<button onclick="showPage('login')">Login</button>
+<button onclick="showPage('adminLogin')">Admin</button>
+</nav>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h2>Delicious Cakes for Every Occasion 🎂</h2>
+
+<p>
+Freshly prepared cakes delivered to your doorstep.
+</p>
+
+<br>
+
+<button onclick="showPage('cakes')">
+Shop Cakes
+</button>
+
+</div>
+
+<br>
+
+<div class="card">
+
+<h2>Why Choose SweetCake?</h2>
+
+<p>🍰 Wide variety of cakes</p>
+<p>🎉 Cakes for every occasion</p>
+<p>🚚 Fast delivery</p>
+<p>💳 Easy online payment</p>
+<p>📦 Order tracking</p>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+<div class="card">
+
+<h2>Student Registration</h2>
+
+<input id="regName" placeholder="Full Name">
+
+<input id="regEmail" type="email" placeholder="Email">
+
+<input id="regPassword" type="password" placeholder="Password">
+
+<button onclick="register()">
+Register
+</button>
+
+<p id="registerMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+<div class="card">
+
+<h2>Student Login</h2>
+
+<input id="loginEmail" type="email" placeholder="Email">
+
+<input id="loginPassword" type="password" placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<button onclick="showPage('register')">
+Register
+</button>
+
+<p id="loginMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- CAKES -->
+
+<section id="cakes" class="page">
+
+<div class="card">
+
+<h2>Search & Filter Cakes</h2>
+
+<div class="filters">
+
+<input
+id="search"
+placeholder="Search Cake"
+onkeyup="displayCakes()">
+
+<select id="category" onchange="displayCakes()">
+
+<option value="All">All Categories</option>
+<option value="Birthday">Birthday</option>
+<option value="Wedding">Wedding</option>
+<option value="Anniversary">Anniversary</option>
+<option value="Chocolate">Chocolate</option>
+
+</select>
+
+
+<select id="subcategory" onchange="displayCakes()">
+
+<option value="All">All Sub Categories</option>
+<option value="Eggless">Eggless</option>
+<option value="Cream">Cream</option>
+<option value="Fruit">Fruit</option>
+
+</select>
+
+
+<select id="price" onchange="displayCakes()">
+
+<option value="All">All Prices</option>
+<option value="500">Below ₹500</option>
+<option value="1000">Below ₹1000</option>
+<option value="2000">Below ₹2000</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div id="cakeList" class="cakes"></div>
+
+</section>
+
+
+<!-- CAKE DETAILS -->
+
+<section id="details" class="page">
+
+<div class="card">
+
+<h2>Cake Description</h2>
+
+<div id="cakeDetails"></div>
+
+<button onclick="showPage('cakes')">
+Back to Cakes
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="page">
+
+<div class="card">
+
+<h2>Shopping Cart 🛒</h2>
+
+<div id="cartItems"></div>
+
+<h3 id="cartTotal"></h3>
+
+<br>
+
+<button onclick="showPage('shipping')">
+Place Order
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SHIPPING -->
+
+<section id="shipping" class="page">
+
+<div class="card">
+
+<h2>Shipping Address</h2>
+
+<input id="addressName" placeholder="Name">
+
+<input id="addressPhone" placeholder="Phone Number">
+
+<textarea
+id="address"
+placeholder="Enter Shipping Address"></textarea>
+
+<input id="city" placeholder="City">
+
+<input id="pincode" placeholder="Pincode">
+
+<button onclick="saveAddress()">
+Save / Update Address
+</button>
+
+<p id="addressMsg"></p>
+
+<br>
+
+<button onclick="showPage('payment')">
+Continue to Payment
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="payment" class="page">
+
+<div class="card">
+
+<h2>Payment</h2>
+
+<h3 id="paymentTotal"></h3>
+
+<select id="paymentMethod">
+
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>Net Banking</option>
+
+</select>
+
+<input placeholder="Payment Number">
+
+<input type="password" placeholder="PIN / CVV">
+
+<button onclick="placeOrder()">
+Pay & Place Order
+</button>
+
+<p id="paymentMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+<div class="card">
+
+<h2>My Orders</h2>
+
+<div id="orderList">
+
+<p>No orders yet.</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SHIPPING STATUS -->
+
+<section id="shippingStatus" class="page">
+
+<div class="card">
+
+<h2>View Shipping Status</h2>
+
+<input id="trackId" placeholder="Enter Order ID">
+
+<button onclick="trackOrder()">
+Track Order
+</button>
+
+<p id="trackResult"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN LOGIN -->
+
+<section id="adminLogin" class="page">
+
+<div class="card">
+
+<h2>Admin Login</h2>
+
+<input id="adminUser" placeholder="Username">
+
+<input id="adminPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="adminLogin()">
+Login
+</button>
+
+<p id="adminMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN PANEL -->
+
+<section id="adminPanel" class="page">
+
+<div class="card">
+
+<h2>Admin Panel</h2>
+
+<button onclick="showPage('manageProducts')">
+Manage Products
+</button>
+
+<button onclick="showPage('manageOrders')">
+Manage Orders
+</button>
+
+<button onclick="adminLogout()">
+Logout
+</button>
+
+</div>
+
+</section>
+
+
+<!-- MANAGE PRODUCTS -->
+
+<section id="manageProducts" class="page">
+
+<div class="card">
+
+<h2>Manage Products</h2>
+
+<input id="productName"
+placeholder="Cake Name">
+
+<input id="productPrice"
+type="number"
+placeholder="Price">
+
+<select id="productCategory">
+
+<option>Birthday</option>
+<option>Wedding</option>
+<option>Anniversary</option>
+<option>Chocolate</option>
+
+</select>
+
+<input id="productImage"
+placeholder="Image URL">
+
+<textarea
+id="productDescription"
+placeholder="Cake Description"></textarea>
+
+<button onclick="addProduct()">
+Post Cake
+</button>
+
+<br><br>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Product</th>
+<th>Category</th>
+<th>Price</th>
+</tr>
+
+</thead>
+
+<tbody id="productTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- MANAGE ORDERS -->
+
+<section id="manageOrders" class="page">
+
+<div class="card">
+
+<h2>Manage Orders</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Total</th>
+<th>Status</th>
+<th>Update</th>
+</tr>
+
+</thead>
+
+<tbody id="adminOrders"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+
+<p>© 2026 SweetCake - Online Cake Ordering System</p>
+
+</footer>
+
+
+<script>
+
+
+// CAKE DATA
+
+let cakes = [
+
+{
+id:1,
+name:"Chocolate Truffle",
+category:"Chocolate",
+sub:"Cream",
+price:650,
+image:"https://images.unsplash.com/photo-1578985545062-69928b1d9587",
+description:"Rich and delicious chocolate truffle cake."
+},
+
+{
+id:2,
+name:"Birthday Special",
+category:"Birthday",
+sub:"Cream",
+price:550,
+image:"https://images.unsplash.com/photo-1551024506-0bccd828d307",
+description:"Beautiful birthday cake with fresh cream."
+},
+
+{
+id:3,
+name:"Strawberry Cake",
+category:"Anniversary",
+sub:"Fruit",
+price:750,
+image:"https://images.unsplash.com/photo-1565958011703-44f9829ba187",
+description:"Fresh strawberry cake perfect for anniversaries."
+},
+
+{
+id:4,
+name:"Wedding White Cake",
+category:"Wedding",
+sub:"Cream",
+price:1500,
+image:"https://images.unsplash.com/photo-1535254973040-607b474cb50d",
+description:"Elegant white cake for weddings."
+},
+
+{
+id:5,
+name:"Eggless Vanilla",
+category:"Birthday",
+sub:"Eggless",
+price:450,
+image:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3",
+description:"Soft and delicious eggless vanilla cake."
+},
+
+{
+id:6,
+name:"Fruit Celebration",
+category:"Anniversary",
+sub:"Fruit",
+price:900,
+image:"https://images.unsplash.com/photo-1602351447937-745cb720612f",
+description:"Fresh fruit cake with delicious toppings."
+}
+
+];
+
+
+let cart=[];
+
+let orders=[];
+
+let address="";
+
+
+// PAGE NAVIGATION
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(function(p){
+
+p.classList.remove("active");
+
+});
+
+document.getElementById(page).classList.add("active");
+
+if(page==="cakes"){
+displayCakes();
+}
+
+if(page==="cart"){
+displayCart();
+}
+
+if(page==="orders"){
+displayOrders();
+}
+
+if(page==="payment"){
+calculatePayment();
+}
+
+if(page==="manageOrders"){
+displayAdminOrders();
+}
+
+}
+
+
+// REGISTER
+
+function register(){
+
+let name=document.getElementById("regName").value;
+
+let email=document.getElementById("regEmail").value;
+
+let password=document.getElementById("regPassword").value;
+
+if(!name || !email || !password){
+
+alert("Please fill all fields");
+
+return;
+
+}
+
+localStorage.setItem("cakeUserName",name);
+
+localStorage.setItem("cakeUserEmail",email);
+
+localStorage.setItem("cakeUserPassword",password);
+
+document.getElementById("registerMsg").innerHTML=
+"Registration successful!";
+
+}
+
+
+// LOGIN
+
+function login(){
+
+let email=document.getElementById("loginEmail").value;
+
+let password=document.getElementById("loginPassword").value;
+
+if(
+email===localStorage.getItem("cakeUserEmail") &&
+password===localStorage.getItem("cakeUserPassword")
+){
+
+document.getElementById("loginMsg").innerHTML=
+"Login successful!";
+
+showPage("cakes");
+
+}
+
+else{
+
+document.getElementById("loginMsg").innerHTML=
+"Invalid email or password.";
+
+}
+
+}
+
+
+// DISPLAY CAKES
+
+function displayCakes(){
+
+let search=document.getElementById("search").value.toLowerCase();
+
+let category=document.getElementById("category").value;
+
+let sub=document.getElementById("subcategory").value;
+
+let price=document.getElementById("price").value;
+
+let result=cakes.filter(function(cake){
+
+return (
+
+cake.name.toLowerCase().includes(search)
+
+&&
+
+(category==="All" || cake.category===category)
+
+&&
+
+(sub==="All" || cake.sub===sub)
+
+&&
+
+(price==="All" || cake.price<=Number(price))
+
+);
+
+});
+
+
+let output="";
+
+
+result.forEach(function(cake){
+
+output+=`
+
+<div class="cake">
+
+<img src="${cake.image}">
+
+<div class="cake-content">
+
+<h3>${cake.name}</h3>
+
+<p>${cake.description}</p>
+
+<p class="price">₹${cake.price}</p>
+
+<button onclick="viewCake(${cake.id})">
+View Description
+</button>
+
+<button onclick="addToCart(${cake.id})">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("cakeList").innerHTML=
+output || "<p>No cakes found.</p>";
+
+}
+
+
+// VIEW CAKE
+
+function viewCake(id){
+
+let cake=cakes.find(c=>c.id===id);
+
+document.getElementById("cakeDetails").innerHTML=`
+
+<img src="${cake.image}"
+style="width:300px;max-width:100%;border-radius:10px;">
+
+<h3>${cake.name}</h3>
+
+<p>${cake.description}</p>
+
+<h3>Price: ₹${cake.price}</h3>
+
+<br>
+
+<button onclick="addToCart(${cake.id})">
+Add to Cart
+</button>
+
+`;
+
+showPage("details");
+
+}
+
+
+// ADD CART
+
+function addToCart(id){
+
+let cake=cakes.find(c=>c.id===id);
+
+cart.push(cake);
+
+alert(cake.name+" added to cart!");
+
+}
+
+
+// DISPLAY CART
+
+function displayCart(){
+
+let output="";
+
+let total=0;
+
+
+cart.forEach(function(cake,index){
+
+total+=cake.price;
+
+output+=`
+
+<div class="cart-item">
+
+<h3>${cake.name}</h3>
+
+<p>₹${cake.price}</p>
+
+<button onclick="removeCart(${index})">
+Remove
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("cartItems").innerHTML=
+output || "<p>Your cart is empty.</p>";
+
+document.getElementById("cartTotal").innerHTML=
+"Total: ₹"+total;
+
+}
+
+
+// REMOVE CART
+
+function removeCart(index){
+
+cart.splice(index,1);
+
+displayCart();
+
+}
+
+
+// SHIPPING ADDRESS
+
+function saveAddress(){
+
+let name=document.getElementById("addressName").value;
+
+let phone=document.getElementById("addressPhone").value;
+
+let addr=document.getElementById("address").value;
+
+let city=document.getElementById("city").value;
+
+let pincode=document.getElementById("pincode").value;
+
+
+if(!name || !phone || !addr || !city || !pincode){
+
+alert("Please enter complete shipping address.");
+
+return;
+
+}
+
+
+address=
+name+", "+phone+", "+addr+", "+city+" - "+pincode;
+
+
+document.getElementById("addressMsg").innerHTML=
+"Shipping address saved successfully.";
+
+}
+
+
+// PAYMENT TOTAL
+
+function calculatePayment(){
+
+let total=cart.reduce(function(sum,cake){
+
+return sum+cake.price;
+
+},0);
+
+
+document.getElementById("paymentTotal").innerHTML=
+"Total Amount: ₹"+total;
+
+}
+
+
+// PLACE ORDER
+
+function placeOrder(){
+
+if(cart.length===0){
+
+alert("Cart is empty.");
+
+return;
+
+}
+
+if(address===""){
+
+alert("Please add shipping address.");
+
+return;
+
+}
+
+
+let total=cart.reduce(function(sum,cake){
+
+return sum+cake.price;
+
+},0);
+
+
+let order={
+
+id:"ORD"+Math.floor(Math.random()*90000+10000),
+
+items:[...cart],
+
+total:total,
+
+address:address,
+
+status:"Order Placed"
+
+};
+
+
+orders.push(order);
+
+cart=[];
+
+
+document.getElementById("paymentMsg").innerHTML=
+"Payment successful! Order placed.";
+
+displayOrders();
+
+setTimeout(function(){
+
+showPage("orders");
+
+},800);
+
+}
+
+
+// DISPLAY ORDERS
+
+function displayOrders(){
+
+let output="";
+
+
+orders.forEach(function(order){
+
+output+=`
+
+<div class="card">
+
+<h3>Order ID: ${order.id}</h3>
+
+<p>Total: ₹${order.total}</p>
+
+<p>Shipping Address: ${order.address}</p>
+
+<p>
+
+Status:
+
+<span class="status">
+${order.status}
+</span>
+
+</p>
+
+<br>
+
+<button onclick="trackSpecific('${order.id}')">
+View Shipping Status
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("orderList").innerHTML=
+output || "<p>No orders yet.</p>";
+
+}
+
+
+// TRACK ORDER
+
+function trackSpecific(id){
+
+document.getElementById("trackId").value=id;
+
+showPage("shippingStatus");
+
+trackOrder();
+
+}
+
+
+function trackOrder(){
+
+let id=document.getElementById("trackId").value;
+
+let order=orders.find(o=>o.id===id);
+
+
+if(order){
+
+document.getElementById("trackResult").innerHTML=
+
+"Order <b>"+order.id+
+"</b> Status: <b>"+order.status+"</b>";
+
+}
+
+else{
+
+document.getElementById("trackResult").innerHTML=
+"Order not found.";
+
+}
+
+}
+
+
+// ADMIN LOGIN
+
+function adminLogin(){
+
+let user=document.getElementById("adminUser").value;
+
+let pass=document.getElementById("adminPassword").value;
+
+
+if(user==="admin" && pass==="admin123"){
+
+document.getElementById("adminMsg").innerHTML=
+"Admin login successful!";
+
+setTimeout(function(){
+
+showPage("adminPanel");
+
+},500);
+
+}
+
+else{
+
+document.getElementById("adminMsg").innerHTML=
+"Invalid admin username or password.";
+
+}
+
+}
+
+
+// ADMIN LOGOUT
+
+function adminLogout(){
+
+showPage("home");
+
+}
+
+
+// ADD PRODUCT
+
+function addProduct(){
+
+let name=document.getElementById("productName").value;
+
+let price=document.getElementById("productPrice").value;
+
+let category=document.getElementById("productCategory").value;
+
+let image=document.getElementById("productImage").value;
+
+let description=
+document.getElementById("productDescription").value;
+
+
+if(!name || !price || !image || !description){
+
+alert("Please enter all product details.");
+
+return;
+
+}
+
+
+let product={
+
+id:cakes.length+1,
+
+name:name,
+
+category:category,
+
+sub:"Cream",
+
+price:Number(price),
+
+image:image,
+
+description:description
+
+};
+
+
+cakes.push(product);
+
+
+document.getElementById("productTable").innerHTML+=`
+
+<tr>
+
+<td>${name}</td>
+
+<td>${category}</td>
+
+<td>₹${price}</td>
+
+</tr>
+
+`;
+
+
+alert("Cake added successfully!");
+
+}
+
+
+// ADMIN ORDERS
+
+function displayAdminOrders(){
+
+let output="";
+
+
+orders.forEach(function(order,index){
+
+output+=`
+
+<tr>
+
+<td>${order.id}</td>
+
+<td>Customer</td>
+
+<td>₹${order.total}</td>
+
+<td>${order.status}</td>
+
+<td>
+
+<select onchange="updateOrder(${index},this.value)">
+
+<option>Order Placed</option>
+
+<option>Preparing</option>
+
+<option>Out for Delivery</option>
+
+<option>Delivered</option>
+<option>Cancelled</option>
+
+</select>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("adminOrders").innerHTML=
+output || `
+
+<tr>
+
+<td colspan="5">
+No orders available
+</td>
+
+</tr>
+
+`;
+
+}
+
+
+// UPDATE ORDER STATUS
+
+function updateOrder(index,status){
+
+orders[index].status=status;
+
+alert("Order status updated to "+status);
+
+}
+
+
+// INITIAL DISPLAY
+
+displayCakes();
+
+</script>
+
+</body>
+</html>
+```
