@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+</head>
+<body
+>
+    <header>
+        <h1 align="center">Library Management System</h1>
+        <hr>
+        <nav align="center">
+            <a href="#home">Home</a> |
+            <a href="#admin">Admin</a> |
+            <a href="#user">User</a> |
+            <a href="#contact">Contact</a>
+        </nav>
+        <hr>
+    </header>
+    <section id="home">
+        <h2>Welcome</h2>
+        <p>
+            The Library Management System helps students and librarians manage
+            books, issue and return books, check fines, and download study
+            materials efficiently.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- Admin Section -->
+    <section id="admin">
+        <h2>Librarian Admin</h2>
+
+        <h3>Admin Login</h3>
+
+        <form>
+            Username:<br>
+            <input type="text"><br><br>
+
+            Password:<br>
+            <input type="password"><br><br>
+
+            <input type="submit" value="Login">
+        </form>
+        <h3>Add Book</h3>
+        <form>
+
+            Book Name:<br>
+            <input type="text"><br><br>
+
+            Author:<br>
+            <input type="text"><br><br>
+
+            Category:<br>
+            <input type="text"><br><br>
+            Quantity:<br>
+            <input type="number"><br><br>
+
+            <input type="submit" value="Add Book">
+
+        </form>
+
+        <h3>Update / Delete Book</h3>
+
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>101</td>
+                <td>Java Programming</td>
+                <td>James Gosling</td>
+                <td>
+                    <button>Update</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+        </table>
+
+        <h3>Issue Book</h3>
+
+        <form>
+
+            Student ID:<br>
+            <input type="text"><br><br>
+
+            Book ID:<br>
+            <input type="text"><br><br>
+
+            Issue Date:<br>
+            <input type="date"><br><br>
+
+            Return Date:<br>
+            <input type="date"><br><br>
+
+            <input type="submit" value="Issue Book">
+
+        </form>
+
+        <h3>Return Book</h3>
+
+        <form>
+
+            Student ID:<br>
+            <input type="text"><br><br>
+
+            Book ID:<br>
+            <input type="text"><br><br>
+
+            Return Date:<br>
+            <input type="date"><br><br>
+
+            <input type="submit" value="Return Book">
+
+        </form>
+
+        <h3>Fine Management</h3>
+
+        <form>
+
+            Student ID:<br>
+            <input type="text"><br><br>
+
+            Fine Amount:<br>
+            <input type="number"><br><br>
+
+            <input type="submit" value="Save Fine">
+
+        </form>
+
+        <h3>Upload Study Material</h3>
+
+        <form>
+
+            Year:<br>
+            <select>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+            </select>
+
+            <br><br>
+
+            Semester:<br>
+            <select>
+                <option>Semester 1</option>
+                <option>Semester 2</option>
+                <option>Semester 3</option>
+                <option>Semester 4</option>
+                <option>Semester 5</option>
+                <option>Semester 6</option>
+                <option>Semester 7</option>
+                <option>Semester 8</option>
+            </select>
+
+            <br><br>
+
+            File:<br>
+            <input type="file">
+
+            <br><br>
+
+            <input type="submit" value="Upload">
+
+        </form>
+
+    </section>
+
+    <hr>
+
+    <!-- User Section -->
+    <section id="user">
+
+        <h2>User</h2>
+
+        <h3>User Login</h3>
+
+        <form>
+
+            Email:<br>
+            <input type="email"><br><br>
+
+            Password:<br>
+            <input type="password"><br><br>
+
+            <input type="submit" value="Login">
+
+        </form>
+
+        <h3>Register</h3>
+
+        <form>
+
+            Name:<br>
+            <input type="text"><br><br>
+
+            Email:<br>
+            <input type="email"><br><br>
+
+            Phone:<br>
+            <input type="text"><br><br>
+
+            Password:<br>
+            <input type="password"><br><br>
+
+            <input type="submit" value="Register">
+
+        </form>
+
+        <h3>Search Book</h3>
+
+        <input type="text" placeholder="Search Book">
+
+        <button>Search</button>
+
+        <h3>Book Details</h3>
+
+        <table border="1" cellpadding="8">
+
+            <tr>
+
+                <th>Book Name</th>
+
+                <th>Author</th>
+
+                <th>Status</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Java Programming</td>
+
+                <td>James Gosling</td>
+
+                <td>Available</td>
+
+            </tr>
+
+        </table>
+
+        <h3>My Borrow History</h3>
+
+        <table border="1" cellpadding="8">
+
+            <tr>
+
+                <th>Book</th>
+
+                <th>Issue Date</th>
+
+                <th>Expiry Date</th>
+
+            </tr>
+
+            <tr>
+
+                <td>Java Programming</td>
+
+                <td>10-07-2026</td>
+
+                <td>20-07-2026</td>
+
+            </tr>
+
+        </table>
+
+        <h3>Check Fine</h3>
+
+        <p><strong>Total Fine:</strong> ₹100</p>
+
+        <h3>Study Materials</h3>
+
+        <select>
+
+            <option>Select Year</option>
+
+            <option>1st Year</option>
+
+            <option>2nd Year</option>
+
+            <option>3rd Year</option>
+
+            <option>4th Year</option>
+
+        </select>
+
+        <select>
+
+            <option>Select Semester</option>
+
+            <option>Semester 1</option>
+
+            <option>Semester 2</option>
+
+            <option>Semester 3</option>
+
+            <option>Semester 4</option>
+
+            <option>Semester 5</option>
+
+            <option>Semester 6</option>
+
+            <option>Semester 7</option>
+
+            <option>Semester 8</option>
+
+        </select>
+
+        <button>Search</button>
+
+        <p>Database Management System Notes</p>
+
+        <button>Download</button>
+
+        <h3>My Profile</h3>
+
+        <p>Name : Student Name</p>
+
+        <p>Email : student@gmail.com</p>
+
+        <p>Department : Computer Science</p>
+
+    </section>
+
+    <hr>
+
+    <!-- Contact -->
+    <section id="contact">
+
+        <h2>Contact Us</h2>
+
+        <form>
+
+            Name:<br>
+            <input type="text"><br><br>
+
+            Email:<br>
+            <input type="email"><br><br>
+
+            Message:<br>
+
+            <textarea rows="5" cols="40"></textarea>
+
+            <br><br>
+
+            <input type="submit" value="Send">
+
+        </form>
+
+    </section>
+
+    <hr>
+
+    <footer align="center">
+        <p>&copy; 2026 Library Management System. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
