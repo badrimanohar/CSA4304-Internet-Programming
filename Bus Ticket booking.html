@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Bus Ticket Booking System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+body{
+    background:#f4f4f4;
+}
+header{
+    background:#004080;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+nav{
+    background:#0066cc;
+    padding:12px;
+    text-align:center;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:15px;
+    font-weight:bold;
+}
+.container{
+    width:90%;
+    margin:auto;
+    padding:20px;
+}
+.section{
+    background:white;
+    padding:20px;
+    margin-top:20px;
+    border-radius:8px;
+    box-shadow:0 0 8px gray;
+}
+h2{
+    color:#004080;
+    margin-bottom:10px;
+}
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+button{
+    background:#004080;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    cursor:pointer;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+table,th,td{
+    border:1px solid gray;
+}
+th{
+    background:#004080;
+    color:white;
+}
+th,td{
+    padding:10px;
+    text-align:center;
+}
+footer{
+    background:#004080;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:20px;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Online Bus Ticket Booking System</h1>
+<p>Book Your Bus Tickets Easily</p>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Search Bus</a>
+<a href="#">Book Ticket</a>
+<a href="#">Login</a>
+<a href="#">Register</a>
+<a href="#">Contact</a>
+</nav>
+
+<div class="container">
+
+<div class="section">
+<h2>Search Bus</h2>
+
+<form>
+<input type="text" placeholder="From">
+<input type="text" placeholder="To">
+<input type="date">
+<select>
+<option>Select Time</option>
+<option>Morning</option>
+<option>Afternoon</option>
+<option>Evening</option>
+<option>Night</option>
+</select>
+
+<button type="submit">Search Bus</button>
+</form>
+
+</div>
+
+<div class="section">
+
+<h2>Available Buses</h2>
+
+<table>
+
+<tr>
+<th>Bus Name</th>
+<th>Category</th>
+<th>Seats</th>
+<th>Fare</th>
+</tr>
+
+<tr>
+<td>Express Travels</td>
+<td>Volvo</td>
+<td>25</td>
+<td>₹900</td>
+</tr>
+
+<tr>
+<td>Royal Bus</td>
+<td>Sleeper</td>
+<td>18</td>
+<td>₹1200</td>
+</tr>
+
+<tr>
+<td>City Coach</td>
+<td>AC Coach</td>
+<td>30</td>
+<td>₹700</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="section">
+
+<h2>Book Ticket</h2>
+
+<form>
+
+<input type="text" placeholder="Passenger Name">
+
+<input type="email" placeholder="Email">
+
+<input type="tel" placeholder="Mobile Number">
+
+<select>
+<option>Select Bus</option>
+<option>Express Travels</option>
+<option>Royal Bus</option>
+<option>City Coach</option>
+</select>
+
+<select>
+<option>Select Seat</option>
+<option>A1</option>
+<option>A2</option>
+<option>B1</option>
+<option>B2</option>
+</select>
+
+<button>Book Ticket</button>
+
+</form>
+
+</div>
+
+<div class="section">
+
+<h2>User Features</h2>
+
+<ul>
+<li>User Registration</li>
+<li>User Login</li>
+<li>Search Bus</li>
+<li>Book Ticket</li>
+<li>Cancel Ticket</li>
+<li>Booking History</li>
+<li>Payment Gateway</li>
+<li>Email Confirmation</li>
+
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>Admin Features</h2>
+
+<ul>
+
+<li>Manage Bus Categories</li>
+
+<li>Add / Update Bus Information</li>
+
+<li>Manage Seat Availability</li>
+
+<li>Manage Registered Users</li>
+
+<li>Generate Reports</li>
+
+<li>Manage Comments</li>
+
+<li>Manage News</li>
+
+</ul>
+
+</div>
+
+<div class="section">
+
+<h2>Post Comments</h2>
+
+<form>
+
+<input type="text" placeholder="Your Name">
+
+<textarea rows="4" placeholder="Write Your Comment"></textarea>
+
+<button>Post Comment</button>
+
+</form>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>© 2026 Online Bus Ticket Booking System</p>
+
+<p>Internet Programming Lab Experiment</p>
+
+</footer>
+
+</body>
+</html>
