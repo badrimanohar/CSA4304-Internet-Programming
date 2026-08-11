@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Room Booking</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+}
+
+header{
+    background:#003366;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+nav{
+    background:#0059b3;
+    padding:10px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:15px;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    background:#e6f2ff;
+    padding:40px;
+}
+
+.hero h2{
+    margin-bottom:10px;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    padding:20px;
+}
+
+.rooms{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+}
+
+.room{
+    background:white;
+    width:250px;
+    margin:10px;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+    text-align:center;
+}
+
+.room h3{
+    color:#003366;
+}
+
+.room button{
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:10px;
+    margin-top:10px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+form{
+    background:white;
+    padding:20px;
+    margin-top:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+}
+
+input[type=submit]{
+    background:#003366;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.about,.contact{
+    background:white;
+    margin-top:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Hotel Room Booking System</h1>
+<p>Welcome to Our Hotel</p>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Rooms</a>
+<a href="#">Booking</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+</nav>
+
+<section class="hero">
+<h2>Book Your Dream Room</h2>
+<p>Easy, Fast and Secure Booking</p>
+</section>
+
+<div class="container">
+
+<h2>Room Types</h2>
+
+<div class="rooms">
+
+<div class="room">
+<h3>Single Room</h3>
+<p>Price: ₹1500 / Night</p>
+<p>1 Bed, Free WiFi</p>
+<button>Book Now</button>
+</div>
+
+<div class="room">
+<h3>Double Room</h3>
+<p>Price: ₹2500 / Night</p>
+<p>2 Beds, AC, TV</p>
+<button>Book Now</button>
+</div>
+
+<div class="room">
+<h3>Deluxe Room</h3>
+<p>Price: ₹4000 / Night</p>
+<p>Luxury Room with Breakfast</p>
+<button>Book Now</button>
+</div>
+
+<div class="room">
+<h3>Suite Room</h3>
+<p>Price: ₹6000 / Night</p>
+<p>Premium Luxury Suite</p>
+<button>Book Now</button>
+</div>
+
+</div>
+
+<h2>Booking Form</h2>
+
+<form>
+
+<label>Name</label>
+<input type="text" placeholder="Enter Your Name" required>
+
+<label>Email</label>
+<input type="email" placeholder="Enter Email" required>
+
+<label>Check-in Date</label>
+<input type="date" required>
+
+<label>Check-out Date</label>
+<input type="date" required>
+
+<label>Guests</label>
+<select>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select>
+
+<label>Room Type</label>
+<select>
+<option>Single Room</option>
+<option>Double Room</option>
+<option>Deluxe Room</option>
+<option>Suite Room</option>
+</select>
+
+<input type="submit" value="Book Room">
+
+</form>
+
+<div class="about">
+<h2>About Us</h2>
+<p>
+Our hotel provides comfortable rooms with modern facilities.
+We offer secure booking, friendly service, free WiFi,
+24/7 customer support, and affordable prices.
+</p>
+</div>
+
+<div class="contact">
+<h2>Contact Us</h2>
+<p>Email : hotel@example.com</p>
+<p>Phone : +91 9876543210</p>
+<p>Address : Chennai, Tamil Nadu</p>
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 Hotel Room Booking System | Internet Programming Lab</p>
+</footer>
+
+</body>
+</html>
