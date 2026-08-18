@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyToll</title>
+
+<!-- QR Code Library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#222;
+}
+
+header{
+    background:#1769aa;
+    color:white;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav button{
+    background:none;
+    border:0;
+    color:white;
+    margin:4px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:25px auto;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.hero{
+    background:linear-gradient(135deg,#1769aa,#42a5f5);
+    color:white;
+    text-align:center;
+    padding:70px 20px;
+    border-radius:15px;
+}
+
+.hero h1{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+button{
+    background:#1769aa;
+    color:white;
+    border:0;
+    padding:10px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:4px;
+}
+
+button:hover{
+    background:#0d47a1;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #dce4ec;
+}
+
+h2{
+    color:#1769aa;
+    margin-bottom:20px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:7px 0 15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:25px;
+}
+
+.feature{
+    text-align:center;
+    padding:25px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 3px 10px #ddd;
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.balance{
+    font-size:30px;
+    color:#1769aa;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.ticket{
+    border:2px dashed #1769aa;
+    padding:25px;
+    margin-top:20px;
+    text-align:center;
+    border-radius:12px;
+}
+
+.qrbox{
+    display:flex;
+    justify-content:center;
+    margin:20px;
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:15px;
+    background:#d1e7ff;
+    color:#1769aa;
+}
+
+.success{
+    color:green;
+    font-weight:bold;
+}
+
+.error{
+    color:red;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#1769aa;
+    color:white;
+}
+
+footer{
+    background:#1769aa;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+@media(max-width:800px){
+    .features{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    table{
+        font-size:11px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">🚗 EasyToll</div>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('userLogin')">User Login</button>
+<button onclick="showPage('wallet')">Wallet</button>
+<button onclick="showPage('pass')">Toll Pass</button>
+<button onclick="showPage('ticket')">eTicket</button>
+<button onclick="showPage('transactions')">History</button>
+<button onclick="showPage('adminLogin')">Admin</button>
+<button onclick="showPage('tollLogin')">Toll Gate</button>
+</nav>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h1>🚗 EasyToll</h1>
+
+<p>Pay Toll in Advance & Travel Without Waiting</p>
+
+<button onclick="showPage('userRegister')">
+Register
+</button>
+
+<button onclick="showPage('userLogin')">
+Login
+</button>
+
+</div>
+
+<div class="features">
+
+<div class="feature">
+<div class="icon">💳</div>
+<h3>Easy Payment</h3>
+<p>Pay toll charges using your wallet.</p>
+</div>
+
+<div class="feature">
+<div class="icon">🎫</div>
+<h3>eToll Ticket</h3>
+<p>Buy toll tickets before travelling.</p>
+</div>
+
+<div class="feature">
+<div class="icon">📱</div>
+<h3>QR Pass</h3>
+<p>Get QR code for your toll pass.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="userRegister" class="page">
+
+<div class="card">
+
+<h2>User Registration</h2>
+
+<input id="regName" placeholder="Full Name">
+
+<input id="regEmail" placeholder="Email">
+
+<input id="regPassword"
+type="password"
+placeholder="Password">
+
+<input id="regVehicle"
+placeholder="Vehicle Number">
+
+<button onclick="registerUser()">
+Register
+</button>
+
+<button onclick="showPage('userLogin')">
+Login
+</button>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="userLogin" class="page">
+
+<div class="card">
+
+<h2>User Login</h2>
+
+<input id="loginEmail" placeholder="Email">
+
+<input id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="loginUser()">
+Login
+</button>
+
+<button onclick="showPage('userRegister')">
+Register
+</button>
+
+<p id="loginMessage"></p>
+
+</div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page">
+
+<div class="card">
+
+<h2>User Dashboard</h2>
+
+<h3 id="welcomeUser"></h3>
+
+<br>
+
+<button onclick="showPage('wallet')">
+💳 eWallet
+</button>
+
+<button onclick="showPage('pass')">
+🎫 Toll Pass
+</button>
+
+<button onclick="showPage('ticket')">
+🚧 Buy eTicket
+</button>
+
+<button onclick="showPage('transactions')">
+📋 Transactions
+</button>
+
+</div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section id="wallet" class="page">
+
+<div class="card">
+
+<h2>💳 eWallet</h2>
+
+<p>Available Balance</p>
+
+<div class="balance">
+₹<span id="balance">0</span>
+</div>
+
+<input id="addAmount"
+type="number"
+placeholder="Enter amount">
+
+<button onclick="addMoney()">
+Add Money
+</button>
+
+</div>
+
+</section>
+
+
+<!-- TOLL PASS -->
+
+<section id="pass" class="page">
+
+<div class="card">
+
+<h2>🎫 Apply Toll Pass</h2>
+
+<input id="passVehicle"
+placeholder="Vehicle Number">
+
+<select id="passType">
+
+<option value="Monthly Pass">
+Monthly Pass - ₹500
+</option>
+
+<option value="Quarterly Pass">
+Quarterly Pass - ₹1200
+</option>
+
+<option value="Yearly Pass">
+Yearly Pass - ₹4000
+</option>
+
+</select>
+
+<button onclick="applyPass()">
+Apply Toll Pass
+</button>
+
+<div id="passResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- E-TICKET -->
+
+<section id="ticket" class="page">
+
+<div class="card">
+
+<h2>🚧 Buy Toll eTicket</h2>
+
+<input id="source"
+placeholder="Starting Location">
+
+<input id="destination"
+placeholder="Destination">
+
+<input id="ticketGate"
+placeholder="Toll Gate">
+
+<input id="ticketVehicle"
+placeholder="Vehicle Number">
+
+<input id="ticketAmount"
+type="number"
+placeholder="Toll Amount">
+
+<button onclick="buyTicket()">
+Buy eTicket
+</button>
+
+<div id="ticketResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- TRANSACTIONS -->
+
+<section id="transactions" class="page">
+
+<div class="card">
+
+<h2>📋 Transaction History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Date</th>
+<th>Type</th>
+<th>Amount</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+<tbody id="transactionTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN LOGIN -->
+
+<section id="adminLogin" class="page">
+
+<div class="card">
+
+<h2>Admin Login</h2>
+
+<input id="adminUsername"
+placeholder="Username">
+
+<input id="adminPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="adminLogin()">
+Login
+</button>
+
+<p>Username: admin</p>
+<p>Password: admin123</p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN PANEL -->
+
+<section id="admin" class="page">
+
+<div class="card">
+
+<h2>Admin Panel</h2>
+
+<button onclick="showPage('adminUsers')">
+Manage Users
+</button>
+
+<button onclick="showPage('adminPass')">
+Manage Toll Pass
+</button>
+
+<button onclick="showPage('tollDetails')">
+Create Toll Details
+</button>
+
+<button onclick="generateAdminQR()">
+Generate QR
+</button>
+
+<div id="adminQR"></div>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN USERS -->
+
+<section id="adminUsers" class="page">
+
+<div class="card">
+
+<h2>Manage Users</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Vehicle</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="userTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN PASSES -->
+
+<section id="adminPass" class="page">
+
+<div class="card">
+
+<h2>Manage Toll Pass</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Pass ID</th>
+<th>Vehicle</th>
+<th>Type</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="passTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- TOLL DETAILS -->
+
+<section id="tollDetails" class="page">
+
+<div class="card">
+
+<h2>Create Toll Details</h2>
+
+<input id="tollName"
+placeholder="Toll Gate Name">
+
+<input id="tollLocation"
+placeholder="Toll Location">
+
+<input id="tollPrice"
+type="number"
+placeholder="Toll Amount">
+
+<button onclick="createToll()">
+Create Toll
+</button>
+
+<div id="tollResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- TOLL LOGIN -->
+
+<section id="tollLogin" class="page">
+
+<div class="card">
+
+<h2>🚧 Toll Gate Login</h2>
+
+<input id="tollUsername"
+placeholder="Username">
+
+<input id="tollPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="tollLogin()">
+Login
+</button>
+
+<p>Username: toll</p>
+<p>Password: toll123</p>
+
+</div>
+
+</section>
+
+
+<!-- TOLL GATE PANEL -->
+
+<section id="tollPanel" class="page">
+
+<div class="card">
+
+<h2>🚧 Toll Gate Panel</h2>
+
+
+<h3>Scan QR</h3>
+
+<input id="scanQR"
+placeholder="Enter QR / Pass ID">
+
+<button onclick="scanQR()">
+Scan QR
+</button>
+
+<div id="scanResult"></div>
+
+
+<hr><br>
+
+
+<h3>Verify Toll Pass</h3>
+
+<input id="verifyPass"
+placeholder="Enter Pass ID">
+
+<button onclick="verifyTollPass()">
+Verify Pass
+</button>
+
+<div id="verifyPassResult"></div>
+
+
+<hr><br>
+
+
+<h3>Verify Toll Ticket</h3>
+
+<input id="verifyTicket"
+placeholder="Enter Ticket ID">
+
+<button onclick="verifyTollTicket()">
+Verify Ticket
+</button>
+
+<div id="verifyTicketResult"></div>
+
+
+<hr><br>
+
+
+<h3>Update Toll Location</h3>
+
+<input id="locationInput"
+placeholder="New Toll Location">
+
+<button onclick="updateLocation()">
+Update Location
+</button>
+
+<p id="locationResult"></p>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+© 2026 EasyToll | Online Toll Payment System
+</footer>
+
+
+<script>
+
+/* DATA */
+
+let users=[];
+let passes=[];
+let tickets=[];
+let transactions=[];
+let balance=0;
+
+
+/* PAGE FUNCTION */
+
+function showPage(id){
+
+document.querySelectorAll(".page").forEach(function(page){
+
+page.classList.remove("active");
+
+});
+
+document.getElementById(id).classList.add("active");
+
+
+if(id==="adminUsers")
+displayUsers();
+
+if(id==="adminPass")
+displayPasses();
+
+if(id==="transactions")
+displayTransactions();
+
+}
+
+
+/* REGISTER */
+
+function registerUser(){
+
+let name=document.getElementById("regName").value.trim();
+
+let email=document.getElementById("regEmail").value.trim();
+
+let password=document.getElementById("regPassword").value;
+
+let vehicle=document.getElementById("regVehicle").value.trim();
+
+
+if(!name||!email||!password||!vehicle){
+
+alert("Please enter all details");
+
+return;
+
+}
+
+
+users.push({
+
+name:name,
+email:email,
+password:password,
+vehicle:vehicle
+
+});
+
+
+localStorage.setItem("easyName",name);
+localStorage.setItem("easyEmail",email);
+localStorage.setItem("easyPassword",password);
+localStorage.setItem("easyVehicle",vehicle);
+
+
+alert("Registration successful!");
+
+showPage("userLogin");
+
+}
+
+
+/* LOGIN */
+
+function loginUser(){
+
+let email=document.getElementById("loginEmail").value.trim();
+
+let password=document.getElementById("loginPassword").value;
+
+
+if(
+email===localStorage.getItem("easyEmail") &&
+password===localStorage.getItem("easyPassword")
+){
+
+document.getElementById("welcomeUser").innerText=
+"Welcome, "+localStorage.getItem("easyName")+"!";
+
+alert("Login successful!");
+
+showPage("dashboard");
+
+}else{
+
+document.getElementById("loginMessage").innerHTML=
+"<span class='error'>Invalid email or password</span>";
+
+}
+
+}
+
+
+/* ADD MONEY */
+
+function addMoney(){
+
+let amount=Number(
+document.getElementById("addAmount").value
+);
+
+
+if(amount<=0){
+
+alert("Enter valid amount");
+
+return;
+
+}
+
+
+balance+=amount;
+
+document.getElementById("balance").innerText=balance;
+
+
+transactions.push({
+
+date:new Date().toLocaleString(),
+
+type:"Wallet Recharge",
+
+amount:amount,
+
+status:"Success"
+
+});
+
+
+document.getElementById("addAmount").value="";
+
+alert("₹"+amount+" added to wallet");
+
+}
+
+
+/* APPLY TOLL PASS */
+
+function applyPass(){
+
+let vehicle=
+document.getElementById("passVehicle").value.trim();
+
+let type=
+document.getElementById("passType").value;
+
+
+if(!vehicle){
+
+alert("Enter vehicle number");
+
+return;
+
+}
+
+
+let passID="PASS"+Date.now();
+
+
+let pass={
+
+id:passID,
+
+vehicle:vehicle,
+
+type:type,
+
+status:"Pending"
+
+};
+
+
+passes.push(pass);
+
+
+document.getElementById("passResult").innerHTML=`
+
+<div class="ticket">
+
+<h3>🎫 Toll Pass Applied</h3>
+
+<p><b>Pass ID:</b> ${passID}</p>
+
+<p><b>Vehicle:</b> ${vehicle}</p>
+
+<p><b>Type:</b> ${type}</p>
+
+<p>
+<b>Status:</b>
+<span class="status">Pending</span>
+</p>
+
+<div class="qrbox">
+
+<div id="passQR"></div>
+
+</div>
+
+<p>Scan this QR at the toll gate</p>
+
+</div>
+`;
+
+
+/* CREATE ACTUAL QR */
+
+new QRCode(
+document.getElementById("passQR"),
+{
+text:passID,
+width:180,
+height:180
+}
+);
+
+}
+
+
+/* BUY TICKET */
+
+function buyTicket(){
+
+let source=
+document.getElementById("source").value.trim();
+
+let destination=
+document.getElementById("destination").value.trim();
+
+let gate=
+document.getElementById("ticketGate").value.trim();
+
+let vehicle=
+document.getElementById("ticketVehicle").value.trim();
+
+let amount=
+Number(document.getElementById("ticketAmount").value);
+
+
+if(!source||!destination||!gate||!vehicle||amount<=0){
+
+alert("Please enter all ticket details");
+
+return;
+
+}
+
+
+if(balance<amount){
+
+alert("Insufficient wallet balance. Please add money.");
+
+showPage("wallet");
+
+return;
+
+}
+
+
+balance-=amount;
+
+document.getElementById("balance").innerText=balance;
+
+
+let ticketID="TKT"+Date.now();
+
+
+let ticket={
+
+id:ticketID,
+
+source:source,
+
+destination:destination,
+
+gate:gate,
+
+vehicle:vehicle,
+
+amount:amount,
+
+status:"Paid"
+
+};
+
+
+tickets.push(ticket);
+
+
+transactions.push({
+
+date:new Date().toLocaleString(),
+
+type:"Toll eTicket",
+
+amount:amount,
+
+status:"Paid"
+
+});
+
+
+document.getElementById("ticketResult").innerHTML=`
+
+<div class="ticket">
+
+<h3>🎫 Toll eTicket</h3>
+
+<p><b>Ticket ID:</b> ${ticketID}</p>
+
+<p><b>Vehicle:</b> ${vehicle}</p>
+
+<p><b>From:</b> ${source}</p>
+
+<p><b>To:</b> ${destination}</p>
+
+<p><b>Toll Gate:</b> ${gate}</p>
+
+<p><b>Amount:</b> ₹${amount}</p>
+
+<p>
+<b>Status:</b>
+<span class="status">Paid</span>
+</p>
+
+<div class="qrbox">
+
+<div id="ticketQR"></div>
+
+</div>
+
+<p>Show this QR at the toll gate</p>
+
+</div>
+
+`;
+
+
+new QRCode(
+document.getElementById("ticketQR"),
+{
+text:ticketID,
+width:180,
+height:180
+}
+);
+
+
+alert("eTicket purchased successfully!");
+
+}
+
+
+/* TRANSACTIONS */
+
+function displayTransactions(){
+
+let html="";
+
+
+transactions.forEach(function(t){
+
+html+=`
+
+<tr>
+
+<td>${t.date}</td>
+
+<td>${t.type}</td>
+
+<td>₹${t.amount}</td>
+
+<td>${t.status}</td>
+
+</tr>
+
+`;
+
+});
+
+
+if(!html){
+
+html=
+"<tr><td colspan='4'>No transactions found</td></tr>";
+
+}
+
+
+document.getElementById("transactionTable").innerHTML=html;
+
+}
+
+
+/* ADMIN LOGIN */
+
+function adminLogin(){
+
+let username=
+document.getElementById("adminUsername").value;
+
+let password=
+document.getElementById("adminPassword").value;
+
+
+if(username==="admin"&&password==="admin123"){
+
+alert("Admin login successful!");
+
+showPage("admin");
+
+}else{
+
+alert("Invalid admin username or password");
+
+}
+
+}
+
+
+/* DISPLAY USERS */
+
+function displayUsers(){
+
+let html="";
+
+
+users.forEach(function(user,index){
+
+html+=`
+
+<tr>
+
+<td>${user.name}</td>
+
+<td>${user.email}</td>
+
+<td>${user.vehicle}</td>
+
+<td>
+
+<button onclick="deleteUser(${index})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("userTable").innerHTML=
+html||"<tr><td colspan='4'>No users</td></tr>";
+
+}
+
+
+/* DELETE USER */
+
+function deleteUser(index){
+
+if(confirm("Delete this user?")){
+
+users.splice(index,1);
+
+displayUsers();
+
+}
+
+}
+
+
+/* DISPLAY PASSES */
+
+function displayPasses(){
+
+let html="";
+
+
+passes.forEach(function(pass,index){
+
+html+=`
+
+<tr>
+
+<td>${pass.id}</td>
+
+<td>${pass.vehicle}</td>
+
+<td>${pass.type}</td>
+
+<td>${pass.status}</td>
+
+<td>
+
+<button onclick="approvePass(${index})">
+Approve
+</button>
+
+<button onclick="deletePass(${index})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("passTable").innerHTML=
+html||"<tr><td colspan='5'>No passes</td></tr>";
+
+}
+
+
+/* APPROVE PASS */
+
+function approvePass(index){
+
+passes[index].status="Approved";
+
+displayPasses();
+
+alert("Toll pass approved!");
+
+}
+
+
+/* DELETE PASS */
+
+function deletePass(index){
+
+passes.splice(index,1);
+
+displayPasses();
+
+}
+
+
+/* ADMIN QR */
+
+function generateAdminQR(){
+
+let qrID="ADMIN-TOLL-"+Date.now();
+
+
+document.getElementById("adminQR").innerHTML=`
+
+<div class="ticket">
+
+<h3>Generated Toll QR</h3>
+
+<div class="qrbox">
+
+<div id="adminQRCode"></div>
+
+</div>
+
+<p>${qrID}</p>
+
+</div>
+
+`;
+
+
+new QRCode(
+document.getElementById("adminQRCode"),
+{
+text:qrID,
+width:180,
+height:180
+}
+);
+
+}
+
+
+/* CREATE TOLL */
+
+function createToll(){
+
+let name=
+document.getElementById("tollName").value.trim();
+
+let location=
+document.getElementById("tollLocation").value.trim();
+
+let price=
+document.getElementById("tollPrice").value;
+
+
+if(!name||!location||!price){
+
+alert("Enter all toll details");
+
+return;
+
+}
+
+
+document.getElementById("tollResult").innerHTML=`
+
+<div class="card">
+
+<h3 class="success">
+Toll Created Successfully
+</h3>
+
+<p><b>Name:</b> ${name}</p>
+
+<p><b>Location:</b> ${location}</p>
+
+<p><b>Amount:</b> ₹${price}</p>
+
+</div>
+
+`;
+
+}
+
+
+/* TOLL LOGIN */
+
+function tollLogin(){
+
+let username=
+document.getElementById("tollUsername").value;
+
+let password=
+document.getElementById("tollPassword").value;
+
+
+if(username==="toll"&&password==="toll123"){
+
+alert("Toll Gate Login Successful!");
+
+showPage("tollPanel");
+
+}else{
+
+alert("Invalid Toll Gate Login");
+
+}
+
+}
+
+
+/* SCAN QR */
+
+function scanQR(){
+
+let id=
+document.getElementById("scanQR").value.trim();
+
+
+if(!id){
+
+alert("Enter QR / Pass ID");
+
+return;
+
+}
+
+
+let pass=passes.find(function(p){
+return p.id===id;
+});
+
+
+let ticket=tickets.find(function(t){
+return t.id===id;
+});
+
+
+if(pass){
+
+document.getElementById("scanResult").innerHTML=`
+
+<p class="success">
+✅ QR Verified
+</p>
+
+<p>
+Pass ID: ${pass.id}
+</p>
+
+<p>
+Vehicle: ${pass.vehicle}
+</p>
+
+<p>
+Status: ${pass.status}
+</p>
+
+`;
+
+}else if(ticket){
+
+document.getElementById("scanResult").innerHTML=`
+
+<p class="success">
+✅ QR Verified
+</p>
+
+<p>
+Ticket ID: ${ticket.id}
+</p>
+
+<p>
+Vehicle: ${ticket.vehicle}
+</p>
+
+<p>
+Status: ${ticket.status}
+</p>
+
+`;
+
+}else{
+
+document.getElementById("scanResult").innerHTML=
+"<p class='error'>❌ Invalid QR Code</p>";
+
+}
+
+}
+
+
+/* VERIFY PASS */
+
+function verifyTollPass(){
+
+let id=
+document.getElementById("verifyPass").value.trim();
+
+
+let pass=passes.find(function(p){
+return p.id===id;
+});
+
+
+if(pass){
+
+if(pass.status==="Approved"){
+
+document.getElementById("verifyPassResult").innerHTML=`
+
+<p class="success">
+✅ Toll Pass Valid
+</p>
+
+<p>Pass ID: ${pass.id}</p>
+<p>Vehicle: ${pass.vehicle}</p>
+<p>Type: ${pass.type}</p>
+
+`;
+
+}else{
+
+document.getElementById("verifyPassResult").innerHTML=`
+
+<p class="error">
+⚠️ Pass is not approved
+</p>
+
+`;
+
+}
+
+}else{
+
+document.getElementById("verifyPassResult").innerHTML=
+"<p class='error'>❌ Invalid Toll Pass ID</p>";
+
+}
+
+}
+
+
+/* VERIFY TICKET */
+
+function verifyTollTicket(){
+
+let id=
+document.getElementById("verifyTicket").value.trim();
+
+
+let ticket=tickets.find(function(t){
+return t.id===id;
+});
+
+
+if(ticket){
+
+document.getElementById("verifyTicketResult").innerHTML=`
+
+<p class="success">
+✅ Toll Ticket Valid
+</p>
+
+<p>Ticket ID: ${ticket.id}</p>
+
+<p>Vehicle: ${ticket.vehicle}</p>
+
+<p>From: ${ticket.source}</p>
+
+<p>To: ${ticket.destination}</p>
+
+<p>Amount: ₹${ticket.amount}</p>
+
+`;
+
+}else{
+
+document.getElementById("verifyTicketResult").innerHTML=
+"<p class='error'>❌ Invalid Toll Ticket ID</p>";
+
+}
+
+}
+
+
+/* UPDATE LOCATION */
+
+function updateLocation(){
+
+let location=
+document.getElementById("locationInput").value.trim();
+
+
+if(!location){
+
+alert("Enter new location");
+
+return;
+
+}
+
+
+document.getElementById("locationResult").innerHTML=
+
+"✅ Toll location updated to: <b>"
++location+
+"</b>";
+
+}
+
+
+/* INITIAL */
+
+showPage("home");
+
+</script>
+
+</body>
+</html>

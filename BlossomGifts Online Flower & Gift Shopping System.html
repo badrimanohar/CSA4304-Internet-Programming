@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlossomGifts - Online Flower & Gift Shopping</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+body{background:#fff5f8;color:#333}
+header{background:#d6336c;color:white;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{font-size:27px;font-weight:bold}
+nav button{background:none;border:0;color:white;margin:5px;cursor:pointer;font-size:15px}
+.container{width:92%;max-width:1200px;margin:25px auto}
+.page{display:none}.active{display:block}
+.hero{background:linear-gradient(135deg,#d6336c,#ff8fab);color:white;text-align:center;padding:70px 20px;border-radius:15px}
+.hero h1{font-size:45px;margin-bottom:15px}
+.hero p{font-size:18px;margin-bottom:20px}
+button{background:#d6336c;color:white;border:0;padding:10px 16px;border-radius:6px;cursor:pointer;margin:4px}
+button:hover{background:#ad2454}
+.card{background:white;padding:25px;margin-bottom:20px;border-radius:12px;box-shadow:0 3px 12px #e8d5dc}
+h2{color:#c2255c;margin-bottom:20px}
+.categories,.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.category,.product{background:white;padding:20px;border-radius:12px;box-shadow:0 3px 10px #e8d5dc}
+.category{text-align:center;cursor:pointer}
+.icon{font-size:45px;margin-bottom:10px}
+.product img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+.product h3{margin:12px 0 8px}
+.price{color:#d6336c;font-size:20px;font-weight:bold;margin:10px 0}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 15px;border:1px solid #ccc;border-radius:6px}
+textarea{height:100px}
+.search{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:15px;border-bottom:1px solid #ddd}
+.cart-item img{width:80px;height:80px;object-fit:cover;border-radius:8px}
+.total{text-align:right;font-size:22px;font-weight:bold;margin:20px 0}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:12px;text-align:center}
+th{background:#d6336c;color:white}
+.status{background:#ffe3ec;color:#c2255c;padding:5px 10px;border-radius:15px}
+footer{background:#d6336c;color:white;text-align:center;padding:20px;margin-top:40px}
+
+@media(max-width:900px){
+.categories,.products{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+.categories,.products{grid-template-columns:1fr}
+.search{grid-template-columns:1fr}
+header{flex-direction:column;gap:15px}
+.cart-item{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">🌸 BlossomGifts</div>
+<nav>
+<button onclick="show('home')">Home</button>
+<button onclick="show('shop')">Shop</button>
+<button onclick="show('cart')">Cart 🛒</button>
+<button onclick="show('orders')">My Orders</button>
+<button onclick="show('login')">Login</button>
+<button onclick="show('adminLogin')">Admin</button>
+</nav>
+</header>
+
+<div class="container">
+
+<section id="home" class="page active">
+<div class="hero">
+<h1>🌸 BlossomGifts</h1>
+<p>Flowers and gifts for every special occasion</p>
+<button onclick="show('shop')">Shop Now</button>
+</div>
+
+<br>
+<h2>Popular Categories</h2>
+
+<div class="categories">
+<div class="category" onclick="filterCat('Flowers')">
+<div class="icon">🌹</div><h3>Flowers</h3>
+</div>
+<div class="category" onclick="filterCat('Gifts')">
+<div class="icon">🎁</div><h3>Gift Baskets</h3>
+</div>
+<div class="category" onclick="filterCat('Personalized')">
+<div class="icon">💝</div><h3>Personalized Gifts</h3>
+</div>
+<div class="category" onclick="filterCat('Cakes')">
+<div class="icon">🎂</div><h3>Cakes</h3>
+</div>
+</div>
+
+<br>
+<h2>Shop by Occasion</h2>
+<div class="categories">
+<div class="category"><div class="icon">🎂</div><h3>Birthday</h3></div>
+<div class="category"><div class="icon">💍</div><h3>Anniversary</h3></div>
+<div class="category"><div class="icon">💐</div><h3>Wedding</h3></div>
+<div class="category"><div class="icon">❤️</div><h3>Love</h3></div>
+</div>
+</section>
+
+<section id="login" class="page">
+<div class="card">
+<h2>Customer Login</h2>
+<input id="le" placeholder="Email">
+<input id="lp" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<button onclick="show('register')">Register</button>
+<p id="lm"></p>
+</div>
+</section>
+
+<section id="register" class="page">
+<div class="card">
+<h2>Customer Registration</h2>
+<input id="rn" placeholder="Full Name">
+<input id="re" placeholder="Email">
+<input id="rp" type="password" placeholder="Password">
+<button onclick="register()">Register</button>
+<p id="rm"></p>
+</div>
+</section>
+
+<section id="shop" class="page">
+<div class="card">
+<h2>Search Products</h2>
+<div class="search">
+<input id="search" placeholder="Search..." onkeyup="search()">
+<select id="cat" onchange="search()">
+<option>All</option>
+<option>Flowers</option>
+<option>Gifts</option>
+<option>Personalized</option>
+<option>Cakes</option>
+</select>
+<select id="pr" onchange="search()">
+<option value="All">All Prices</option>
+<option value="1000">Below ₹1000</option>
+<option value="2000">Below ₹2000</option>
+<option value="3000">Below ₹3000</option>
+</select>
+</div>
+</div>
+<div id="products" class="products"></div>
+</section>
+
+<section id="details" class="page">
+<div class="card" id="detailsBox"></div>
+</section>
+
+<section id="cart" class="page">
+<div class="card">
+<h2>Shopping Cart</h2>
+<div id="cartBox"></div>
+<div class="total">Total: ₹<span id="total">0</span></div>
+<button onclick="checkout()">Checkout</button>
+</div>
+</section>
+
+<section id="checkout" class="page">
+<div class="card">
+<h2>Checkout</h2>
+<input id="cn" placeholder="Customer Name">
+<input id="phone" placeholder="Phone Number">
+<textarea id="address" placeholder="Delivery Address"></textarea>
+<input id="date" type="date">
+<select id="time">
+<option>9 AM - 12 PM</option>
+<option>12 PM - 3 PM</option>
+<option>3 PM - 6 PM</option>
+<option>6 PM - 9 PM</option>
+</select>
+<select id="payment">
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>Cash on Delivery</option>
+</select>
+<h3>Total: ₹<span id="ctotal">0</span></h3>
+<button onclick="placeOrder()">Place Order</button>
+</div>
+</section>
+
+<section id="orders" class="page">
+<div class="card">
+<h2>My Orders</h2>
+<div id="orderBox"></div>
+</div>
+</section>
+
+<section id="adminLogin" class="page">
+<div class="card">
+<h2>Admin Login</h2>
+<input id="au" placeholder="Username">
+<input id="ap" type="password" placeholder="Password">
+<button onclick="adminLogin()">Login</button>
+<p>Username: admin | Password: admin123</p>
+</div>
+</section>
+
+<section id="admin" class="page">
+<div class="card">
+<h2>Admin Panel</h2>
+<button onclick="show('inventory')">Manage Products</button>
+<button onclick="show('adminOrders')">Manage Orders</button>
+<button onclick="show('customers')">Customer Details</button>
+</div>
+</section>
+
+<section id="inventory" class="page">
+<div class="card">
+<h2>Add Product</h2>
+<input id="pn" placeholder="Product Name">
+<select id="pc">
+<option>Flowers</option>
+<option>Gifts</option>
+<option>Personalized</option>
+<option>Cakes</option>
+</select>
+<input id="pp" type="number" placeholder="Price">
+<input id="pi" placeholder="Image URL">
+<textarea id="pd" placeholder="Description"></textarea>
+<button onclick="addProduct()">Add Product</button>
+</div>
+
+<div class="card">
+<h2>Product Inventory</h2>
+<table>
+<thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Action</th></tr></thead>
+<tbody id="inventory"></tbody>
+</table>
+</div>
+</section>
+
+<section id="adminOrders" class="page">
+<div class="card">
+<h2>Manage Orders</h2>
+<table>
+<thead>
+<tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Status</th><th>Update</th></tr>
+</thead>
+<tbody id="adminOrder"></tbody>
+</table>
+</div>
+</section>
+
+<section id="customers" class="page">
+<div class="card">
+<h2>Customer Details</h2>
+<table>
+<thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th></tr></thead>
+<tbody id="customer"></tbody>
+</table>
+</div>
+</section>
+
+</div>
+
+<footer>© 2026 BlossomGifts | Online Flower & Gift Shopping</footer>
+
+<script>
+let products=[
+{id:1,n:"Red Rose Bouquet",c:"Flowers",p:1499,i:"https://images.unsplash.com/photo-1490750967868-88aa4486c946",d:"Fresh red roses beautifully arranged."},
+{id:2,n:"White Rose Bouquet",c:"Flowers",p:1299,i:"https://images.unsplash.com/photo-1523438885200-e635ba2c371e",d:"Elegant white roses for special occasions."},
+{id:3,n:"Luxury Gift Basket",c:"Gifts",p:2499,i:"https://images.unsplash.com/photo-1512909006721-3d6018887383",d:"Premium gift basket with chocolates."},
+{id:4,n:"Chocolate Gift Box",c:"Gifts",p:999,i:"https://images.unsplash.com/photo-1575377427642-087cf684f29d",d:"Delicious chocolate gift box."},
+{id:5,n:"Personalized Mug",c:"Personalized",p:699,i:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d",d:"Customized mug for your loved ones."},
+{id:6,n:"Personalized Frame",c:"Personalized",p:899,i:"https://images.unsplash.com/photo-1606800052052-a08af7148866",d:"Beautiful personalized photo frame."},
+{id:7,n:"Birthday Cake",c:"Cakes",p:899,i:"https://images.unsplash.com/photo-1578985545062-69928b1d9587",d:"Delicious birthday cake."},
+{id:8,n:"Chocolate Cake",c:"Cakes",p:1199,i:"https://images.unsplash.com/photo-1571115177098-24ec42ed204d",d:"Rich chocolate cake."}
+];
+
+let cart=[];
+let orders=[];
+let customers=[];
+
+function show(id){
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+
+if(id=="shop") display(products);
+if(id=="cart") displayCart();
+if(id=="orders") displayOrders();
+if(id=="inventory") displayInventory();
+if(id=="adminOrders") displayAdminOrders();
+if(id=="customers") displayCustomers();
+}
+
+function register(){
+let n=rn.value,e=re.value,p=rp.value;
+if(!n||!e||!p)return alert("Enter all details");
+localStorage.setItem("name",n);
+localStorage.setItem("email",e);
+localStorage.setItem("pass",p);
+rm.innerHTML="Registration successful!";
+}
+
+function login(){
+if(le.value==localStorage.getItem("email")&&lp.value==localStorage.getItem("pass")){
+alert("Login successful");show("shop");
+}else lm.innerHTML="Invalid login details";
+}
+
+function display(list){
+productsBox="";
+list.forEach(x=>{
+productsBox+=`
+<div class="product">
+<img src="${x.i}">
+<h3>${x.n}</h3>
+<p>${x.c}</p>
+<p class="price">₹${x.p}</p>
+<p>${x.d}</p>
+<button onclick="details(${x.id})">View</button>
+<button onclick="add(${x.id})">Add Cart</button>
+</div>`;
+});
+document.getElementById("products").innerHTML=productsBox;
+}
+
+function search(){
+let s=searchInput().toLowerCase();
+let c=cat.value;
+let p=pr.value;
+let r=products.filter(x=>
+x.n.toLowerCase().includes(s)&&
+(c=="All"||x.c==c)&&
+(p=="All"||x.p<=Number(p))
+);
+display(r);
+}
+
+function searchInput(){
+return document.getElementById("search").value;
+}
+
+function filterCat(c){
+show("shop");
+cat.value=c;
+search();
+}
+
+function details(id){
+let x=products.find(a=>a.id==id);
+detailsBox.innerHTML=`
+<img src="${x.i}" style="width:300px;height:300px;object-fit:cover;border-radius:10px">
+<h2>${x.n}</h2>
+<p>${x.d}</p>
+<h2>₹${x.p}</h2>
+<button onclick="add(${x.id})">Add to Cart</button>
+<button onclick="show('shop')">Back</button>`;
+show("details");
+}
+
+function add(id){
+let x=products.find(a=>a.id==id);
+let old=cart.find(a=>a.id==id);
+if(old)old.q++;
+else cart.push({...x,q:1});
+alert("Added to cart");
+}
+
+function displayCart(){
+let h="",t=0;
+cart.forEach((x,i)=>{
+t+=x.p*x.q;
+h+=`
+<div class="cart-item">
+<img src="${x.i}">
+<div><b>${x.n}</b><br>₹${x.p}</div>
+<div>
+<button onclick="qty(${i},-1)">−</button>
+${x.q}
+<button onclick="qty(${i},1)">+</button>
+<button onclick="removeCart(${i})">Remove</button>
+</div>
+</div>`;
+});
+cartBox.innerHTML=h||"Cart is empty";
+total.innerHTML=t;
+}
+
+function qty(i,v){
+cart[i].q+=v;
+if(cart[i].q<=0)cart.splice(i,1);
+displayCart();
+}
+
+function removeCart(i){
+cart.splice(i,1);
+displayCart();
+}
+
+function checkout(){
+if(!cart.length)return alert("Cart is empty");
+ctotal.innerHTML=cart.reduce((a,x)=>a+x.p*x.q,0);
+show("checkout");
+}
+
+function placeOrder(){
+if(!cn.value||!phone.value||!address.value||!date.value)
+return alert("Enter all details");
+
+let o={
+id:"BG"+Date.now(),
+name:cn.value,
+email:localStorage.getItem("email")||"Guest",
+phone:phone.value,
+address:address.value,
+date:date.value,
+total:cart.reduce((a,x)=>a+x.p*x.q,0),
+status:"Order Placed"
+};
+
+orders.push(o);
+customers.push(o);
+cart=[];
+alert("Order placed successfully!");
+show("orders");
+}
+
+function displayOrders(){
+let h="";
+orders.forEach(x=>{
+h+=`
+<div class="card">
+<h3>Order ID: ${x.id}</h3>
+<p>Name: ${x.name}</p>
+<p>Delivery Date: ${x.date}</p>
+<p>Total: ₹${x.total}</p>
+<p>Status: <span class="status">${x.status}</span></p>
+</div>`;
+});
+orderBox.innerHTML=h||"No orders found";
+}
+
+function adminLogin(){
+if(au.value=="admin"&&ap.value=="admin123")show("admin");
+else alert("Invalid admin login");
+}
+
+function addProduct(){
+if(!pn.value||!pp.value)return alert("Enter product details");
+
+products.push({
+id:Date.now(),
+n:pn.value,
+c:pc.value,
+p:Number(pp.value),
+i:pi.value||"https://via.placeholder.com/300",
+d:pd.value
+});
+
+alert("Product added");
+displayInventory();
+}
+
+function displayInventory(){
+inventory.innerHTML=products.map((x,i)=>`
+<tr>
+<td>${x.n}</td>
+<td>${x.c}</td>
+<td>₹${x.p}</td>
+<td>
+<button onclick="edit(${i})">Edit</button>
+<button onclick="del(${i})">Delete</button>
+</td>
+</tr>`).join("");
+}
+
+function edit(i){
+let p=prompt("Enter new price",products[i].p);
+if(p)products[i].p=Number(p);
+displayInventory();
+}
+
+function del(i){
+if(confirm("Delete product?")){
+products.splice(i,1);
+displayInventory();
+}
+}
+
+function displayAdminOrders(){
+adminOrder.innerHTML=orders.map((x,i)=>`
+<tr>
+<td>${x.id}</td>
+<td>${x.name}</td>
+<td>₹${x.total}</td>
+<td>${x.status}</td>
+<td>
+<select onchange="updateStatus(${i},this.value)">
+<option>Order Placed</option>
+<option>Processing</option>
+<option>Shipped</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+<option>Cancelled</option>
+</select>
+</td>
+</tr>`).join("")||"<tr><td colspan='5'>No orders</td></tr>";
+}
+
+function updateStatus(i,s){
+orders[i].status=s;
+displayAdminOrders();
+}
+
+function displayCustomers(){
+customer.innerHTML=customers.map(x=>`
+<tr>
+<td>${x.name}</td>
+<td>${x.email}</td>
+<td>${x.phone}</td>
+<td>${x.address}</td>
+</tr>`).join("")||"<tr><td colspan='4'>No customers</td></tr>";
+}
+
+display(products);
+</script>
+
+</body>
+</html>
