@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReNewMarket</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f8f5;
+    color:#222;
+}
+
+header{
+    background:#198754;
+    color:white;
+    padding:18px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav button{
+    background:none;
+    border:0;
+    color:white;
+    margin:4px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:25px auto;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.hero{
+    background:linear-gradient(135deg,#198754,#63c28b);
+    color:white;
+    text-align:center;
+    padding:70px 20px;
+    border-radius:15px;
+}
+
+.hero h1{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+button{
+    background:#198754;
+    color:white;
+    border:0;
+    padding:10px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:4px;
+}
+
+button:hover{
+    background:#146c43;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 3px 12px #d8e5dc;
+}
+
+h2{
+    color:#146c43;
+    margin-bottom:20px;
+}
+
+.categories,
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.category,
+.product{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 10px #d8e5dc;
+}
+
+.category{
+    text-align:center;
+    cursor:pointer;
+}
+
+.icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.product img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+.product h3{
+    margin:12px 0 8px;
+}
+
+.price{
+    color:#198754;
+    font-size:20px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    margin:7px 0 15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+textarea{
+    height:100px;
+}
+
+.search{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:10px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    border-bottom:1px solid #ddd;
+}
+
+.cart-item img{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+.total{
+    text-align:right;
+    font-size:22px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#198754;
+    color:white;
+}
+
+.status{
+    background:#d1e7dd;
+    color:#146c43;
+    padding:5px 10px;
+    border-radius:15px;
+}
+
+footer{
+    background:#198754;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+@media(max-width:900px){
+    .categories,
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .categories,
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .search{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .cart-item{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">♻️ ReNewMarket</div>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('shop')">Browse</button>
+<button onclick="showPage('sell')">Sell</button>
+<button onclick="showPage('cart')">Cart 🛒</button>
+<button onclick="showPage('orders')">My Orders</button>
+<button onclick="showPage('login')">Login</button>
+<button onclick="showPage('adminLogin')">Admin</button>
+</nav>
+
+</header>
+
+<div class="container">
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h1>♻️ ReNewMarket</h1>
+
+<p>Buy, Sell & Reuse Pre-Loved Products</p>
+
+<button onclick="showPage('shop')">
+Start Shopping
+</button>
+
+<button onclick="showPage('sell')">
+Sell Your Item
+</button>
+
+</div>
+
+<br>
+
+<h2>Categories</h2>
+
+<div class="categories">
+
+<div class="category" onclick="filterCategory('Electronics')">
+<div class="icon">📱</div>
+<h3>Electronics</h3>
+</div>
+
+<div class="category" onclick="filterCategory('Furniture')">
+<div class="icon">🛋️</div>
+<h3>Furniture</h3>
+</div>
+
+<div class="category" onclick="filterCategory('Clothing')">
+<div class="icon">👕</div>
+<h3>Clothing</h3>
+</div>
+
+<div class="category" onclick="filterCategory('Collectibles')">
+<div class="icon">🏆</div>
+<h3>Collectibles</h3>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+<div class="card">
+
+<h2>User Login</h2>
+
+<input id="loginEmail" placeholder="Email">
+
+<input id="loginPassword" type="password" placeholder="Password">
+
+<button onclick="loginUser()">Login</button>
+
+<button onclick="showPage('register')">
+Register
+</button>
+
+<p id="loginMessage"></p>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+<div class="card">
+
+<h2>User Registration</h2>
+
+<input id="registerName" placeholder="Full Name">
+
+<input id="registerEmail" placeholder="Email">
+
+<input id="registerPassword" type="password" placeholder="Password">
+
+<button onclick="registerUser()">
+Register
+</button>
+
+</div>
+
+</section>
+
+
+<!-- SHOP -->
+
+<section id="shop" class="page">
+
+<div class="card">
+
+<h2>Search Items</h2>
+
+<div class="search">
+
+<input
+id="searchBox"
+placeholder="Search item..."
+oninput="searchItems()"
+>
+
+<select id="categoryFilter" onchange="searchItems()">
+
+<option value="All">All Categories</option>
+<option value="Electronics">Electronics</option>
+<option value="Furniture">Furniture</option>
+<option value="Clothing">Clothing</option>
+<option value="Collectibles">Collectibles</option>
+
+</select>
+
+<select id="priceFilter" onchange="searchItems()">
+
+<option value="All">All Prices</option>
+<option value="1000">Below ₹1000</option>
+<option value="5000">Below ₹5000</option>
+<option value="10000">Below ₹10000</option>
+<option value="50000">Below ₹50000</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div id="productList" class="products"></div>
+
+</section>
+
+
+<!-- PRODUCT DETAILS -->
+
+<section id="details" class="page">
+
+<div class="card" id="detailsContent"></div>
+
+</section>
+
+
+<!-- SELL -->
+
+<section id="sell" class="page">
+
+<div class="card">
+
+<h2>Sell Your Item</h2>
+
+<input id="itemName" placeholder="Item Name">
+
+<select id="itemCategory">
+
+<option value="Electronics">Electronics</option>
+<option value="Furniture">Furniture</option>
+<option value="Clothing">Clothing</option>
+<option value="Collectibles">Collectibles</option>
+
+</select>
+
+<input id="itemPrice" type="number" placeholder="Price">
+
+<input id="itemImage" placeholder="Image URL">
+
+<textarea id="itemDescription"
+placeholder="Item Description"></textarea>
+
+<input id="sellerName" placeholder="Seller Name">
+
+<button onclick="addNewProduct()">
+Publish Listing
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="page">
+
+<div class="card">
+
+<h2>Shopping Cart</h2>
+
+<div id="cartList"></div>
+
+<div class="total">
+Total: ₹<span id="cartTotal">0</span>
+</div>
+
+<button onclick="openCheckout()">
+Checkout
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="page">
+
+<div class="card">
+
+<h2>Checkout</h2>
+
+<input id="buyerName" placeholder="Buyer Name">
+
+<input id="buyerPhone" placeholder="Phone Number">
+
+<textarea id="buyerAddress"
+placeholder="Delivery / Pickup Address"></textarea>
+
+<select id="paymentMethod">
+
+<option>UPI</option>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>Cash on Delivery</option>
+
+</select>
+
+<h3>
+Total: ₹<span id="checkoutTotal">0</span>
+</h3>
+
+<button onclick="placeOrder()">
+Place Order
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+<div class="card">
+
+<h2>My Orders</h2>
+
+<div id="orderList"></div>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN LOGIN -->
+
+<section id="adminLogin" class="page">
+
+<div class="card">
+
+<h2>Administrator Login</h2>
+
+<input id="adminUsername" placeholder="Username">
+
+<input id="adminPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="adminLogin()">
+Login
+</button>
+
+<p>
+Username: admin<br>
+Password: admin123
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="page">
+
+<div class="card">
+
+<h2>Admin Panel</h2>
+
+<button onclick="showPage('users')">
+Manage Users
+</button>
+
+<button onclick="showPage('categories')">
+Manage Categories
+</button>
+
+<button onclick="showPage('inventory')">
+Manage Products
+</button>
+
+<button onclick="showPage('adminOrders')">
+Manage Orders
+</button>
+
+</div>
+
+</section>
+
+
+<!-- USERS -->
+
+<section id="users" class="page">
+
+<div class="card">
+
+<h2>User Management</h2>
+
+<input id="newUserName"
+placeholder="User Name">
+
+<button onclick="addUser()">
+Add User
+</button>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="userTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section id="categories" class="page">
+
+<div class="card">
+
+<h2>Category Management</h2>
+
+<input id="newCategory"
+placeholder="Category Name">
+
+<button onclick="addCategory()">
+Add Category
+</button>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Category</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="categoryTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- INVENTORY -->
+
+<section id="inventory" class="page">
+
+<div class="card">
+
+<h2>Commodity Management</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Product</th>
+<th>Category</th>
+<th>Price</th>
+<th>Seller</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="inventoryTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN ORDERS -->
+
+<section id="adminOrders" class="page">
+
+<div class="card">
+
+<h2>Order Management</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Order ID</th>
+<th>Buyer</th>
+<th>Total</th>
+<th>Status</th>
+<th>Update</th>
+<th>Delete</th>
+</tr>
+
+</thead>
+
+<tbody id="adminOrderTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</div>
+
+
+<footer>
+© 2026 ReNewMarket | Second-Hand Marketplace
+</footer>
+
+
+<script>
+
+let products=[
+
+{
+id:1,
+name:"iPhone 13",
+category:"Electronics",
+price:32000,
+image:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd",
+description:"Used iPhone 13 in excellent condition.",
+seller:"Rahul"
+},
+
+{
+id:2,
+name:"Laptop",
+category:"Electronics",
+price:28000,
+image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+description:"Second-hand laptop in good working condition.",
+seller:"Arun"
+},
+
+{
+id:3,
+name:"Sofa Set",
+category:"Furniture",
+price:8500,
+image:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc",
+description:"Comfortable used sofa set.",
+seller:"Kumar"
+},
+
+{
+id:4,
+name:"Wooden Table",
+category:"Furniture",
+price:4500,
+image:"https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc",
+description:"Strong wooden dining table.",
+seller:"Priya"
+},
+
+{
+id:5,
+name:"Denim Jacket",
+category:"Clothing",
+price:800,
+image:"https://images.unsplash.com/photo-1551028719-00167b16eac5",
+description:"Good quality pre-loved denim jacket.",
+seller:"Anitha"
+},
+
+{
+id:6,
+name:"Vintage Watch",
+category:"Collectibles",
+price:5500,
+image:"https://images.unsplash.com/photo-1524805444758-089113d48a6d",
+description:"Vintage collectible watch.",
+seller:"Vijay"
+},
+
+{
+id:7,
+name:"Samsung Mobile",
+category:"Electronics",
+price:12000,
+image:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+description:"Used Samsung smartphone.",
+seller:"Ravi"
+},
+
+{
+id:8,
+name:"Office Chair",
+category:"Furniture",
+price:2500,
+image:"https://images.unsplash.com/photo-1580480055273-228ff5388ef8",
+description:"Comfortable office chair.",
+seller:"Manoj"
+}
+
+];
+
+
+let cart=[];
+let orders=[];
+let users=[];
+
+let categories=[
+"Electronics",
+"Furniture",
+"Clothing",
+"Collectibles"
+];
+
+
+// SHOW PAGE
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(function(p){
+p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+if(page==="shop"){
+displayProducts(products);
+}
+
+if(page==="cart"){
+displayCart();
+}
+
+if(page==="orders"){
+displayOrders();
+}
+
+if(page==="inventory"){
+displayInventory();
+}
+
+if(page==="users"){
+displayUsers();
+}
+
+if(page==="categories"){
+displayCategories();
+}
+
+if(page==="adminOrders"){
+displayAdminOrders();
+}
+
+}
+
+
+// DISPLAY PRODUCTS
+
+function displayProducts(list){
+
+let html="";
+
+if(list.length===0){
+
+document.getElementById("productList").innerHTML=
+"<div class='card'><h3>No products found</h3><p>Try another search.</p></div>";
+
+return;
+
+}
+
+list.forEach(function(product){
+
+html+=`
+
+<div class="product">
+
+<img src="${product.image}" alt="${product.name}">
+
+<h3>${product.name}</h3>
+
+<p>${product.category}</p>
+
+<p class="price">
+₹${product.price}
+</p>
+
+<p>${product.description}</p>
+
+<p>
+<b>Seller:</b> ${product.seller}
+</p>
+
+<button onclick="viewDetails(${product.id})">
+View
+</button>
+
+<button onclick="addToCart(${product.id})">
+Add to Cart
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("productList").innerHTML=html;
+
+}
+
+
+// SEARCH
+
+function searchItems(){
+
+let text=
+document.getElementById("searchBox")
+.value
+.toLowerCase()
+.trim();
+
+let category=
+document.getElementById("categoryFilter").value;
+
+let price=
+document.getElementById("priceFilter").value;
+
+let result=products.filter(function(product){
+
+let nameMatch=
+product.name.toLowerCase().includes(text);
+
+let categoryMatch=
+category==="All" ||
+product.category===category;
+
+let priceMatch=
+price==="All" ||
+product.price<=Number(price);
+
+return nameMatch && categoryMatch && priceMatch;
+
+});
+
+displayProducts(result);
+
+}
+
+
+// CATEGORY
+
+function filterCategory(category){
+
+showPage("shop");
+
+document.getElementById("categoryFilter").value=category;
+
+document.getElementById("searchBox").value="";
+
+searchItems();
+
+}
+
+
+// PRODUCT DETAILS
+
+function viewDetails(id){
+
+let product=
+products.find(function(p){
+return p.id===id;
+});
+
+document.getElementById("detailsContent").innerHTML=`
+
+<img src="${product.image}"
+style="width:300px;height:300px;object-fit:cover;border-radius:10px">
+
+<h2>${product.name}</h2>
+
+<p>
+<b>Category:</b>
+${product.category}
+</p>
+
+<p>
+<b>Description:</b>
+${product.description}
+</p>
+
+<p>
+<b>Seller:</b>
+${product.seller}
+</p>
+
+<h2>₹${product.price}</h2>
+
+<button onclick="addToCart(${product.id})">
+Add to Cart
+</button>
+
+<button onclick="showPage('shop')">
+Back
+</button>
+
+`;
+
+showPage("details");
+
+}
+
+
+// ADD CART
+
+function addToCart(id){
+
+let product=
+products.find(function(p){
+return p.id===id;
+});
+
+cart.push(product);
+
+alert(product.name+" added to cart!");
+
+}
+
+
+// DISPLAY CART
+
+function displayCart(){
+
+let html="";
+let total=0;
+
+cart.forEach(function(product,index){
+
+total+=product.price;
+
+html+=`
+
+<div class="cart-item">
+
+<img src="${product.image}">
+
+<div>
+
+<b>${product.name}</b>
+
+<br>
+
+₹${product.price}
+
+</div>
+
+<button onclick="removeFromCart(${index})">
+Remove
+</button>
+
+</div>
+
+`;
+
+});
+
+if(cart.length===0){
+html="<p>Your cart is empty.</p>";
+}
+
+document.getElementById("cartList").innerHTML=html;
+
+document.getElementById("cartTotal").innerText=total;
+
+}
+
+
+// REMOVE CART
+
+function removeFromCart(index){
+
+cart.splice(index,1);
+
+displayCart();
+
+}
+
+
+// CHECKOUT
+
+function openCheckout(){
+
+if(cart.length===0){
+
+alert("Your cart is empty!");
+
+return;
+
+}
+
+let total=
+cart.reduce(function(sum,p){
+return sum+p.price;
+},0);
+
+document.getElementById("checkoutTotal")
+.innerText=total;
+
+showPage("checkout");
+
+}
+
+
+// PLACE ORDER
+
+function placeOrder(){
+
+let name=
+document.getElementById("buyerName").value;
+
+let phone=
+document.getElementById("buyerPhone").value;
+
+let address=
+document.getElementById("buyerAddress").value;
+
+if(!name||!phone||!address){
+
+alert("Please enter all details.");
+
+return;
+
+}
+
+let total=
+cart.reduce(function(sum,p){
+return sum+p.price;
+},0);
+
+let order={
+
+id:"RN"+Date.now(),
+
+buyer:name,
+
+phone:phone,
+
+address:address,
+
+total:total,
+
+status:"Shipped"
+
+};
+
+orders.push(order);
+
+cart=[];
+
+alert("Order placed successfully!");
+
+showPage("orders");
+
+}
+
+
+// DISPLAY ORDERS
+
+function displayOrders(){
+
+let html="";
+
+if(orders.length===0){
+
+document.getElementById("orderList").innerHTML=
+"<p>No orders found.</p>";
+
+return;
+
+}
+
+orders.forEach(function(order){
+
+html+=`
+
+<div class="card">
+
+<h3>Order ID: ${order.id}</h3>
+
+<p>
+<b>Buyer:</b>
+${order.buyer}
+</p>
+
+<p>
+<b>Total:</b>
+₹${order.total}
+</p>
+
+<p>
+<b>Status:</b>
+<span class="status">
+${order.status}
+</span>
+</p>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("orderList").innerHTML=html;
+
+}
+
+
+// REGISTER
+
+function registerUser(){
+
+let name=
+document.getElementById("registerName").value;
+
+let email=
+document.getElementById("registerEmail").value;
+
+let password=
+document.getElementById("registerPassword").value;
+
+if(!name||!email||!password){
+
+alert("Enter all details.");
+
+return;
+
+}
+
+localStorage.setItem("userName",name);
+localStorage.setItem("userEmail",email);
+localStorage.setItem("userPassword",password);
+
+users.push({
+name:name,
+email:email
+});
+
+alert("Registration successful!");
+
+showPage("login");
+
+}
+
+
+// LOGIN
+
+function loginUser(){
+
+let email=
+document.getElementById("loginEmail").value;
+
+let password=
+document.getElementById("loginPassword").value;
+
+if(
+email===localStorage.getItem("userEmail") &&
+password===localStorage.getItem("userPassword")
+){
+
+alert("Login successful!");
+
+showPage("shop");
+
+}else{
+
+document.getElementById("loginMessage")
+.innerText="Invalid email or password.";
+
+}
+
+}
+
+
+// SELL ITEM
+
+function addNewProduct(){
+
+let name=
+document.getElementById("itemName").value;
+
+let category=
+document.getElementById("itemCategory").value;
+
+let price=
+document.getElementById("itemPrice").value;
+
+let image=
+document.getElementById("itemImage").value;
+
+let description=
+document.getElementById("itemDescription").value;
+
+let seller=
+document.getElementById("sellerName").value;
+
+if(!name||!price){
+
+alert("Enter product name and price.");
+
+return;
+
+}
+
+products.push({
+
+id:Date.now(),
+
+name:name,
+
+category:category,
+
+price:Number(price),
+
+image:image||
+"https://via.placeholder.com/300",
+
+description:description||
+"Second-hand product.",
+
+seller:seller||
+"User"
+
+});
+
+alert("Product listed successfully!");
+
+document.getElementById("itemName").value="";
+document.getElementById("itemPrice").value="";
+document.getElementById("itemImage").value="";
+document.getElementById("itemDescription").value="";
+document.getElementById("sellerName").value="";
+
+showPage("shop");
+
+}
+
+
+// ADMIN LOGIN
+
+function adminLogin(){
+
+let username=
+document.getElementById("adminUsername").value;
+
+let password=
+document.getElementById("adminPassword").value;
+
+if(username==="admin" && password==="admin123"){
+
+alert("Admin login successful!");
+
+showPage("admin");
+
+}else{
+
+alert("Invalid admin login.");
+
+}
+
+}
+
+
+// USERS
+
+function addUser(){
+
+let name=
+document.getElementById("newUserName").value;
+
+if(!name)return;
+
+users.push({
+
+name:name,
+
+email:name.toLowerCase()+"@gmail.com"
+
+});
+
+document.getElementById("newUserName").value="";
+
+displayUsers();
+
+}
+
+
+function displayUsers(){
+
+let html="";
+
+users.forEach(function(user,index){
+
+html+=`
+
+<tr>
+
+<td>${user.name}</td>
+
+<td>${user.email}</td>
+
+<td>
+
+<button onclick="editUser(${index})">
+Edit
+</button>
+
+<button onclick="deleteUser(${index})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("userTable").innerHTML=html;
+
+}
+
+
+function editUser(index){
+
+let name=
+prompt(
+"Enter new name:",
+users[index].name
+);
+
+if(name){
+
+users[index].name=name;
+
+}
+
+displayUsers();
+
+}
+
+
+function deleteUser(index){
+
+users.splice(index,1);
+
+displayUsers();
+
+}
+
+
+// CATEGORIES
+
+function addCategory(){
+
+let category=
+document.getElementById("newCategory").value.trim();
+
+if(!category)return;
+
+categories.push(category);
+
+document.getElementById("newCategory").value="";
+
+displayCategories();
+
+}
+
+
+function displayCategories(){
+
+let html="";
+
+categories.forEach(function(category,index){
+
+html+=`
+
+<tr>
+
+<td>${category}</td>
+
+<td>
+
+<button onclick="deleteCategory(${index})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("categoryTable").innerHTML=html;
+
+}
+
+
+function deleteCategory(index){
+
+categories.splice(index,1);
+
+displayCategories();
+
+}
+
+
+// INVENTORY
+
+function displayInventory(){
+
+let html="";
+
+products.forEach(function(product,index){
+
+html+=`
+
+<tr>
+
+<td>${product.name}</td>
+
+<td>${product.category}</td>
+
+<td>₹${product.price}</td>
+
+<td>${product.seller}</td>
+
+<td>
+
+<button onclick="editProduct(${index})">
+Edit
+</button>
+
+<button onclick="deleteProduct(${index})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("inventoryTable").innerHTML=html;
+
+}
+
+
+function editProduct(index){
+
+let newPrice=
+prompt(
+"Enter new price:",
+products[index].price
+);
+
+if(newPrice){
+
+products[index].price=Number(newPrice);
+
+}
+
+displayInventory();
+
+}
+
+
+function deleteProduct(index){
+
+if(confirm("Delete this product?")){
+
+products.splice(index,1);
+
+displayInventory();
+
+}
+
+}
+
+
+// ADMIN ORDERS
+
+function displayAdminOrders(){
+
+let html="";
+
+if(orders.length===0){
+
+document.getElementById("adminOrderTable").innerHTML=
+"<tr><td colspan='6'>No orders found</td></tr>";
+
+return;
+
+}
+
+orders.forEach(function(order,index){
+
+html+=`
+
+<tr>
+
+<td>${order.id}</td>
+
+<td>${order.buyer}</td>
+
+<td>₹${order.total}</td>
+
+<td>${order.status}</td>
+
+<td>
+
+<select onchange="updateOrderStatus(${index},this.value)">
+
+<option ${
+order.status==="Shipped"?"selected":""
+}>
+Shipped
+</option>
+
+<option ${
+order.status==="Received"?"selected":""
+}>
+Received
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<button onclick="deleteOrder(${index})">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("adminOrderTable").innerHTML=html;
+
+}
+
+
+// UPDATE ORDER
+
+function updateOrderStatus(index,status){
+
+orders[index].status=status;
+
+displayAdminOrders();
+
+}
+
+
+// DELETE ORDER
+
+function deleteOrder(index){
+
+if(confirm("Delete this order?")){
+
+orders.splice(index,1);
+
+displayAdminOrders();
+
+}
+
+}
+
+
+// INITIAL DISPLAY
+
+displayProducts(products);
+
+</script>
+
+</body>
+</html>
