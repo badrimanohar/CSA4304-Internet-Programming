@@ -1,0 +1,2063 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Home Finder - Real Estate</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#333;
+}
+
+/* HEADER */
+
+header{
+    background:#12355b;
+    color:white;
+    padding:18px 35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+header h1{
+    font-size:25px;
+}
+
+nav button{
+    background:none;
+    border:none;
+    color:white;
+    margin:4px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* COMMON */
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:30px auto;
+}
+
+.page{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 3px 12px #ddd;
+}
+
+h2{
+    color:#12355b;
+    margin-bottom:20px;
+}
+
+h3{
+    margin-bottom:10px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    margin:7px 0 15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    background:#e67e22;
+    color:white;
+    border:none;
+    padding:11px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:3px;
+}
+
+button:hover{
+    background:#c8610d;
+}
+
+/* HERO */
+
+.hero{
+    background:
+    linear-gradient(rgba(18,53,91,.75),rgba(18,53,91,.75)),
+    url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6")
+    center/cover;
+
+    color:white;
+    padding:90px 25px;
+    text-align:center;
+    border-radius:15px;
+}
+
+.hero h2{
+    color:white;
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+/* SEARCH */
+
+.search-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+/* PROPERTIES */
+
+.properties{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.property{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.property img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+}
+
+.property-content{
+    padding:18px;
+}
+
+.property-content h3{
+    color:#12355b;
+}
+
+.price{
+    color:#e67e22;
+    font-size:20px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.tag{
+    display:inline-block;
+    background:#eaf2f8;
+    color:#12355b;
+    padding:5px 9px;
+    border-radius:12px;
+    margin:3px;
+    font-size:12px;
+}
+
+/* AGENTS */
+
+.agents{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.agent{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 3px 10px #ddd;
+}
+
+.agent img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* MAP */
+
+.map{
+    width:100%;
+    height:350px;
+    border:0;
+    border-radius:10px;
+}
+
+/* TABLE */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#12355b;
+    color:white;
+}
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.feature{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 10px #ddd;
+}
+
+/* FOOTER */
+
+footer{
+    background:#12355b;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .properties,
+    .agents{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .search-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .features{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .properties,
+    .agents,
+    .features,
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .hero h2{
+        font-size:28px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+<h1>🏠 Home Finder</h1>
+
+<nav>
+
+<button onclick="showPage('home')">Home</button>
+
+<button onclick="showPage('search')">
+Search
+</button>
+
+<button onclick="showPage('properties')">
+Properties
+</button>
+
+<button onclick="showPage('favorites')">
+Favorites ❤️
+</button>
+
+<button onclick="showPage('agents')">
+Agents
+</button>
+
+<button onclick="showPage('login')">
+Login
+</button>
+
+</nav>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<h2>Find Your Perfect Home</h2>
+
+<p>
+Search houses, apartments and lands in your preferred location and budget.
+</p>
+
+<br>
+
+<button onclick="showPage('search')">
+Find Property
+</button>
+
+</div>
+
+<br>
+
+
+<div class="features">
+
+<div class="feature">
+<h3>🏠 Properties</h3>
+<p>Find residential and commercial properties.</p>
+</div>
+
+<div class="feature">
+<h3>📍 Location</h3>
+<p>Search properties based on location.</p>
+</div>
+
+<div class="feature">
+<h3>💰 Budget</h3>
+<p>Find properties within your budget.</p>
+</div>
+
+<div class="feature">
+<h3>🤝 Agents</h3>
+<p>Connect directly with property agents.</p>
+</div>
+
+</div>
+
+<br>
+
+
+<!-- ADVERTISEMENT -->
+
+<div class="card">
+
+<h2>Featured Advertisement</h2>
+
+<h3>🏡 Premium Apartments Available</h3>
+
+<p>
+Luxury apartments with modern facilities.
+Special offers available for limited time.
+</p>
+
+<button onclick="showPage('properties')">
+View Advertisement
+</button>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+<div class="card">
+
+<h2>Buyer Registration</h2>
+
+<input id="regName"
+placeholder="Full Name">
+
+<input id="regEmail"
+type="email"
+placeholder="Email">
+
+<input id="regPhone"
+placeholder="Phone Number">
+
+<input id="regPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="register()">
+Register
+</button>
+
+<p id="registerMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+<div class="card">
+
+<h2>Buyer Login</h2>
+
+<input id="loginEmail"
+type="email"
+placeholder="Email">
+
+<input id="loginPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="login()">
+Login
+</button>
+
+<button onclick="showPage('register')">
+Create Account
+</button>
+
+<p id="loginMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section id="search" class="page">
+
+<div class="card">
+
+<h2>Search Properties</h2>
+
+<div class="search-grid">
+
+
+<div>
+
+<label>Location</label>
+
+<input id="searchLocation"
+placeholder="Example: Chennai">
+
+</div>
+
+
+<div>
+
+<label>Property Type</label>
+
+<select id="propertyType">
+
+<option value="All">
+All Types
+</option>
+
+<option value="House">
+House
+</option>
+
+<option value="Apartment">
+Apartment
+</option>
+
+<option value="Villa">
+Villa
+</option>
+
+<option value="Land">
+Land
+</option>
+
+<option value="Commercial">
+Commercial
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Maximum Price</label>
+
+<input
+id="maxPrice"
+type="number"
+placeholder="₹ Maximum Budget">
+
+</div>
+
+
+<div>
+
+<label>Bedrooms</label>
+
+<select id="bedrooms">
+
+<option value="All">Any</option>
+<option value="1">1 BHK</option>
+<option value="2">2 BHK</option>
+<option value="3">3 BHK</option>
+<option value="4">4+ BHK</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button onclick="searchProperties()">
+Search Property
+</button>
+
+<button onclick="saveSearch()">
+Save Search Criteria
+</button>
+
+<button onclick="loadSavedSearch()">
+Use Saved Search
+</button>
+
+<p id="searchMsg"></p>
+
+</div>
+
+
+<div id="searchResults"
+class="properties"></div>
+
+</section>
+
+
+<!-- PROPERTY LIST -->
+
+<section id="properties" class="page">
+
+<div class="card">
+
+<h2>Available Properties</h2>
+
+<div id="propertyList"
+class="properties"></div>
+
+</div>
+
+</section>
+
+
+<!-- PROPERTY DETAILS -->
+
+<section id="propertyDetails" class="page">
+
+<div class="card">
+
+<div id="propertyInfo"></div>
+
+</div>
+
+</section>
+
+
+<!-- FAVORITES -->
+
+<section id="favorites" class="page">
+
+<div class="card">
+
+<h2>Saved Properties ❤️</h2>
+
+<div id="favoriteList"
+class="properties"></div>
+
+</div>
+
+</section>
+
+
+<!-- BOOK VIEWING -->
+
+<section id="viewing" class="page">
+
+<div class="card">
+
+<h2>Schedule Property Viewing</h2>
+
+<div id="viewingProperty"></div>
+
+<input
+id="viewingDate"
+type="date">
+
+<select id="viewingTime">
+
+<option>10:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>04:00 PM</option>
+<option>06:00 PM</option>
+
+</select>
+
+<button onclick="scheduleViewing()">
+Book Viewing
+</button>
+
+<p id="viewingMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- AGENTS -->
+
+<section id="agents" class="page">
+
+<div class="card">
+
+<h2>Search Agents / Companies</h2>
+
+<input
+id="agentSearch"
+placeholder="Search Agent or Company"
+onkeyup="searchAgents()">
+
+</div>
+
+<div id="agentList"
+class="agents"></div>
+
+</section>
+
+
+<!-- MAP -->
+
+<section id="map" class="page">
+
+<div class="card">
+
+<h2>Property Location</h2>
+
+<h3 id="mapTitle"></h3>
+
+<iframe
+id="mapFrame"
+class="map"
+src="https://www.google.com/maps?q=Chennai&output=embed">
+</iframe>
+
+</div>
+
+</section>
+
+
+<!-- MORTGAGE -->
+
+<section id="mortgage" class="page">
+
+<div class="card">
+
+<h2>Mortgage Calculator</h2>
+
+<label>Loan Amount</label>
+
+<input
+id="loanAmount"
+type="number"
+placeholder="₹ Loan Amount">
+
+<label>Annual Interest Rate (%)</label>
+
+<input
+id="interest"
+type="number"
+placeholder="Interest Rate">
+
+<label>Loan Period (Years)</label>
+
+<input
+id="years"
+type="number"
+placeholder="Years">
+
+<button onclick="calculateMortgage()">
+Calculate EMI
+</button>
+
+<h3 id="emiResult"></h3>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+
+<div class="card">
+
+<h2>Buyer Profile</h2>
+
+<div id="profileDetails"></div>
+
+</div>
+
+</section>
+
+
+<!-- VIEWINGS -->
+
+<section id="myViewings" class="page">
+
+<div class="card">
+
+<h2>My Property Viewings</h2>
+
+<div id="viewingList"></div>
+
+</div>
+
+</section>
+
+
+<!-- VISITOR RECORD -->
+
+<section id="visitors" class="page">
+
+<div class="card">
+
+<h2>Website Visitor Records</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+<th>Email</th>
+<th>Visit Time</th>
+
+</tr>
+
+</thead>
+
+<tbody id="visitorTable"></tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section id="admin" class="page">
+
+<div class="card">
+
+<h2>Admin Panel</h2>
+
+<button onclick="showPage('properties')">
+Manage Properties
+</button>
+
+<button onclick="showPage('agents')">
+Manage Agents
+</button>
+
+<button onclick="showPage('visitors')">
+View Customers
+</button>
+
+<button onclick="showPage('addProperty')">
+Add Property
+</button>
+
+<button onclick="adminLogout()">
+Logout
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN LOGIN -->
+
+<section id="adminLogin" class="page">
+
+<div class="card">
+
+<h2>Admin Login</h2>
+
+<input
+id="adminUser"
+placeholder="Username">
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Password">
+
+<button onclick="adminLogin()">
+Login
+</button>
+
+<p id="adminMsg"></p>
+
+</div>
+
+</section>
+
+
+<!-- ADD PROPERTY -->
+
+<section id="addProperty" class="page">
+
+<div class="card">
+
+<h2>Add Property Advertisement</h2>
+
+<input
+id="newPropertyName"
+placeholder="Property Name">
+
+<input
+id="newLocation"
+placeholder="Location">
+
+<select id="newType">
+
+<option>House</option>
+<option>Apartment</option>
+<option>Villa</option>
+<option>Land</option>
+<option>Commercial</option>
+
+</select>
+
+<input
+id="newPrice"
+type="number"
+placeholder="Price">
+
+<input
+id="newBedrooms"
+type="number"
+placeholder="Bedrooms">
+
+<input
+id="newImage"
+placeholder="Image URL">
+
+<textarea
+id="newDescription"
+placeholder="Property Description"></textarea>
+
+<button onclick="addProperty()">
+Post Property
+</button>
+
+<p id="propertyMsg"></p>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<footer>
+
+<p>
+© 2026 Home Finder | Online Real Estate Platform
+</p>
+
+</footer>
+
+
+<script>
+
+
+// ======================================
+// PROPERTY DATA
+// ======================================
+
+let properties = [
+
+{
+id:1,
+name:"Luxury Villa",
+location:"Chennai",
+type:"Villa",
+price:8500000,
+bedrooms:4,
+image:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+description:"Beautiful luxury villa with modern facilities and spacious rooms."
+},
+
+{
+id:2,
+name:"Modern Apartment",
+location:"Bangalore",
+type:"Apartment",
+price:4500000,
+bedrooms:2,
+image:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85",
+description:"Modern 2 BHK apartment located near schools and shopping areas."
+},
+
+{
+id:3,
+name:"Independent House",
+location:"Coimbatore",
+type:"House",
+price:5500000,
+bedrooms:3,
+image:"https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
+description:"Spacious independent house with parking and garden."
+},
+
+{
+id:4,
+name:"Residential Land",
+location:"Madurai",
+type:"Land",
+price:2500000,
+bedrooms:0,
+image:"https://images.unsplash.com/photo-1500382017468-9049fed747ef",
+description:"Residential land suitable for building a new home."
+},
+
+{
+id:5,
+name:"Commercial Building",
+location:"Chennai",
+type:"Commercial",
+price:12000000,
+bedrooms:0,
+image:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
+description:"Prime commercial property suitable for office or business."
+},
+
+{
+id:6,
+name:"Premium Apartment",
+location:"Chennai",
+type:"Apartment",
+price:6500000,
+bedrooms:3,
+image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d",
+description:"Premium 3 BHK apartment with excellent amenities."
+}
+
+];
+
+
+// ======================================
+// AGENTS
+// ======================================
+
+let agents=[
+
+{
+name:"Raj Kumar",
+company:"HomePlus Realty",
+location:"Chennai",
+phone:"9876543210",
+image:"https://randomuser.me/api/portraits/men/32.jpg"
+},
+
+{
+name:"Priya Sharma",
+company:"Dream Homes",
+location:"Bangalore",
+phone:"9876501234",
+image:"https://randomuser.me/api/portraits/women/44.jpg"
+},
+
+{
+name:"Arun Kumar",
+company:"City Property Group",
+location:"Coimbatore",
+phone:"9876512345",
+image:"https://randomuser.me/api/portraits/men/45.jpg"
+}
+
+];
+
+
+let favorites=[];
+
+let viewings=[];
+
+
+// ======================================
+// PAGE NAVIGATION
+// ======================================
+
+function showPage(page){
+
+document.querySelectorAll(".page")
+.forEach(function(p){
+
+p.classList.remove("active");
+
+});
+
+document.getElementById(page)
+.classList.add("active");
+
+
+if(page==="properties"){
+
+displayProperties(properties);
+
+}
+
+if(page==="favorites"){
+
+displayFavorites();
+
+}
+
+if(page==="agents"){
+
+displayAgents(agents);
+
+}
+
+if(page==="profile"){
+
+displayProfile();
+
+}
+
+if(page==="myViewings"){
+
+displayViewings();
+
+}
+
+if(page==="visitors"){
+
+displayVisitors();
+
+}
+
+}
+
+
+// ======================================
+// REGISTRATION
+// ======================================
+
+function register(){
+
+let name=
+document.getElementById("regName").value;
+
+let email=
+document.getElementById("regEmail").value;
+
+let phone=
+document.getElementById("regPhone").value;
+
+let password=
+document.getElementById("regPassword").value;
+
+
+if(!name || !email || !phone || !password){
+
+alert("Please fill all fields.");
+
+return;
+
+}
+
+
+localStorage.setItem("hfName",name);
+
+localStorage.setItem("hfEmail",email);
+
+localStorage.setItem("hfPhone",phone);
+
+localStorage.setItem("hfPassword",password);
+
+
+document.getElementById("registerMsg")
+.innerHTML=
+"Registration successful!";
+
+}
+
+
+// ======================================
+// LOGIN
+// ======================================
+
+function login(){
+
+let email=
+document.getElementById("loginEmail").value;
+
+let password=
+document.getElementById("loginPassword").value;
+
+
+if(
+
+email===localStorage.getItem("hfEmail")
+
+&&
+
+password===localStorage.getItem("hfPassword")
+
+){
+
+document.getElementById("loginMsg")
+.innerHTML=
+"Login successful!";
+
+recordVisitor();
+
+showPage("search");
+
+}
+
+else{
+
+document.getElementById("loginMsg")
+.innerHTML=
+"Invalid email or password.";
+
+}
+
+}
+
+
+// ======================================
+// SEARCH PROPERTIES
+// ======================================
+
+function searchProperties(){
+
+let location=
+document.getElementById("searchLocation")
+.value.toLowerCase();
+
+let type=
+document.getElementById("propertyType")
+.value;
+
+let maxPrice=
+document.getElementById("maxPrice")
+.value;
+
+let bedrooms=
+document.getElementById("bedrooms")
+.value;
+
+
+let result=properties.filter(function(p){
+
+return(
+
+(!location ||
+p.location.toLowerCase()
+.includes(location))
+
+&&
+
+(type==="All" || p.type===type)
+
+&&
+
+(!maxPrice ||
+p.price<=Number(maxPrice))
+
+&&
+
+(bedrooms==="All" ||
+p.bedrooms>=Number(bedrooms))
+
+);
+
+});
+
+
+displayProperties(result);
+
+document.getElementById("searchMsg")
+.innerHTML=
+result.length+
+" properties found.";
+
+}
+
+
+// ======================================
+// DISPLAY PROPERTIES
+// ======================================
+
+function displayProperties(list){
+
+let output="";
+
+
+list.forEach(function(p){
+
+output+=`
+
+<div class="property">
+
+<img src="${p.image}">
+
+<div class="property-content">
+
+<h3>${p.name}</h3>
+
+<p>📍 ${p.location}</p>
+
+<p>
+<span class="tag">
+${p.type}
+</span>
+
+<span class="tag">
+${p.bedrooms} BHK
+</span>
+</p>
+
+<p class="price">
+₹${p.price.toLocaleString()}
+</p>
+
+<p>${p.description}</p>
+
+<button onclick="viewProperty(${p.id})">
+View Details
+</button>
+
+<button onclick="addFavorite(${p.id})">
+❤️ Save
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("propertyList")
+.innerHTML=output;
+
+document.getElementById("searchResults")
+.innerHTML=output;
+
+}
+
+
+// ======================================
+// PROPERTY DETAILS
+// ======================================
+
+function viewProperty(id){
+
+let p=
+properties.find(function(x){
+
+return x.id===id;
+
+});
+
+
+document.getElementById("propertyInfo")
+.innerHTML=`
+
+<img src="${p.image}"
+style="width:100%;max-height:400px;object-fit:cover;border-radius:10px">
+
+<br><br>
+
+<h2>${p.name}</h2>
+
+<p><b>Location:</b> ${p.location}</p>
+
+<p><b>Type:</b> ${p.type}</p>
+
+<p><b>Bedrooms:</b> ${p.bedrooms}</p>
+
+<p class="price">
+₹${p.price.toLocaleString()}
+</p>
+
+<p>${p.description}</p>
+
+<br>
+
+<button onclick="bookViewing(${p.id})">
+Schedule Viewing
+</button>
+
+<button onclick="viewMap('${p.location}')">
+View on Google Maps
+</button>
+
+<button onclick="addFavorite(${p.id})">
+❤️ Add Favorite
+</button>
+
+<button onclick="showPage('mortgage')">
+Mortgage Calculator
+</button>
+
+`;
+
+showPage("propertyDetails");
+
+}
+
+
+// ======================================
+// FAVORITES
+// ======================================
+
+function addFavorite(id){
+
+if(!favorites.includes(id)){
+
+favorites.push(id);
+
+alert("Property saved to favorites.");
+
+}
+
+else{
+
+alert("Property already saved.");
+
+}
+
+}
+
+
+function displayFavorites(){
+
+let list=
+properties.filter(function(p){
+
+return favorites.includes(p.id);
+
+});
+
+displayPropertyToElement(
+list,
+"favoriteList"
+);
+
+}
+
+
+function displayPropertyToElement(list,element){
+
+let output="";
+
+
+list.forEach(function(p){
+
+output+=`
+
+<div class="property">
+
+<img src="${p.image}">
+
+<div class="property-content">
+
+<h3>${p.name}</h3>
+
+<p>📍 ${p.location}</p>
+
+<p class="price">
+₹${p.price.toLocaleString()}
+</p>
+
+<button onclick="viewProperty(${p.id})">
+View
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById(element)
+.innerHTML=
+output ||
+"<p>No saved properties.</p>";
+
+}
+
+
+// ======================================
+// SAVE SEARCH
+// ======================================
+
+function saveSearch(){
+
+let criteria={
+
+location:
+document.getElementById("searchLocation").value,
+
+type:
+document.getElementById("propertyType").value,
+
+price:
+document.getElementById("maxPrice").value,
+
+bedrooms:
+document.getElementById("bedrooms").value
+
+};
+
+
+localStorage.setItem(
+"savedSearch",
+JSON.stringify(criteria)
+);
+
+
+document.getElementById("searchMsg")
+.innerHTML=
+"Search criteria saved successfully.";
+
+}
+
+
+// ======================================
+// LOAD SAVED SEARCH
+// ======================================
+
+function loadSavedSearch(){
+
+let saved=
+localStorage.getItem("savedSearch");
+
+
+if(!saved){
+
+alert("No saved search found.");
+
+return;
+
+}
+
+
+let c=
+JSON.parse(saved);
+
+
+document.getElementById("searchLocation")
+.value=c.location;
+
+document.getElementById("propertyType")
+.value=c.type;
+
+document.getElementById("maxPrice")
+.value=c.price;
+
+document.getElementById("bedrooms")
+.value=c.bedrooms;
+
+
+searchProperties();
+
+}
+
+
+// ======================================
+// PROPERTY VIEWING
+// ======================================
+
+let selectedProperty=null;
+
+
+function bookViewing(id){
+
+selectedProperty=
+properties.find(function(p){
+
+return p.id===id;
+
+});
+
+
+document.getElementById("viewingProperty")
+.innerHTML=`
+
+<h3>${selectedProperty.name}</h3>
+
+<p>📍 ${selectedProperty.location}</p>
+
+`;
+
+showPage("viewing");
+
+}
+
+
+function scheduleViewing(){
+
+let date=
+document.getElementById("viewingDate").value;
+
+let time=
+document.getElementById("viewingTime").value;
+
+
+if(!date){
+
+alert("Please select a date.");
+
+return;
+
+}
+
+
+viewings.push({
+
+property:selectedProperty.name,
+
+location:selectedProperty.location,
+
+date:date,
+
+time:time
+
+});
+
+
+document.getElementById("viewingMsg")
+.innerHTML=
+"Property viewing scheduled successfully.";
+
+}
+
+
+// ======================================
+// DISPLAY VIEWINGS
+// ======================================
+
+function displayViewings(){
+
+let output="";
+
+
+viewings.forEach(function(v){
+
+output+=`
+
+<div class="card">
+
+<h3>${v.property}</h3>
+
+<p>📍 ${v.location}</p>
+
+<p>📅 ${v.date}</p>
+
+<p>⏰ ${v.time}</p>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("viewingList")
+.innerHTML=
+output ||
+"<p>No viewings scheduled.</p>";
+
+}
+
+
+// ======================================
+// AGENTS
+// ======================================
+
+function displayAgents(list){
+
+let output="";
+
+
+list.forEach(function(a){
+
+output+=`
+
+<div class="agent">
+
+<img src="${a.image}">
+
+<h3>${a.name}</h3>
+
+<p>${a.company}</p>
+
+<p>📍 ${a.location}</p>
+
+<p>📞 ${a.phone}</p>
+
+<button onclick="contactAgent('${a.name}')">
+Contact
+</button>
+
+</div>
+
+`;
+
+});
+
+
+document.getElementById("agentList")
+.innerHTML=output;
+
+}
+
+
+function searchAgents(){
+
+let text=
+document.getElementById("agentSearch")
+.value.toLowerCase();
+
+
+let result=
+agents.filter(function(a){
+
+return(
+
+a.name.toLowerCase().includes(text)
+
+||
+
+a.company.toLowerCase().includes(text)
+
+||
+
+a.location.toLowerCase().includes(text)
+
+);
+
+});
+
+
+displayAgents(result);
+
+}
+
+
+function contactAgent(name){
+
+alert(
+"Contact request sent to "+name
+);
+
+}
+
+
+// ======================================
+// GOOGLE MAP
+// ======================================
+
+function viewMap(location){
+
+document.getElementById("mapTitle")
+.innerHTML=
+"Property Location: "+location;
+
+document.getElementById("mapFrame")
+.src=
+"https://www.google.com/maps?q="+
+encodeURIComponent(location)+
+"&output=embed";
+
+showPage("map");
+
+}
+
+
+// ======================================
+// MORTGAGE CALCULATOR
+// ======================================
+
+function calculateMortgage(){
+
+let principal=
+Number(
+document.getElementById("loanAmount").value
+);
+
+let annualRate=
+Number(
+document.getElementById("interest").value
+);
+
+let years=
+Number(
+document.getElementById("years").value
+);
+
+
+if(!principal || !annualRate || !years){
+
+alert("Enter all values.");
+
+return;
+
+}
+
+
+let rate=
+annualRate/12/100;
+
+let months=
+years*12;
+
+
+let emi=
+principal*
+rate*
+Math.pow(1+rate,months)/
+(
+Math.pow(1+rate,months)-1
+);
+
+
+document.getElementById("emiResult")
+.innerHTML=
+"Monthly EMI: ₹"+
+emi.toFixed(2);
+
+}
+
+
+// ======================================
+// PROFILE
+// ======================================
+
+function displayProfile(){
+
+let name=
+localStorage.getItem("hfName") ||
+"Not available";
+
+let email=
+localStorage.getItem("hfEmail") ||
+"Not available";
+
+let phone=
+localStorage.getItem("hfPhone") ||
+"Not available";
+
+
+document.getElementById("profileDetails")
+.innerHTML=`
+
+<p><b>Name:</b> ${name}</p>
+
+<p><b>Email:</b> ${email}</p>
+
+<p><b>Phone:</b> ${phone}</p>
+
+<p><b>Saved Properties:</b>
+${favorites.length}
+</p>
+
+<p><b>Scheduled Viewings:</b>
+${viewings.length}
+</p>
+
+`;
+
+}
+
+
+// ======================================
+// VISITOR RECORD
+// ======================================
+
+function recordVisitor(){
+
+let visitors=
+JSON.parse(
+localStorage.getItem("visitors") || "[]"
+);
+
+
+visitors.push({
+
+name:
+localStorage.getItem("hfName"),
+
+email:
+localStorage.getItem("hfEmail"),
+
+time:
+new Date().toLocaleString()
+
+});
+
+
+localStorage.setItem(
+"visitors",
+JSON.stringify(visitors)
+);
+
+}
+
+
+function displayVisitors(){
+
+let visitors=
+JSON.parse(
+localStorage.getItem("visitors") || "[]"
+);
+
+
+let output="";
+
+
+visitors.forEach(function(v){
+
+output+=`
+
+<tr>
+
+<td>${v.name}</td>
+
+<td>${v.email}</td>
+
+<td>${v.time}</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("visitorTable")
+.innerHTML=
+output ||
+"<tr><td colspan='3'>No visitors</td></tr>";
+
+}
+
+
+// ======================================
+// ADMIN LOGIN
+// ======================================
+
+function adminLogin(){
+
+let user=
+document.getElementById("adminUser")
+.value;
+
+let pass=
+document.getElementById("adminPassword")
+.value;
+
+
+if(user==="admin" && pass==="admin123"){
+
+document.getElementById("adminMsg")
+.innerHTML=
+"Admin login successful.";
+
+setTimeout(function(){
+
+showPage("admin");
+
+},500);
+
+}
+
+else{
+
+document.getElementById("adminMsg")
+.innerHTML=
+"Invalid admin credentials.";
+
+}
+
+}
+
+
+function adminLogout(){
+
+showPage("home");
+
+}
+
+
+// ======================================
+// ADD PROPERTY
+// ======================================
+
+function addProperty(){
+
+let name=
+document.getElementById("newPropertyName")
+.value;
+
+let location=
+document.getElementById("newLocation")
+.value;
+
+let type=
+document.getElementById("newType")
+.value;
+
+let price=
+Number(
+document.getElementById("newPrice").value
+);
+
+let bedrooms=
+Number(
+document.getElementById("newBedrooms").value
+);
+
+let image=
+document.getElementById("newImage").value;
+
+let description=
+document.getElementById("newDescription")
+.value;
+
+
+if(
+!name ||
+!location ||
+!price ||
+!image ||
+!description
+){
+
+alert("Please fill all property details.");
+
+return;
+
+}
+
+
+properties.push({
+
+id:properties.length+1,
+
+name:name,
+
+location:location,
+
+type:type,
+
+price:price,
+
+bedrooms:bedrooms,
+
+image:image,
+
+description:description
+
+});
+
+
+document.getElementById("propertyMsg")
+.innerHTML=
+"Property advertisement added successfully.";
+
+}
+
+
+// ======================================
+// INITIAL DISPLAY
+// ======================================
+
+displayProperties(properties);
+
+displayAgents(agents);
+
+</script>
+
+</body>
+</html>
+```
