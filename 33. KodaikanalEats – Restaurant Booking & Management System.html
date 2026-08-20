@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KodaikanalEats | Restaurant Booking System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f6f8f7;
+    color:#222;
+}
+
+header{
+    background:#12372a;
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+
+.logo h1{
+    font-size:27px;
+    color:#a7f3d0;
+}
+
+.logo p{
+    font-size:12px;
+    color:#d1fae5;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#86efac;
+}
+
+.menu-btn{
+    display:none;
+    background:#22c55e;
+    border:none;
+    color:white;
+    padding:9px 13px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    padding:11px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    text-decoration:none;
+    display:inline-block;
+    margin:4px;
+}
+
+.btn-primary{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#15803d;
+}
+
+.btn-dark{
+    background:#12372a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:520px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+
+    background:
+    linear-gradient(
+        rgba(0,40,20,.68),
+        rgba(0,40,20,.68)
+    ),
+    url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:850px;
+    padding:20px;
+}
+
+.hero h2{
+    font-size:52px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:19px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+section{
+    padding:70px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-size:34px;
+    color:#12372a;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:#64748b;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-section{
+    background:white;
+}
+
+.search-box{
+    max-width:900px;
+    margin:auto;
+    background:#f0fdf4;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr auto;
+    gap:12px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:15px;
+}
+
+
+/* =========================
+   RESTAURANTS
+========================= */
+
+.restaurants{
+    background:#f6f8f7;
+}
+
+.restaurant-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+}
+
+.restaurant-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.restaurant-card:hover{
+    transform:translateY(-6px);
+}
+
+.restaurant-card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.restaurant-info{
+    padding:20px;
+}
+
+.restaurant-info h3{
+    color:#12372a;
+    margin-bottom:8px;
+}
+
+.rating{
+    color:#f59e0b;
+    font-weight:bold;
+    margin:7px 0;
+}
+
+.location{
+    color:#64748b;
+    font-size:14px;
+}
+
+.cuisine{
+    color:#475569;
+    margin:8px 0;
+}
+
+.price{
+    color:#16a34a;
+    font-weight:bold;
+}
+
+
+/* =========================
+   ROOMS / SUITES
+========================= */
+
+.rooms{
+    background:white;
+}
+
+.room-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+
+.room-card{
+    background:#f8fafc;
+    padding:25px;
+    border-radius:10px;
+    border-top:4px solid #16a34a;
+}
+
+.room-card h3{
+    color:#12372a;
+    margin-bottom:12px;
+}
+
+.room-card p{
+    line-height:1.7;
+    color:#64748b;
+}
+
+.room-price{
+    font-size:22px;
+    color:#16a34a;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+
+/* =========================
+   AVAILABILITY
+========================= */
+
+.availability{
+    background:#ecfdf5;
+}
+
+.availability-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+.availability-table th,
+.availability-table td{
+    padding:14px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+.availability-table th{
+    background:#12372a;
+    color:white;
+}
+
+.available{
+    color:#16a34a;
+    font-weight:bold;
+}
+
+.unavailable{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+
+/* =========================
+   BOOKING
+========================= */
+
+.booking{
+    background:white;
+}
+
+.form-box{
+    max-width:850px;
+    margin:auto;
+    background:#f8fafc;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+
+/* =========================
+   ROOM BOYS
+========================= */
+
+.staff{
+    background:#f6f8f7;
+}
+
+.staff-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:25px;
+}
+
+.staff-card{
+    background:white;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,.07);
+}
+
+.staff-card .icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.staff-card h3{
+    color:#12372a;
+}
+
+.staff-card p{
+    color:#64748b;
+    margin:8px 0;
+}
+
+
+/* =========================
+   CUSTOMER
+========================= */
+
+.customer{
+    background:white;
+}
+
+.customer-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+}
+
+.customer-card{
+    background:#f0fdf4;
+    padding:25px;
+    border-radius:10px;
+}
+
+.customer-card h3{
+    color:#12372a;
+    margin-bottom:15px;
+}
+
+.customer-card ul{
+    padding-left:20px;
+}
+
+.customer-card li{
+    margin-bottom:9px;
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin{
+    background:#12372a;
+    color:white;
+}
+
+.admin .section-title h2{
+    color:#a7f3d0;
+}
+
+.admin .section-title p{
+    color:#d1fae5;
+}
+
+.admin-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:25px;
+}
+
+.admin-card{
+    background:#1f4d3b;
+    padding:25px;
+    border-radius:10px;
+}
+
+.admin-card h3{
+    color:#a7f3d0;
+    margin-bottom:15px;
+}
+
+.admin-card li{
+    margin-bottom:8px;
+    color:#ecfdf5;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact{
+    background:white;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.contact-info{
+    background:#f0fdf4;
+    padding:30px;
+    border-radius:12px;
+}
+
+.contact-info h3{
+    color:#12372a;
+    margin-bottom:15px;
+}
+
+.contact-info p{
+    margin-bottom:14px;
+    line-height:1.6;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#0b241b;
+    color:white;
+    padding:40px 20px 20px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+
+    gap:25px;
+}
+
+footer h3{
+    color:#86efac;
+    margin-bottom:12px;
+}
+
+footer a{
+    display:block;
+    color:#d1fae5;
+    text-decoration:none;
+    margin:7px 0;
+}
+
+.copyright{
+    text-align:center;
+    border-top:1px solid #36594a;
+    margin-top:30px;
+    padding-top:20px;
+    color:#a7f3d0;
+}
+
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+#message{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#16a34a;
+    color:white;
+    padding:15px 22px;
+    border-radius:7px;
+    display:none;
+    z-index:2000;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    nav{
+        display:none;
+        width:100%;
+    }
+
+    nav.show{
+        display:block;
+    }
+
+    nav ul{
+        flex-direction:column;
+        padding-top:20px;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h2{
+        font-size:38px;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .section-title h2{
+        font-size:28px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+
+<h1>🍽️ KodaikanalEats</h1>
+
+<p>Discover • Dine • Reserve</p>
+
+</div>
+
+
+<button
+class="menu-btn"
+onclick="toggleMenu()">
+
+☰ Menu
+
+</button>
+
+
+<nav id="navMenu">
+
+<ul>
+
+<li>
+<a href="#home">Home</a>
+</li>
+
+<li>
+<a href="#restaurants">Restaurants</a>
+</li>
+
+<li>
+<a href="#rooms">Suites</a>
+</li>
+
+<li>
+<a href="#availability">Availability</a>
+</li>
+
+<li>
+<a href="#booking">Booking</a>
+</li>
+
+<li>
+<a href="#customer">Customer</a>
+</li>
+
+<li>
+<a href="#admin">Admin</a>
+</li>
+
+<li>
+<a href="#contact">Contact</a>
+</li>
+
+</ul>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section
+class="hero"
+id="home">
+
+<div class="hero-content">
+
+<h2>
+Taste the Magic of Kodaikanal
+</h2>
+
+<p>
+Explore the finest restaurants, cafes and dining
+experiences in the beautiful hill town of Kodaikanal.
+</p>
+
+<a
+href="#restaurants"
+class="btn btn-primary">
+
+Explore Restaurants
+
+</a>
+
+<a
+href="#booking"
+class="btn btn-dark">
+
+Book a Table
+
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SEARCH
+========================= -->
+
+<section
+class="search-section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Find Your Perfect Restaurant</h2>
+
+<p>
+Search restaurants by cuisine, location and rating.
+</p>
+
+</div>
+
+
+<div class="search-box">
+
+<div class="search-grid">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search restaurant...">
+
+
+<select id="cuisineFilter">
+
+<option value="">
+All Cuisines
+</option>
+
+<option value="South Indian">
+South Indian
+</option>
+
+<option value="North Indian">
+North Indian
+</option>
+
+<option value="Chinese">
+Chinese
+</option>
+
+<option value="Italian">
+Italian
+</option>
+
+<option value="Cafe">
+Cafe
+</option>
+
+</select>
+
+
+<select id="ratingFilter">
+
+<option value="">
+Any Rating
+</option>
+
+<option value="4">
+4+ Stars
+</option>
+
+<option value="4.5">
+4.5+ Stars
+</option>
+
+</select>
+
+
+<button
+class="btn btn-primary"
+onclick="searchRestaurants()">
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     RESTAURANTS
+========================= -->
+
+<section
+class="restaurants"
+id="restaurants">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Popular Restaurants</h2>
+
+<p>
+Discover popular dining destinations in Kodaikanal.
+</p>
+
+</div>
+
+
+<div
+class="restaurant-grid"
+id="restaurantGrid">
+
+
+<!-- Restaurant 1 -->
+
+<div
+class="restaurant-card"
+data-name="Hilltop Spice"
+data-cuisine="South Indian"
+data-rating="4.7">
+
+<img
+src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80">
+
+<div class="restaurant-info">
+
+<h3>Hilltop Spice</h3>
+
+<div class="rating">
+★★★★★ 4.7
+</div>
+
+<p class="location">
+📍 Observatory Road
+</p>
+
+<p class="cuisine">
+South Indian • Vegetarian
+</p>
+
+<p class="price">
+₹₹
+</p>
+
+<button
+class="btn btn-primary"
+onclick="chooseRestaurant('Hilltop Spice')">
+
+Book Table
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- Restaurant 2 -->
+
+<div
+class="restaurant-card"
+data-name="Cloud Kitchen"
+data-cuisine="Chinese"
+data-rating="4.5">
+
+<img
+src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=700&q=80">
+
+<div class="restaurant-info">
+
+<h3>Cloud Kitchen</h3>
+
+<div class="rating">
+★★★★★ 4.5
+</div>
+
+<p class="location">
+📍 Lake Road
+</p>
+
+<p class="cuisine">
+Chinese • Asian
+</p>
+
+<p class="price">
+₹₹₹
+</p>
+
+<button
+class="btn btn-primary"
+onclick="chooseRestaurant('Cloud Kitchen')">
+
+Book Table
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- Restaurant 3 -->
+
+<div
+class="restaurant-card"
+data-name="Green Valley Cafe"
+data-cuisine="Cafe"
+data-rating="4.8">
+
+<img
+src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=700&q=80">
+
+<div class="restaurant-info">
+
+<h3>Green Valley Cafe</h3>
+
+<div class="rating">
+★★★★★ 4.8
+</div>
+
+<p class="location">
+📍 Coaker's Walk
+</p>
+
+<p class="cuisine">
+Cafe • Desserts • Snacks
+</p>
+
+<p class="price">
+₹
+</p>
+
+<button
+class="btn btn-primary"
+onclick="chooseRestaurant('Green Valley Cafe')">
+
+Book Table
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- Restaurant 4 -->
+
+<div
+class="restaurant-card"
+data-name="Italian Garden"
+data-cuisine="Italian"
+data-rating="4.6">
+
+<img
+src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80">
+
+<div class="restaurant-info">
+
+<h3>Italian Garden</h3>
+
+<div class="rating">
+★★★★★ 4.6
+</div>
+
+<p class="location">
+📍 Bear Shola Road
+</p>
+
+<p class="cuisine">
+Italian • Continental
+</p>
+
+<p class="price">
+₹₹₹
+</p>
+
+<button
+class="btn btn-primary"
+onclick="chooseRestaurant('Italian Garden')">
+
+Book Table
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     SUITE DETAILS
+========================= -->
+
+<section
+class="rooms"
+id="rooms">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Accommodation / Suite Details</h2>
+
+<p>
+Choose accommodation according to your requirements.
+</p>
+
+</div>
+
+
+<div class="room-grid">
+
+
+<div class="room-card">
+
+<h3>Single Room</h3>
+
+<p>
+Comfortable room suitable for one guest.
+Includes Wi-Fi, breakfast and room service.
+</p>
+
+<div class="room-price">
+₹2,000 / night
+</div>
+
+<button
+class="btn btn-primary"
+onclick="selectRoom('Single Room')">
+
+Select
+
+</button>
+
+</div>
+
+
+<div class="room-card">
+
+<h3>Double Room</h3>
+
+<p>
+Spacious room suitable for couples or two guests.
+Includes breakfast and essential facilities.
+</p>
+
+<div class="room-price">
+₹3,500 / night
+</div>
+
+<button
+class="btn btn-primary"
+onclick="selectRoom('Double Room')">
+
+Select
+
+</button>
+
+</div>
+
+
+<div class="room-card">
+
+<h3>Deluxe Room</h3>
+
+<p>
+Premium room with mountain views,
+extra space and upgraded facilities.
+</p>
+
+<div class="room-price">
+₹5,000 / night
+</div>
+
+<button
+class="btn btn-primary"
+onclick="selectRoom('Deluxe Room')">
+
+Select
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     AVAILABILITY
+========================= -->
+
+<section
+class="availability"
+id="availability">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Rooms Availability</h2>
+
+<p>
+Current room availability information.
+</p>
+
+</div>
+
+
+<table
+class="availability-table">
+
+<thead>
+
+<tr>
+
+<th>Room Type</th>
+<th>Total Rooms</th>
+<th>Available</th>
+<th>Price</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>Single Room</td>
+<td>20</td>
+<td>8</td>
+<td>₹2,000</td>
+<td class="available">
+Available
+</td>
+
+</tr>
+
+<tr>
+
+<td>Double Room</td>
+<td>15</td>
+<td>5</td>
+<td>₹3,500</td>
+<td class="available">
+Available
+</td>
+
+</tr>
+
+<tr>
+
+<td>Deluxe Room</td>
+<td>10</td>
+<td>2</td>
+<td>₹5,000</td>
+<td class="available">
+Limited
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     BOOKING
+========================= -->
+
+<section
+class="booking"
+id="booking">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Online Booking System</h2>
+
+<p>
+Book your restaurant table or accommodation online.
+</p>
+
+</div>
+
+
+<div class="form-box">
+
+<form
+id="bookingForm"
+onsubmit="submitBooking(event)">
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>
+Customer Name
+</label>
+
+<input
+type="text"
+id="customerName"
+placeholder="Enter your name"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Phone Number
+</label>
+
+<input
+type="tel"
+placeholder="Enter phone number"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+placeholder="Enter email"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Booking Type
+</label>
+
+<select
+id="bookingType"
+required>
+
+<option value="">
+Select booking type
+</option>
+
+<option value="Restaurant Table">
+Restaurant Table
+</option>
+
+<option value="Room">
+Room
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>
+Restaurant
+</label>
+
+<select
+id="restaurantSelect">
+
+<option value="">
+Select restaurant
+</option>
+
+<option>
+Hilltop Spice
+</option>
+
+<option>
+Cloud Kitchen
+</option>
+
+<option>
+Green Valley Cafe
+</option>
+
+<option>
+Italian Garden
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Room Type
+</label>
+
+<select
+id="roomSelect">
+
+<option value="">
+Select room
+</option>
+
+<option>
+Single Room
+</option>
+
+<option>
+Double Room
+</option>
+
+<option>
+Deluxe Room
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>
+Booking Date
+</label>
+
+<input
+type="date"
+id="bookingDate"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Booking Time
+</label>
+
+<input
+type="time"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Number of Guests
+</label>
+
+<input
+type="number"
+min="1"
+max="20"
+value="2"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Season
+</label>
+
+<select>
+
+<option>
+Non-Seasonal
+</option>
+
+<option>
+Seasonal
+</option>
+
+</select>
+
+</div>
+
+
+<button
+type="submit"
+class="btn btn-primary">
+
+Confirm Booking
+
+</button>
+
+<button
+type="reset"
+class="btn btn-dark">
+
+Reset
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ROOM BOYS
+========================= -->
+
+<section
+class="staff">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Room Boys Availability</h2>
+
+<p>
+Available staff for accommodation services.
+</p>
+
+</div>
+
+
+<div class="staff-grid">
+
+
+<div class="staff-card">
+
+<div class="icon">
+👨‍💼
+</div>
+
+<h3>Arun</h3>
+
+<p>
+Room Service
+</p>
+
+<p>
+Status:
+<strong style="color:#16a34a">
+Available
+</strong>
+</p>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="icon">
+👨‍💼
+</div>
+
+<h3>Karthik</h3>
+
+<p>
+Housekeeping
+</p>
+
+<p>
+Status:
+<strong style="color:#16a34a">
+Available
+</strong>
+</p>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="icon">
+👨‍💼
+</div>
+
+<h3>Vijay</h3>
+
+<p>
+Guest Assistance
+</p>
+
+<p>
+Status:
+<strong style="color:#dc2626">
+Busy
+</strong>
+</p>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="icon">
+👨‍💼
+</div>
+
+<h3>Rahul</h3>
+
+<p>
+Room Service
+</p>
+
+<p>
+Status:
+<strong style="color:#16a34a">
+Available
+</strong>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CUSTOMER
+========================= -->
+
+<section
+class="customer"
+id="customer">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Customer Details</h2>
+
+<p>
+Customer registration, booking and review management.
+</p>
+
+</div>
+
+
+<div class="customer-grid">
+
+
+<div class="customer-card">
+
+<h3>👤 Customer Registration</h3>
+
+<ul>
+
+<li>Name</li>
+<li>Email</li>
+<li>Phone Number</li>
+<li>Password</li>
+<li>Address</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Customer registration selected.')">
+
+Register
+
+</button>
+
+</div>
+
+
+<div class="customer-card">
+
+<h3>🔐 Customer Login</h3>
+
+<ul>
+
+<li>Email / Username</li>
+<li>Password</li>
+<li>Forgot Password</li>
+<li>Secure Login</li>
+
+</ul>
+
+<button
+class="btn btn-dark"
+onclick="showMessage('Customer login selected.')">
+
+Login
+
+</button>
+
+</div>
+
+
+<div class="customer-card">
+
+<h3>📅 My Bookings</h3>
+
+<ul>
+
+<li>Restaurant Bookings</li>
+<li>Room Bookings</li>
+<li>Booking Date</li>
+<li>Booking Status</li>
+<li>Cancellation</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('My bookings opened.')">
+
+View Bookings
+
+</button>
+
+</div>
+
+
+<div class="customer-card">
+
+<h3>⭐ Reviews</h3>
+
+<ul>
+
+<li>Restaurant Rating</li>
+<li>Food Review</li>
+<li>Service Review</li>
+<li>Overall Rating</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Review form opened.')">
+
+Give Review
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<section
+class="admin"
+id="admin">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Admin Management</h2>
+
+<p>
+Administrative modules for managing KodaikanalEats.
+</p>
+
+</div>
+
+
+<div class="admin-grid">
+
+
+<div class="admin-card">
+
+<h3>👨‍💼 Admin Details</h3>
+
+<ul>
+
+<li>Admin Registration</li>
+<li>Admin Login</li>
+<li>Profile Management</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Admin login selected.')">
+
+Admin Login
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>🍽️ Restaurant Management</h3>
+
+<ul>
+
+<li>Add Restaurant</li>
+<li>Update Restaurant</li>
+<li>Delete Restaurant</li>
+<li>Manage Menu</li>
+<li>Manage Ratings</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Restaurant management opened.')">
+
+Manage Restaurants
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>🏨 Room Management</h3>
+
+<ul>
+
+<li>Single Room</li>
+<li>Double Room</li>
+<li>Deluxe Room</li>
+<li>Room Availability</li>
+<li>Room Pricing</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Room management opened.')">
+
+Manage Rooms
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>📊 Booking Management</h3>
+
+<ul>
+
+<li>View Bookings</li>
+<li>Approve Booking</li>
+<li>Cancel Booking</li>
+<li>Customer Details</li>
+<li>Booking Reports</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Booking management opened.')">
+
+View Bookings
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>👨‍💼 Staff Management</h3>
+
+<ul>
+
+<li>Add Room Boys</li>
+<li>Update Staff</li>
+<li>Availability</li>
+<li>Assign Work</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Staff management opened.')">
+
+Manage Staff
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>📈 Reports</h3>
+
+<ul>
+
+<li>Daily Booking Report</li>
+<li>Monthly Report</li>
+<li>Seasonal Report</li>
+<li>Customer Report</li>
+
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="generateReport()">
+
+Generate Report
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+class="contact"
+id="contact">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Contact Us</h2>
+
+<p>
+Need help with restaurant reservations?
+Contact KodaikanalEats.
+</p>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<div class="contact-info">
+
+<h3>📍 KodaikanalEats</h3>
+
+<p>
+<strong>Address:</strong><br>
+Lake Road, Kodaikanal,
+Tamil Nadu, India
+</p>
+
+<p>
+<strong>Phone:</strong><br>
++91 98765 43210
+</p>
+
+<p>
+<strong>Email:</strong><br>
+support@kodaikanaleats.com
+</p>
+
+<p>
+<strong>Working Hours:</strong><br>
+9:00 AM - 10:00 PM
+</p>
+
+</div>
+
+
+<div class="contact-info">
+
+<h3>📩 Send an Inquiry</h3>
+
+<form
+onsubmit="sendContact(event)">
+
+
+<div class="form-group">
+
+<label>
+Name
+</label>
+
+<input
+type="text"
+id="contactName"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Message
+</label>
+
+<textarea
+required
+placeholder="Write your message..."></textarea>
+
+</div>
+
+
+<button
+type="submit"
+class="btn btn-primary">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+
+<div>
+
+<h3>KodaikanalEats</h3>
+
+<p>
+Your online platform for discovering
+and booking restaurants in Kodaikanal.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="#home">Home</a>
+<a href="#restaurants">Restaurants</a>
+<a href="#rooms">Suites</a>
+<a href="#booking">Booking</a>
+
+</div>
+
+
+<div>
+
+<h3>Customer</h3>
+
+<a href="#customer">Register</a>
+<a href="#customer">Login</a>
+<a href="#customer">My Bookings</a>
+<a href="#customer">Reviews</a>
+
+</div>
+
+
+<div>
+
+<h3>Support</h3>
+
+<a href="#contact">Contact Us</a>
+<a href="#admin">Admin</a>
+<a href="#availability">Availability</a>
+
+</div>
+
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 KodaikanalEats. All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<!-- MESSAGE -->
+
+<div id="message"></div>
+
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu(){
+
+    document
+    .getElementById("navMenu")
+    .classList.toggle("show");
+
+}
+
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+function showMessage(text){
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+    setTimeout(function(){
+
+        message.style.display = "none";
+
+    },3500);
+
+}
+
+
+/* =========================
+   SEARCH RESTAURANTS
+========================= */
+
+function searchRestaurants(){
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const cuisine =
+        document
+        .getElementById("cuisineFilter")
+        .value;
+
+    const rating =
+        parseFloat(
+            document
+            .getElementById("ratingFilter")
+            .value
+        ) || 0;
+
+    const cards =
+        document.querySelectorAll(
+            ".restaurant-card"
+        );
+
+    let count = 0;
+
+    cards.forEach(function(card){
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        const cardCuisine =
+            card.dataset.cuisine;
+
+        const cardRating =
+            parseFloat(card.dataset.rating);
+
+        const matchesSearch =
+            name.includes(search);
+
+        const matchesCuisine =
+            cuisine === "" ||
+            cardCuisine === cuisine;
+
+        const matchesRating =
+            cardRating >= rating;
+
+        if(
+            matchesSearch &&
+            matchesCuisine &&
+            matchesRating
+        ){
+
+            card.style.display = "block";
+
+            count++;
+
+        }
+        else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+
+    if(count === 0){
+
+        showMessage(
+            "No restaurants found."
+        );
+
+    }
+    else{
+
+        showMessage(
+            count +
+            " restaurant(s) found."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   CHOOSE RESTAURANT
+========================= */
+
+function chooseRestaurant(name){
+
+    document
+    .getElementById("restaurantSelect")
+    .value = name;
+
+    document
+    .getElementById("bookingType")
+    .value = "Restaurant Table";
+
+    document
+    .getElementById("booking")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    showMessage(
+        name +
+        " selected for booking."
+    );
+
+}
+
+
+/* =========================
+   SELECT ROOM
+========================= */
+
+function selectRoom(room){
+
+    document
+    .getElementById("roomSelect")
+    .value = room;
+
+    document
+    .getElementById("bookingType")
+    .value = "Room";
+
+    document
+    .getElementById("booking")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    showMessage(
+        room +
+        " selected."
+    );
+
+}
+
+
+/* =========================
+   BOOKING FORM
+========================= */
+
+function submitBooking(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("customerName")
+        .value;
+
+    const bookingType =
+        document
+        .getElementById("bookingType")
+        .value;
+
+    const date =
+        document
+        .getElementById("bookingDate")
+        .value;
+
+    if(!date){
+
+        showMessage(
+            "Please select a booking date."
+        );
+
+        return;
+
+    }
+
+
+    showMessage(
+        "Thank you " +
+        name +
+        "! Your " +
+        bookingType +
+        " booking has been submitted for " +
+        date +
+        "."
+    );
+
+
+    document
+    .getElementById("bookingForm")
+    .reset();
+
+}
+
+
+/* =========================
+   GENERATE REPORT
+========================= */
+
+function generateReport(){
+
+    const report =
+        "Daily Booking Report\n\n" +
+        "Restaurant Bookings: 18\n" +
+        "Room Bookings: 9\n" +
+        "Customers: 25\n" +
+        "Available Rooms: 15";
+
+    alert(report);
+
+    showMessage(
+        "Booking report generated successfully."
+    );
+
+}
+
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+function sendContact(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("contactName")
+        .value;
+
+    showMessage(
+        "Thank you " +
+        name +
+        "! Your inquiry has been sent."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   INITIAL DATE
+========================= */
+
+const today =
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+document
+.getElementById("bookingDate")
+.min = today;
+
+</script>
+
+</body>
+</html>

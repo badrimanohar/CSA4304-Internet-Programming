@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ram Infotech | Laptop Sales & Service</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f5f7fb;
+    color:#222;
+}
+
+header{
+    background:#111827;
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+
+.logo h1{
+    color:#38bdf8;
+    font-size:28px;
+}
+
+.logo span{
+    color:white;
+}
+
+.logo p{
+    font-size:12px;
+    color:#cbd5e1;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#38bdf8;
+}
+
+.menu-btn{
+    display:none;
+    background:#38bdf8;
+    border:0;
+    padding:9px 13px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.hero{
+    min-height:500px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    padding:60px 20px;
+    background:
+    linear-gradient(rgba(15,23,42,.75),rgba(15,23,42,.75)),
+    url("https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.hero h2{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:19px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+.btn{
+    border:0;
+    padding:12px 22px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:5px;
+    text-decoration:none;
+    display:inline-block;
+}
+
+.btn-primary{
+    background:#38bdf8;
+    color:#082f49;
+}
+
+.btn-primary:hover{
+    background:#0ea5e9;
+}
+
+.btn-dark{
+    background:#111827;
+    color:white;
+}
+
+.btn-green{
+    background:#16a34a;
+    color:white;
+}
+
+section{
+    padding:70px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-size:34px;
+    color:#111827;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:#64748b;
+}
+
+/* STATS */
+
+.stats{
+    background:#0f172a;
+    color:white;
+    padding:35px 20px;
+}
+
+.stats-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    text-align:center;
+}
+
+.stat h3{
+    font-size:34px;
+    color:#38bdf8;
+}
+
+/* ABOUT */
+
+.about{
+    background:white;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    align-items:center;
+}
+
+.about-img img{
+    width:100%;
+    height:370px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.about-text h3{
+    font-size:28px;
+    color:#111827;
+    margin-bottom:15px;
+}
+
+.about-text p{
+    color:#555;
+    line-height:1.8;
+    margin-bottom:15px;
+}
+
+/* LAPTOPS */
+
+.products{
+    background:#eef6ff;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
+}
+
+.product-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-7px);
+}
+
+.product-card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:20px;
+}
+
+.product-info h3{
+    color:#111827;
+    margin-bottom:8px;
+}
+
+.spec{
+    color:#64748b;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.price{
+    font-size:21px;
+    color:#0284c7;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+/* SERVICES */
+
+.services{
+    background:white;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
+}
+
+.service-card{
+    background:#f8fafc;
+    padding:28px;
+    border-radius:10px;
+    text-align:center;
+    border-bottom:4px solid #38bdf8;
+}
+
+.service-card .icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.service-card h3{
+    margin-bottom:10px;
+    color:#111827;
+}
+
+.service-card p{
+    color:#64748b;
+    line-height:1.6;
+}
+
+/* FORM */
+
+.form-section{
+    background:#eef6ff;
+}
+
+.form-box{
+    max-width:750px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:100px;
+}
+
+/* MANAGEMENT */
+
+.management{
+    background:white;
+}
+
+.management-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+.management-card{
+    background:#f8fafc;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.management-card h3{
+    color:#0284c7;
+    margin-bottom:15px;
+}
+
+.management-card ul{
+    padding-left:20px;
+}
+
+.management-card li{
+    margin-bottom:8px;
+}
+
+/* RENTAL */
+
+.rental{
+    background:#eef6ff;
+}
+
+.rental-box{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+}
+
+.rental-box h3{
+    color:#0284c7;
+    margin-bottom:15px;
+}
+
+.rental-box p{
+    line-height:1.8;
+    color:#555;
+}
+
+/* STOCK */
+
+.stock-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.stock-table th,
+.stock-table td{
+    padding:14px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+.stock-table th{
+    background:#111827;
+    color:white;
+}
+
+.stock-table tr:nth-child(even){
+    background:#f8fafc;
+}
+
+/* CONTACT */
+
+.contact{
+    background:white;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.contact-box{
+    background:#f8fafc;
+    padding:30px;
+    border-radius:12px;
+}
+
+.contact-box h3{
+    color:#0284c7;
+    margin-bottom:18px;
+}
+
+.contact-box p{
+    margin-bottom:14px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111827;
+    color:white;
+    padding:40px 20px 20px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+}
+
+footer h3{
+    color:#38bdf8;
+    margin-bottom:12px;
+}
+
+footer a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    margin:7px 0;
+}
+
+.copyright{
+    text-align:center;
+    border-top:1px solid #475569;
+    margin-top:30px;
+    padding-top:20px;
+    color:#cbd5e1;
+}
+
+/* MESSAGE */
+
+#message{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#16a34a;
+    color:white;
+    padding:15px 22px;
+    border-radius:7px;
+    display:none;
+    z-index:2000;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    nav{
+        display:none;
+        width:100%;
+    }
+
+    nav.show{
+        display:block;
+    }
+
+    nav ul{
+        flex-direction:column;
+        padding-top:20px;
+    }
+
+    .about-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h2{
+        font-size:38px;
+    }
+
+    .stock-table{
+        font-size:13px;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .section-title h2{
+        font-size:28px;
+    }
+
+    .stock-table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+<div class="navbar">
+
+    <div class="logo">
+        <h1>Ram <span>Infotech</span></h1>
+        <p>Laptop Sales • Service • Support</p>
+    </div>
+
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+
+    <nav id="navMenu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#laptops">Laptops</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#purchase">Purchase</a></li>
+            <li><a href="#rental">Rental</a></li>
+            <li><a href="#stock">Stock</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+</div>
+</header>
+
+
+<!-- HOME -->
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+    <h2>Your Trusted Laptop Partner</h2>
+
+    <p>
+        Buy the latest laptops, schedule professional repairs,
+        manage services and get reliable technical support
+        from Ram Infotech.
+    </p>
+
+    <a href="#laptops" class="btn btn-primary">
+        Explore Laptops
+    </a>
+
+    <a href="#services" class="btn btn-dark">
+        Book a Service
+    </a>
+
+</div>
+
+</section>
+
+
+<!-- STATS -->
+<section class="stats">
+
+<div class="stats-grid">
+
+    <div class="stat">
+        <h3>500+</h3>
+        <p>Laptops Sold</p>
+    </div>
+
+    <div class="stat">
+        <h3>1000+</h3>
+        <p>Customers</p>
+    </div>
+
+    <div class="stat">
+        <h3>10+</h3>
+        <p>Years Experience</p>
+    </div>
+
+    <div class="stat">
+        <h3>24/7</h3>
+        <p>Customer Support</p>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+<div class="container">
+
+<div class="section-title">
+    <h2>About Ram Infotech</h2>
+    <p>Technology solutions for laptops and computer services.</p>
+</div>
+
+<div class="about-grid">
+
+<div class="about-img">
+    <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80"
+         alt="Laptop Service">
+</div>
+
+<div class="about-text">
+
+    <h3>Quality Products & Professional Service</h3>
+
+    <p>
+        Ram Infotech provides laptop sales, repair and maintenance
+        services for students, professionals, businesses and
+        organizations.
+    </p>
+
+    <p>
+        Customers can browse laptops based on model,
+        configuration, price and specifications.
+    </p>
+
+    <p>
+        Our service centre provides hardware repair,
+        software installation, operating system support,
+        cleaning and maintenance.
+    </p>
+
+    <a href="#purchase" class="btn btn-primary">
+        Start Shopping
+    </a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- LAPTOP PRODUCTS -->
+<section class="products" id="laptops">
+
+<div class="container">
+
+<div class="section-title">
+    <h2>Laptop Collection</h2>
+    <p>Choose a laptop according to your requirements.</p>
+</div>
+
+<div class="product-grid">
+
+<!-- Laptop 1 -->
+<div class="product-card">
+
+<img src="https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?auto=format&fit=crop&w=700&q=80">
+
+<div class="product-info">
+
+<h3>Student Pro 14</h3>
+
+<p class="spec">
+Intel Core i5<br>
+8GB RAM<br>
+512GB SSD<br>
+14-inch Full HD Display
+</p>
+
+<div class="price">₹52,999</div>
+
+<button class="btn btn-primary"
+onclick="selectLaptop('Student Pro 14')">
+Buy Now
+</button>
+
+</div>
+</div>
+
+
+<!-- Laptop 2 -->
+<div class="product-card">
+
+<img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=700&q=80">
+
+<div class="product-info">
+
+<h3>Business Pro 15</h3>
+
+<p class="spec">
+Intel Core i7<br>
+16GB RAM<br>
+512GB SSD<br>
+15.6-inch Full HD
+</p>
+
+<div class="price">₹78,999</div>
+
+<button class="btn btn-primary"
+onclick="selectLaptop('Business Pro 15')">
+Buy Now
+</button>
+
+</div>
+</div>
+
+
+<!-- Laptop 3 -->
+<div class="product-card">
+
+<img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=700&q=80">
+
+<div class="product-info">
+
+<h3>Gaming X15</h3>
+
+<p class="spec">
+Intel Core i7<br>
+16GB RAM<br>
+1TB SSD<br>
+Dedicated Graphics
+</p>
+
+<div class="price">₹99,999</div>
+
+<button class="btn btn-primary"
+onclick="selectLaptop('Gaming X15')">
+Buy Now
+</button>
+
+</div>
+</div>
+
+
+<!-- Laptop 4 -->
+<div class="product-card">
+
+<img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=80">
+
+<div class="product-info">
+
+<h3>UltraBook Air</h3>
+
+<p class="spec">
+Intel Core i5<br>
+16GB RAM<br>
+512GB SSD<br>
+14-inch Display
+</p>
+
+<div class="price">₹69,999</div>
+
+<button class="btn btn-primary"
+onclick="selectLaptop('UltraBook Air')">
+Buy Now
+</button>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SERVICES -->
+<section class="services" id="services">
+
+<div class="container">
+
+<div class="section-title">
+    <h2>Laptop Services</h2>
+    <p>Professional laptop maintenance and repair services.</p>
+</div>
+
+<div class="service-grid">
+
+<div class="service-card">
+    <div class="icon">🔧</div>
+    <h3>Hardware Repair</h3>
+    <p>
+        Laptop screen, keyboard, battery,
+        motherboard and other hardware repairs.
+    </p>
+</div>
+
+<div class="service-card">
+    <div class="icon">💻</div>
+    <h3>Software Installation</h3>
+    <p>
+        Operating system installation,
+        drivers and required software setup.
+    </p>
+</div>
+
+<div class="service-card">
+    <div class="icon">🛡️</div>
+    <h3>Virus Removal</h3>
+    <p>
+        Malware detection, virus removal
+        and system security support.
+    </p>
+</div>
+
+<div class="service-card">
+    <div class="icon">⚡</div>
+    <h3>Performance Upgrade</h3>
+    <p>
+        RAM, SSD and other upgrades to
+        improve laptop performance.
+    </p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SERVICE BOOKING -->
+<section class="form-section" id="purchase">
+
+<div class="section-title">
+
+<h2>Customer Purchase / Service Form</h2>
+
+<p>
+Purchase a laptop or schedule a service appointment.
+</p>
+
+</div>
+
+<div class="form-box">
+
+<form id="customerForm"
+onsubmit="submitCustomerForm(event)">
+
+<div class="form-group">
+
+<label>Customer Name</label>
+
+<input type="text"
+id="customerName"
+placeholder="Enter customer name"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email"
+placeholder="Enter email address"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input type="tel"
+placeholder="Enter phone number"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Select Requirement</label>
+
+<select id="requirement"
+required>
+
+<option value="">-- Select --</option>
+
+<option value="Laptop Purchase">
+Laptop Purchase
+</option>
+
+<option value="Laptop Service">
+Laptop Service
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Laptop Model / Service Required</label>
+
+<input type="text"
+id="model"
+placeholder="Enter laptop model or service">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Additional Details</label>
+
+<textarea
+placeholder="Enter additional information"></textarea>
+
+</div>
+
+
+<button type="submit"
+class="btn btn-primary">
+
+Submit Request
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- MANAGEMENT -->
+<section class="management">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>System Management</h2>
+
+<p>
+Modules included in the Ram Infotech management system.
+</p>
+
+</div>
+
+
+<div class="management-grid">
+
+
+<div class="management-card">
+
+<h3>👨‍💼 Admin Details</h3>
+
+<ul>
+<li>Admin Registration</li>
+<li>Admin Login</li>
+<li>Manage Products</li>
+<li>Manage Customers</li>
+<li>Manage Services</li>
+</ul>
+
+<button class="btn btn-dark"
+onclick="showMessage('Admin Login module selected.')">
+
+Admin Login
+
+</button>
+
+</div>
+
+
+<div class="management-card">
+
+<h3>💻 Sales Management</h3>
+
+<ul>
+<li>Laptop Details</li>
+<li>Laptop Models</li>
+<li>Configuration</li>
+<li>Pricing</li>
+<li>Customer Purchase</li>
+</ul>
+
+<button class="btn btn-primary"
+onclick="showMessage('Laptop sales module selected.')">
+
+Manage Sales
+
+</button>
+
+</div>
+
+
+<div class="management-card">
+
+<h3>🔧 Service Management</h3>
+
+<ul>
+<li>Service Information</li>
+<li>Repair Requests</li>
+<li>Service Status</li>
+<li>Service Charges</li>
+<li>Customer Service History</li>
+</ul>
+
+<button class="btn btn-primary"
+onclick="showMessage('Service management module selected.')">
+
+Manage Services
+
+</button>
+
+</div>
+
+
+<div class="management-card">
+
+<h3>👥 Customer Information</h3>
+
+<ul>
+<li>Customer Registration</li>
+<li>Purchase Details</li>
+<li>Service Details</li>
+<li>Contact Information</li>
+<li>Customer History</li>
+</ul>
+
+<button class="btn btn-primary"
+onclick="showMessage('Customer information module selected.')">
+
+View Customers
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RENTAL AGREEMENT -->
+<section class="rental" id="rental">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Laptop Rental Agreement</h2>
+
+<p>
+Manage laptop rental information and agreement details.
+</p>
+
+</div>
+
+<div class="rental-box">
+
+<h3>Rental Agreement Information</h3>
+
+<p>
+Ram Infotech provides laptops for short-term and
+long-term rental requirements. Customers can register
+their details, select a laptop, specify the rental period
+and accept the rental agreement.
+</p>
+
+<br>
+
+<ul>
+<li>Customer information</li>
+<li>Laptop model and configuration</li>
+<li>Rental start date</li>
+<li>Rental end date</li>
+<li>Security deposit</li>
+<li>Rental charges</li>
+<li>Terms and conditions</li>
+<li>Return date</li>
+</ul>
+
+<br>
+
+<button class="btn btn-primary"
+onclick="showMessage('Rental agreement form opened.')">
+
+Create Rental Agreement
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- STOCK -->
+<section id="stock">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Shop Stock Maintenance</h2>
+
+<p>
+Current laptop inventory available at Ram Infotech.
+</p>
+
+</div>
+
+
+<table class="stock-table">
+
+<thead>
+
+<tr>
+<th>Product ID</th>
+<th>Laptop Model</th>
+<th>Configuration</th>
+<th>Stock</th>
+<th>Price</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>L001</td>
+<td>Student Pro 14</td>
+<td>i5 / 8GB / 512GB</td>
+<td>12</td>
+<td>₹52,999</td>
+<td>Available</td>
+</tr>
+
+<tr>
+<td>L002</td>
+<td>Business Pro 15</td>
+<td>i7 / 16GB / 512GB</td>
+<td>7</td>
+<td>₹78,999</td>
+<td>Available</td>
+</tr>
+
+<tr>
+<td>L003</td>
+<td>Gaming X15</td>
+<td>i7 / 16GB / 1TB</td>
+<td>4</td>
+<td>₹99,999</td>
+<td>Limited</td>
+</tr>
+
+<tr>
+<td>L004</td>
+<td>UltraBook Air</td>
+<td>i5 / 16GB / 512GB</td>
+<td>9</td>
+<td>₹69,999</td>
+<td>Available</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<br>
+
+<div style="text-align:center">
+
+<button class="btn btn-primary"
+onclick="showMessage('Stock report generated successfully.')">
+
+Generate Stock Report
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+<section class="services">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Frequently Asked Questions</h2>
+
+</div>
+
+<div class="service-grid">
+
+<div class="service-card">
+
+<h3>Do you provide warranty?</h3>
+
+<p>
+Yes. Warranty depends on the laptop manufacturer
+and selected product.
+</p>
+
+</div>
+
+
+<div class="service-card">
+
+<h3>Can I schedule repairs?</h3>
+
+<p>
+Yes. Customers can submit the service request form
+to schedule a repair.
+</p>
+
+</div>
+
+
+<div class="service-card">
+
+<h3>Do you provide upgrades?</h3>
+
+<p>
+Yes. RAM and SSD upgrades are available for
+compatible laptop models.
+</p>
+
+</div>
+
+
+<div class="service-card">
+
+<h3>Do you provide rental laptops?</h3>
+
+<p>
+Yes. Rental laptops are available based on
+availability and rental duration.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Contact Ram Infotech</h2>
+
+<p>
+Contact us for laptop sales, repairs and technical support.
+</p>
+
+</div>
+
+
+<div class="contact-grid">
+
+<div class="contact-box">
+
+<h3>📍 Company Information</h3>
+
+<p>
+<strong>Address:</strong><br>
+Ram Infotech, Main Road, Tamil Nadu, India
+</p>
+
+<p>
+<strong>Phone:</strong><br>
++91 98765 43210
+</p>
+
+<p>
+<strong>Email:</strong><br>
+support@raminfotech.com
+</p>
+
+<p>
+<strong>Working Hours:</strong><br>
+Monday - Saturday: 9:00 AM - 7:00 PM
+</p>
+
+</div>
+
+
+<div class="contact-box">
+
+<h3>📩 Send Message</h3>
+
+<form onsubmit="sendMessage(event)">
+
+<div class="form-group">
+
+<label>Name</label>
+
+<input type="text"
+id="contactName"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input type="email"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Message</label>
+
+<textarea required></textarea>
+
+</div>
+
+<button class="btn btn-primary"
+type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>Ram Infotech</h3>
+
+<p>
+Your trusted destination for laptop sales,
+services, repairs and technical support.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#laptops">Laptops</a>
+<a href="#services">Services</a>
+
+</div>
+
+
+<div>
+
+<h3>Services</h3>
+
+<a href="#services">Hardware Repair</a>
+<a href="#services">Software Installation</a>
+<a href="#services">Virus Removal</a>
+<a href="#services">Performance Upgrade</a>
+
+</div>
+
+
+<div>
+
+<h3>Support</h3>
+
+<a href="#contact">Contact Us</a>
+<a href="#rental">Rental Agreement</a>
+<a href="#stock">Stock Details</a>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 Ram Infotech. All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<div id="message"></div>
+
+
+<script>
+
+/* MOBILE MENU */
+
+function toggleMenu(){
+
+    document
+    .getElementById("navMenu")
+    .classList.toggle("show");
+
+}
+
+
+/* MESSAGE */
+
+function showMessage(text){
+
+    const box =
+        document.getElementById("message");
+
+    box.innerText = text;
+
+    box.style.display = "block";
+
+    setTimeout(function(){
+
+        box.style.display = "none";
+
+    },3500);
+
+}
+
+
+/* SELECT LAPTOP */
+
+function selectLaptop(model){
+
+    document
+    .getElementById("requirement")
+    .value = "Laptop Purchase";
+
+    document
+    .getElementById("model")
+    .value = model;
+
+    document
+    .getElementById("purchase")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    showMessage(
+        model + " selected for purchase."
+    );
+
+}
+
+
+/* CUSTOMER FORM */
+
+function submitCustomerForm(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("customerName")
+        .value;
+
+    const requirement =
+        document
+        .getElementById("requirement")
+        .value;
+
+    showMessage(
+        "Thank you " + name +
+        "! Your " + requirement +
+        " request has been submitted successfully."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* CONTACT FORM */
+
+function sendMessage(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("contactName")
+        .value;
+
+    showMessage(
+        "Thank you " + name +
+        "! Your message has been sent successfully."
+    );
+
+    event.target.reset();
+
+}
+
+</script>
+
+</body>
+</html>

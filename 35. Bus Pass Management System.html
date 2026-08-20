@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartBus Pass Management System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f4f7fb;
+    color:#1e293b;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:#0f172a;
+    color:white;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+
+.logo h1{
+    color:#38bdf8;
+    font-size:27px;
+}
+
+.logo p{
+    font-size:12px;
+    color:#cbd5e1;
+    margin-top:3px;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#38bdf8;
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:#0284c7;
+    color:white;
+    padding:9px 14px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* Buttons */
+
+.btn{
+    border:0;
+    padding:11px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:4px;
+}
+
+.btn-primary{
+    background:#0284c7;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#0369a1;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-dark{
+    background:#0f172a;
+    color:white;
+}
+
+/* Hero */
+
+.hero{
+    min-height:550px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+
+    background:
+    linear-gradient(
+        rgba(15,23,42,.75),
+        rgba(3,105,161,.72)
+    ),
+    url("https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1600&q=80");
+
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:850px;
+    padding:25px;
+}
+
+.hero h2{
+    font-size:52px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    font-size:19px;
+    line-height:1.7;
+    margin-bottom:25px;
+}
+
+/* Sections */
+
+section{
+    padding:70px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    color:#0f172a;
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:#64748b;
+}
+
+/* Cards */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(240px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    transition:.3s;
+}
+
+.card h3{
+    color:#0f172a;
+    margin:12px 0;
+}
+
+.card p{
+    color:#64748b;
+    line-height:1.6;
+}
+
+.icon{
+    font-size:42px;
+}
+
+/* Pass types */
+
+.pass-section{
+    background:white;
+}
+
+.pass-card{
+    border-top:5px solid #0284c7;
+}
+
+.price{
+    color:#0284c7;
+    font-size:22px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+/* Forms */
+
+.form-section{
+    background:#eef6ff;
+}
+
+.form-box{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+/* Tables */
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th,
+td{
+    border:1px solid #e2e8f0;
+    padding:13px;
+    text-align:center;
+}
+
+th{
+    background:#0f172a;
+    color:white;
+}
+
+.status-active{
+    color:#16a34a;
+    font-weight:bold;
+}
+
+.status-pending{
+    color:#d97706;
+    font-weight:bold;
+}
+
+.status-expired{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+/* Route */
+
+.route-section{
+    background:#f8fafc;
+}
+
+.route-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    border-left:5px solid #0284c7;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.route-card h3{
+    color:#0f172a;
+    margin-bottom:12px;
+}
+
+.route-card p{
+    margin:8px 0;
+    color:#64748b;
+}
+
+/* QR */
+
+.qr-section{
+    background:#0f172a;
+    color:white;
+}
+
+.qr-section .section-title h2{
+    color:#38bdf8;
+}
+
+.qr-section .section-title p{
+    color:#cbd5e1;
+}
+
+.qr-box{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    color:#0f172a;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+}
+
+.fake-qr{
+    width:190px;
+    height:190px;
+    margin:20px auto;
+    padding:10px;
+
+    background:
+    repeating-linear-gradient(
+        45deg,
+        #000 0px,
+        #000 5px,
+        #fff 5px,
+        #fff 10px
+    );
+
+    border:12px solid white;
+    outline:2px solid #0f172a;
+}
+
+/* Dashboard */
+
+.dashboard-section{
+    background:white;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.dashboard-card{
+    background:#eff6ff;
+    padding:25px;
+    border-radius:10px;
+    border-top:4px solid #0284c7;
+}
+
+.dashboard-card h3{
+    color:#0f172a;
+    margin-bottom:10px;
+}
+
+.dashboard-number{
+    font-size:30px;
+    color:#0284c7;
+    font-weight:bold;
+}
+
+/* Conductor */
+
+.conductor-section{
+    background:#e0f2fe;
+}
+
+.scan-box{
+    max-width:650px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.scan-area{
+    border:3px dashed #0284c7;
+    padding:50px 20px;
+    border-radius:10px;
+    margin:20px 0;
+    color:#64748b;
+    font-size:18px;
+}
+
+/* Admin */
+
+.admin-section{
+    background:#020617;
+    color:white;
+}
+
+.admin-section .section-title h2{
+    color:#38bdf8;
+}
+
+.admin-section .section-title p{
+    color:#cbd5e1;
+}
+
+.admin-card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:10px;
+}
+
+.admin-card h3{
+    color:#7dd3fc;
+    margin-bottom:15px;
+}
+
+.admin-card ul{
+    padding-left:20px;
+}
+
+.admin-card li{
+    margin-bottom:8px;
+    color:#cbd5e1;
+}
+
+/* Contact */
+
+.contact-section{
+    background:white;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.contact-info{
+    background:#eff6ff;
+    padding:30px;
+    border-radius:12px;
+}
+
+.contact-info h3{
+    color:#0f172a;
+    margin-bottom:15px;
+}
+
+.contact-info p{
+    line-height:1.8;
+    margin-bottom:10px;
+}
+
+/* Footer */
+
+footer{
+    background:#020617;
+    color:white;
+    padding:40px 20px 20px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+}
+
+footer h3{
+    color:#38bdf8;
+    margin-bottom:12px;
+}
+
+footer a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    margin:7px 0;
+}
+
+footer a:hover{
+    color:white;
+}
+
+.copyright{
+    text-align:center;
+    border-top:1px solid #334155;
+    margin-top:30px;
+    padding-top:20px;
+    color:#94a3b8;
+}
+
+/* Notification */
+
+#message{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#0284c7;
+    color:white;
+    padding:15px 22px;
+    border-radius:7px;
+    display:none;
+    z-index:3000;
+    box-shadow:0 5px 18px rgba(0,0,0,.25);
+}
+
+/* Responsive */
+
+@media(max-width:850px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    nav{
+        display:none;
+        width:100%;
+    }
+
+    nav.show{
+        display:block;
+    }
+
+    nav ul{
+        flex-direction:column;
+        padding-top:20px;
+    }
+
+    .form-row,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h2{
+        font-size:38px;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .section-title h2{
+        font-size:27px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+<h1>🚌 SmartBus</h1>
+<p>Bus Pass Management System</p>
+</div>
+
+<button class="menu-btn" onclick="toggleMenu()">
+☰ Menu
+</button>
+
+<nav id="navMenu">
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#passes">Passes</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#apply">Apply Pass</a></li>
+<li><a href="#wallet">eWallet</a></li>
+<li><a href="#qr">QR Pass</a></li>
+<li><a href="#conductor">Conductor</a></li>
+<li><a href="#admin">Admin</a></li>
+</ul>
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<h2>Smart & Convenient Bus Pass</h2>
+
+<p>
+Apply for student and route bus passes online,
+purchase eTickets, renew passes, manage your
+eWallet and verify your pass using QR technology.
+</p>
+
+<a href="#passes" class="btn btn-primary">
+View Passes
+</a>
+
+<a href="#apply" class="btn btn-dark">
+Apply Now
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ================= PASS TYPES ================= -->
+
+<section class="pass-section" id="passes">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Bus Pass Types</h2>
+
+<p>
+Choose the bus pass according to your requirement.
+</p>
+
+</div>
+
+<div class="card-grid">
+
+
+<div class="card pass-card">
+
+<div class="icon">🎓</div>
+
+<h3>Student Bus Pass</h3>
+
+<p>
+For school and college students. Government
+school students may receive subsidized or free passes.
+</p>
+
+<div class="price">
+₹500 / Month
+</div>
+
+<button
+class="btn btn-primary"
+onclick="choosePass('Student Pass')">
+
+Apply Student Pass
+
+</button>
+
+</div>
+
+
+<div class="card pass-card">
+
+<div class="icon">💼</div>
+
+<h3>Route Bus Pass</h3>
+
+<p>
+For employees and regular passengers travelling
+between their home and workplace.
+</p>
+
+<div class="price">
+₹1,200 / Month
+</div>
+
+<button
+class="btn btn-primary"
+onclick="choosePass('Route Pass')">
+
+Apply Route Pass
+
+</button>
+
+</div>
+
+
+<div class="card pass-card">
+
+<div class="icon">🎫</div>
+
+<h3>Bus eTicket</h3>
+
+<p>
+Purchase a digital bus ticket and use the QR
+code for quick verification.
+</p>
+
+<div class="price">
+From ₹20
+</div>
+
+<button
+class="btn btn-primary"
+onclick="buyTicket()">
+
+Buy eTicket
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BUS DETAILS ================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Bus Details</h2>
+
+<p>
+Available buses and route information.
+</p>
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Bus ID</th>
+<th>Bus Number</th>
+<th>Route</th>
+<th>Start Time</th>
+<th>Status</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>BUS001</td>
+<td>TN-01-A-1023</td>
+<td>Chennai → Tambaram</td>
+<td>06:30 AM</td>
+<td class="status-active">Active</td>
+</tr>
+
+<tr>
+<td>BUS002</td>
+<td>TN-01-B-2045</td>
+<td>Chennai → Guindy</td>
+<td>07:00 AM</td>
+<td class="status-active">Active</td>
+</tr>
+
+<tr>
+<td>BUS003</td>
+<td>TN-01-C-3067</td>
+<td>Chennai → Avadi</td>
+<td>07:30 AM</td>
+<td class="status-active">Active</td>
+</tr>
+
+<tr>
+<td>BUS004</td>
+<td>TN-01-D-4098</td>
+<td>Chennai → Red Hills</td>
+<td>08:00 AM</td>
+<td class="status-pending">Delayed</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ROUTES ================= -->
+
+<section class="route-section" id="routes">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Route Information</h2>
+
+<p>
+Check route stops, timings and expected travel time.
+</p>
+
+</div>
+
+<div class="card-grid">
+
+
+<div class="route-card">
+
+<h3>🚌 Route 101</h3>
+
+<p>
+<strong>From:</strong> Chennai Central
+</p>
+
+<p>
+<strong>To:</strong> Tambaram
+</p>
+
+<p>
+<strong>Stops:</strong> Guindy → Saidapet →
+Pallavaram → Chromepet → Tambaram
+</p>
+
+<p>
+<strong>Time:</strong> 06:30 AM
+</p>
+
+<p>
+<strong>Expected Duration:</strong> 60 Minutes
+</p>
+
+<button
+class="btn btn-primary"
+onclick="calculateTime(60)">
+
+Calculate Arrival
+
+</button>
+
+</div>
+
+
+<div class="route-card">
+
+<h3>🚌 Route 202</h3>
+
+<p>
+<strong>From:</strong> Chennai Central
+</p>
+
+<p>
+<strong>To:</strong> Avadi
+</p>
+
+<p>
+<strong>Stops:</strong> Perambur → Villivakkam →
+Ambattur → Tiruninravur → Avadi
+</p>
+
+<p>
+<strong>Time:</strong> 07:00 AM
+</p>
+
+<p>
+<strong>Expected Duration:</strong> 75 Minutes
+</p>
+
+<button
+class="btn btn-primary"
+onclick="calculateTime(75)">
+
+Calculate Arrival
+
+</button>
+
+</div>
+
+
+<div class="route-card">
+
+<h3>🚌 Route 303</h3>
+
+<p>
+<strong>From:</strong> Chennai Central
+</p>
+
+<p>
+<strong>To:</strong> Red Hills
+</p>
+
+<p>
+<strong>Stops:</strong> Basin Bridge → Madhavaram →
+Puzhal → Red Hills
+</p>
+
+<p>
+<strong>Time:</strong> 08:00 AM
+</p>
+
+<p>
+<strong>Expected Duration:</strong> 50 Minutes
+</p>
+
+<button
+class="btn btn-primary"
+onclick="calculateTime(50)">
+
+Calculate Arrival
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= APPLY PASS ================= -->
+
+<section class="form-section" id="apply">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Apply for New Bus Pass</h2>
+
+<p>
+Submit your details to apply for a student or route pass.
+</p>
+
+</div>
+
+<div class="form-box">
+
+<form
+id="passForm"
+onsubmit="applyPass(event)">
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Applicant Name</label>
+
+<input
+type="text"
+id="applicantName"
+placeholder="Enter full name"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+placeholder="Enter email"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Date of Birth</label>
+
+<input
+type="date"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Mobile Number</label>
+
+<input
+type="tel"
+placeholder="Enter mobile number"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Address</label>
+
+<textarea
+placeholder="Enter residential address"
+required></textarea>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Pass Type</label>
+
+<select id="passType" required>
+
+<option value="">
+Select Pass Type
+</option>
+
+<option>
+Student Pass
+</option>
+
+<option>
+Route Pass
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>School / Organization</label>
+
+<input
+type="text"
+placeholder="Enter school or organization"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Route</label>
+
+<select required>
+
+<option value="">
+Select Route
+</option>
+
+<option>
+Route 101 - Chennai to Tambaram
+</option>
+
+<option>
+Route 202 - Chennai to Avadi
+</option>
+
+<option>
+Route 303 - Chennai to Red Hills
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Validity</label>
+
+<select required>
+
+<option>
+1 Month
+</option>
+
+<option>
+3 Months
+</option>
+
+<option>
+6 Months
+</option>
+
+<option>
+12 Months
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Upload Photograph</label>
+
+<input
+type="file"
+accept="image/*"
+required>
+
+</div>
+
+
+<button
+type="submit"
+class="btn btn-primary">
+
+Submit Application
+
+</button>
+
+<button
+type="reset"
+class="btn btn-dark">
+
+Reset
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= RENEWAL ================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Renew Bus Pass</h2>
+
+<p>
+Renew your existing pass according to your requirement.
+</p>
+
+</div>
+
+<div class="form-box">
+
+<form onsubmit="renewPass(event)">
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Existing Pass ID</label>
+
+<input
+type="text"
+id="renewPassId"
+placeholder="Example: BP10234"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Renewal Period</label>
+
+<select
+id="renewPeriod"
+required>
+
+<option value="">
+Select Period
+</option>
+
+<option value="1">
+1 Month - ₹500
+</option>
+
+<option value="3">
+3 Months - ₹1,400
+</option>
+
+<option value="6">
+6 Months - ₹2,600
+</option>
+
+<option value="12">
+12 Months - ₹4,800
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button
+class="btn btn-success"
+type="submit">
+
+Renew Pass
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= EWALLET ================= -->
+
+<section
+class="dashboard-section"
+id="wallet">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>eWallet</h2>
+
+<p>
+Add money and use your balance for digital bus services.
+</p>
+
+</div>
+
+
+<div class="dashboard">
+
+<div class="dashboard-card">
+
+<h3>💰 Wallet Balance</h3>
+
+<div
+class="dashboard-number"
+id="walletBalance">
+
+₹1,250
+
+</div>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>🎫 Tickets Purchased</h3>
+
+<div class="dashboard-number">
+12
+</div>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>🚌 Active Pass</h3>
+
+<div class="dashboard-number">
+1
+</div>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>📅 Valid Until</h3>
+
+<div class="dashboard-number"
+style="font-size:20px">
+
+30 Sep 2026
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="form-box" style="margin-top:30px">
+
+<div class="form-group">
+
+<label>
+Amount to Add
+</label>
+
+<input
+type="number"
+id="walletAmount"
+placeholder="Enter amount"
+min="1">
+
+</div>
+
+<button
+class="btn btn-primary"
+onclick="addMoney()">
+
+Add Money
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BUY TICKET ================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Buy Bus eTicket</h2>
+
+<p>
+Purchase a digital ticket using your eWallet.
+</p>
+
+</div>
+
+<div class="form-box">
+
+<form onsubmit="purchaseTicket(event)">
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>From</label>
+
+<select id="fromPlace" required>
+
+<option value="">
+Select Starting Point
+</option>
+
+<option>
+Chennai Central
+</option>
+
+<option>
+Guindy
+</option>
+
+<option>
+Tambaram
+</option>
+
+<option>
+Avadi
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>To</label>
+
+<select id="toPlace" required>
+
+<option value="">
+Select Destination
+</option>
+
+<option>
+Tambaram
+</option>
+
+<option>
+Guindy
+</option>
+
+<option>
+Avadi
+</option>
+
+<option>
+Red Hills
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Number of Tickets</label>
+
+<input
+type="number"
+id="ticketCount"
+value="1"
+min="1"
+max="10"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Ticket Price</label>
+
+<input
+type="text"
+value="₹20 per ticket"
+readonly>
+
+</div>
+
+</div>
+
+
+<button
+class="btn btn-primary"
+type="submit">
+
+Purchase eTicket
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= QR CODE ================= -->
+
+<section class="qr-section" id="qr">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Bus Pass QR Code</h2>
+
+<p>
+Use this QR code to verify your bus pass.
+</p>
+
+</div>
+
+<div class="qr-box">
+
+<h3>SmartBus Pass</h3>
+
+<p>
+Pass ID: BP10234
+</p>
+
+<div class="fake-qr"></div>
+
+<p>
+<strong>Passenger:</strong> Arun Kumar
+</p>
+
+<p>
+<strong>Pass Type:</strong> Student Pass
+</p>
+
+<p>
+<strong>Valid Until:</strong> 30 September 2026
+</p>
+
+<button
+class="btn btn-primary"
+onclick="downloadPass()">
+
+Download Pass
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= USER LOGIN ================= -->
+
+<section class="form-section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>User Login & Registration</h2>
+
+<p>
+Create an account and manage your bus services.
+</p>
+
+</div>
+
+<div class="form-box">
+
+<form onsubmit="userLogin(event)">
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+placeholder="Enter email"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+placeholder="Enter password"
+required>
+
+</div>
+
+</div>
+
+<button
+class="btn btn-primary"
+type="submit">
+
+Login
+
+</button>
+
+<button
+class="btn btn-dark"
+type="button"
+onclick="showMessage('Registration form opened.')">
+
+Register
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CONDUCTOR ================= -->
+
+<section
+class="conductor-section"
+id="conductor">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Conductor Panel</h2>
+
+<p>
+Scan and verify passenger bus passes and eTickets.
+</p>
+
+</div>
+
+<div class="scan-box">
+
+<h3>📱 QR Scanner</h3>
+
+<div class="scan-area">
+
+📷
+
+<br><br>
+
+Place QR Code inside scanner area
+
+</div>
+
+<input
+type="text"
+id="scanId"
+placeholder="Enter Pass ID manually">
+
+<br>
+
+<button
+class="btn btn-primary"
+onclick="verifyPass()">
+
+Verify Pass
+
+</button>
+
+<div id="verificationResult"
+style="margin-top:20px;font-weight:bold">
+
+</div>
+
+</div>
+
+<br><br>
+
+
+<div class="card-grid">
+
+<div class="card">
+
+<h3>🔐 Verify Bus Pass ID</h3>
+
+<p>
+Check whether the passenger's pass is
+valid and active.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>🎫 Verify eTicket</h3>
+
+<p>
+Validate digital tickets before allowing
+passengers to travel.
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>📍 Update Bus Location</h3>
+
+<p>
+Update the current location of the bus
+for passenger tracking.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="updateLocation()">
+
+Update Location
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CONDUCTOR WORK ================= -->
+
+<section>
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Conductor Daily Work</h2>
+
+<p>
+Today's assigned bus and route information.
+</p>
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Conductor</th>
+<th>Bus</th>
+<th>Route</th>
+<th>Passengers Verified</th>
+<th>Location</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>Ramesh</td>
+<td>TN-01-A-1023</td>
+<td>101</td>
+<td>82</td>
+<td id="busLocation">Tambaram</td>
+</tr>
+
+<tr>
+<td>Suresh</td>
+<td>TN-01-B-2045</td>
+<td>202</td>
+<td>76</td>
+<td>Avadi</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section
+class="admin-section"
+id="admin">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Administrator Panel</h2>
+
+<p>
+Manage users, buses, routes, conductors and bus passes.
+</p>
+
+</div>
+
+<div class="card-grid">
+
+
+<div class="admin-card">
+
+<h3>🔐 Admin Login</h3>
+
+<ul>
+<li>Admin Login</li>
+<li>Secure authentication</li>
+<li>Admin profile</li>
+<li>Password management</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="adminLogin()">
+
+Admin Login
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>🎓 Manage Student Pass</h3>
+
+<ul>
+<li>View applications</li>
+<li>Approve pass</li>
+<li>Reject pass</li>
+<li>Renew pass</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Student pass management opened.')">
+
+Manage
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>💼 Manage Route Pass</h3>
+
+<ul>
+<li>View route pass applications</li>
+<li>Approve route passes</li>
+<li>Update validity</li>
+<li>Manage payments</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Route pass management opened.')">
+
+Manage
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>🚌 Manage Bus</h3>
+
+<ul>
+<li>Create bus details</li>
+<li>Update bus information</li>
+<li>Delete bus</li>
+<li>View bus status</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Bus management opened.')">
+
+Manage Buses
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>🗺️ Route Management</h3>
+
+<ul>
+<li>Create route</li>
+<li>Set starting point</li>
+<li>Set destination</li>
+<li>Add route stops</li>
+<li>Set timings</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Route management opened.')">
+
+Manage Routes
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>👨‍✈️ Conductor Management</h3>
+
+<ul>
+<li>Create conductor login</li>
+<li>Assign bus</li>
+<li>Assign route</li>
+<li>Manage conductor details</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Conductor management opened.')">
+
+Manage Conductors
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>📊 Reports</h3>
+
+<ul>
+<li>Daily bus report</li>
+<li>Pass application report</li>
+<li>Ticket sales report</li>
+<li>Revenue report</li>
+</ul>
+
+<button
+class="btn btn-primary"
+onclick="generateAdminReport()">
+
+Generate Report
+
+</button>
+
+</div>
+
+
+<div class="admin-card">
+
+<h3>✅ Pass Approval</h3>
+
+<ul>
+<li>Pending applications</li>
+<li>Verify documents</li>
+<li>Approve applications</li>
+<li>Generate QR Code</li>
+</ul>
+
+<button
+class="btn btn-success"
+onclick="approvePass()">
+
+Approve Pass
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section
+class="contact-section">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Contact SmartBus</h2>
+
+<p>
+Need help with your bus pass? Contact us.
+</p>
+
+</div>
+
+<div class="contact-grid">
+
+<div class="contact-info">
+
+<h3>📍 SmartBus Office</h3>
+
+<p>
+<strong>Address:</strong><br>
+Central Bus Administration Office,
+Chennai, Tamil Nadu
+</p>
+
+<p>
+<strong>Phone:</strong><br>
++91 98765 43210
+</p>
+
+<p>
+<strong>Email:</strong><br>
+support@smartbus.com
+</p>
+
+<p>
+<strong>Working Hours:</strong><br>
+9:00 AM - 6:00 PM
+</p>
+
+</div>
+
+
+<div class="contact-info">
+
+<h3>📩 Send Message</h3>
+
+<form onsubmit="sendContact(event)">
+
+<div class="form-group">
+
+<label>Name</label>
+
+<input
+type="text"
+id="contactName"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+required>
+
+</div>
+
+<div class="form-group">
+
+<label>Message</label>
+
+<textarea
+required
+placeholder="Enter your message"></textarea>
+
+</div>
+
+<button
+class="btn btn-primary"
+type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>🚌 SmartBus</h3>
+
+<p>
+A digital platform for bus passes,
+eTickets, route management and
+passenger verification.
+</p>
+
+</div>
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="#home">Home</a>
+<a href="#passes">Passes</a>
+<a href="#routes">Routes</a>
+<a href="#apply">Apply Pass</a>
+
+</div>
+
+<div>
+
+<h3>User</h3>
+
+<a href="#wallet">eWallet</a>
+<a href="#qr">QR Pass</a>
+<a href="#conductor">Verification</a>
+
+</div>
+
+<div>
+
+<h3>Administration</h3>
+
+<a href="#admin">Admin</a>
+<a href="#routes">Routes</a>
+<a href="#conductor">Conductor</a>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 SmartBus Pass Management System.
+All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<!-- Notification -->
+
+<div id="message"></div>
+
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu(){
+
+    document
+    .getElementById("navMenu")
+    .classList.toggle("show");
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text){
+
+    const box =
+        document.getElementById("message");
+
+    box.innerText = text;
+
+    box.style.display = "block";
+
+    setTimeout(function(){
+
+        box.style.display = "none";
+
+    },3500);
+
+}
+
+
+/* =========================
+   CHOOSE PASS
+========================= */
+
+function choosePass(type){
+
+    document
+    .getElementById("passType")
+    .value = type;
+
+    document
+    .getElementById("apply")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    showMessage(
+        type +
+        " selected. Complete the application form."
+    );
+
+}
+
+
+/* =========================
+   APPLY PASS
+========================= */
+
+function applyPass(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("applicantName")
+        .value;
+
+    const type =
+        document
+        .getElementById("passType")
+        .value;
+
+    const passId =
+        "BP" +
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
+
+    showMessage(
+        "Application submitted successfully! " +
+        name +
+        " | " +
+        type +
+        " | Application ID: " +
+        passId
+    );
+
+    document
+    .getElementById("passForm")
+    .reset();
+
+}
+
+
+/* =========================
+   RENEW PASS
+========================= */
+
+function renewPass(event){
+
+    event.preventDefault();
+
+    const id =
+        document
+        .getElementById("renewPassId")
+        .value;
+
+    const period =
+        document
+        .getElementById("renewPeriod")
+        .value;
+
+    showMessage(
+        "Pass " +
+        id +
+        " renewed successfully for " +
+        period +
+        " month(s)."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+let walletBalance = 1250;
+
+function addMoney(){
+
+    const amount =
+        Number(
+            document
+            .getElementById("walletAmount")
+            .value
+        );
+
+    if(amount <= 0 || isNaN(amount)){
+
+        showMessage(
+            "Please enter a valid amount."
+        );
+
+        return;
+    }
+
+    walletBalance += amount;
+
+    document
+    .getElementById("walletBalance")
+    .innerText =
+        "₹" +
+        walletBalance;
+
+    showMessage(
+        "₹" +
+        amount +
+        " added to your eWallet."
+    );
+
+    document
+    .getElementById("walletAmount")
+    .value = "";
+
+}
+
+
+/* =========================
+   BUY TICKET
+========================= */
+
+function buyTicket(){
+
+    document
+    .getElementById("wallet")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+    showMessage(
+        "Check your eWallet and continue to purchase an eTicket."
+    );
+
+}
+
+
+function purchaseTicket(event){
+
+    event.preventDefault();
+
+    const from =
+        document
+        .getElementById("fromPlace")
+        .value;
+
+    const to =
+        document
+        .getElementById("toPlace")
+        .value;
+
+    const count =
+        Number(
+            document
+            .getElementById("ticketCount")
+            .value
+        );
+
+    if(from === to){
+
+        showMessage(
+            "Starting point and destination cannot be the same."
+        );
+
+        return;
+    }
+
+    const total = count * 20;
+
+    if(walletBalance < total){
+
+        showMessage(
+            "Insufficient eWallet balance."
+        );
+
+        return;
+    }
+
+    walletBalance -= total;
+
+    document
+    .getElementById("walletBalance")
+    .innerText =
+        "₹" +
+        walletBalance;
+
+    const ticketId =
+        "TKT" +
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
+
+    showMessage(
+        "eTicket purchased successfully! " +
+        ticketId +
+        " | " +
+        from +
+        " → " +
+        to +
+        " | Total: ₹" +
+        total
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   CALCULATE ARRIVAL
+========================= */
+
+function calculateTime(minutes){
+
+    const now = new Date();
+
+    now.setMinutes(
+        now.getMinutes() + minutes
+    );
+
+    const arrival =
+        now.toLocaleTimeString(
+            [],
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        );
+
+    showMessage(
+        "Expected arrival time: " +
+        arrival
+    );
+
+}
+
+
+/* =========================
+   DOWNLOAD PASS
+========================= */
+
+function downloadPass(){
+
+    const passData =
+`
+SMARTBUS DIGITAL BUS PASS
+-------------------------
+Pass ID: BP10234
+Passenger: Arun Kumar
+Pass Type: Student Pass
+Valid Until: 30 September 2026
+Route: Chennai - Tambaram
+-------------------------
+`;
+
+    const blob =
+        new Blob(
+            [passData],
+            {type:"text/plain"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "SmartBus_Pass.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    showMessage(
+        "Bus pass generated successfully."
+    );
+
+}
+
+
+/* =========================
+   USER LOGIN
+========================= */
+
+function userLogin(event){
+
+    event.preventDefault();
+
+    showMessage(
+        "User login successful. Welcome to SmartBus!"
+    );
+
+}
+
+
+/* =========================
+   VERIFY PASS
+========================= */
+
+function verifyPass(){
+
+    const id =
+        document
+        .getElementById("scanId")
+        .value
+        .trim();
+
+    const result =
+        document
+        .getElementById("verificationResult");
+
+    if(id === ""){
+
+        result.innerText =
+            "Please enter a Pass ID.";
+
+        result.style.color =
+            "#dc2626";
+
+        return;
+    }
+
+    if(
+        id.toUpperCase() ===
+        "BP10234"
+    ){
+
+        result.innerText =
+            "✓ Valid Pass - Passenger: Arun Kumar";
+
+        result.style.color =
+            "#16a34a";
+
+    }else{
+
+        result.innerText =
+            "✗ Invalid or Expired Pass";
+
+        result.style.color =
+            "#dc2626";
+
+    }
+
+}
+
+
+/* =========================
+   UPDATE LOCATION
+========================= */
+
+function updateLocation(){
+
+    const locations = [
+        "Guindy",
+        "Saidapet",
+        "Pallavaram",
+        "Chromepet",
+        "Tambaram"
+    ];
+
+    const random =
+        locations[
+            Math.floor(
+                Math.random() *
+                locations.length
+            )
+        ];
+
+    document
+    .getElementById("busLocation")
+    .innerText = random;
+
+    showMessage(
+        "Bus location updated: " +
+        random
+    );
+
+}
+
+
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+function adminLogin(){
+
+    const username =
+        prompt(
+            "Enter Admin Username:"
+        );
+
+    if(username){
+
+        showMessage(
+            "Admin login successful. Welcome " +
+            username + "!"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   APPROVE PASS
+========================= */
+
+function approvePass(){
+
+    showMessage(
+        "Bus pass BP10234 approved successfully. QR code generated."
+    );
+
+}
+
+
+/* =========================
+   ADMIN REPORT
+========================= */
+
+function generateAdminReport(){
+
+    const report =
+`
+SMARTBUS DAILY ADMIN REPORT
+
+Total Users: 1,250
+Active Bus Passes: 875
+Pending Applications: 42
+eTickets Sold Today: 385
+Active Buses: 68
+Active Routes: 25
+Active Conductors: 120
+Today's Revenue: ₹48,500
+`;
+
+    alert(report);
+
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+function sendContact(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("contactName")
+        .value;
+
+    showMessage(
+        "Thank you " +
+        name +
+        "! Your message has been sent."
+    );
+
+    event.target.reset();
+
+}
+
+</script>
+
+</body>
+</html>

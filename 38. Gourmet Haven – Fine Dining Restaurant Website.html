@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gourmet Haven | Fine Dining Restaurant</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#faf7f2;
+    color:#2d2118;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:#24170f;
+    color:white;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:16px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#d6a756;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#d6a756;
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:#d6a756;
+    color:#24170f;
+    padding:9px 14px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+    min-height:650px;
+    background:
+    linear-gradient(
+        rgba(20,12,7,.65),
+        rgba(20,12,7,.75)
+    ),
+    url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    color:white;
+    text-align:center;
+}
+
+.hero-content{
+    max-width:850px;
+    margin:auto;
+    padding:30px;
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.hero h2{
+    color:#d6a756;
+    margin-bottom:20px;
+    font-size:27px;
+}
+
+.hero p{
+    font-size:19px;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.btn{
+    border:0;
+    padding:12px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:5px;
+}
+
+.btn-gold{
+    background:#d6a756;
+    color:#24170f;
+}
+
+.btn-dark{
+    background:#24170f;
+    color:white;
+}
+
+.btn-light{
+    background:white;
+    color:#24170f;
+}
+
+.btn:hover{
+    opacity:.85;
+}
+
+/* COMMON */
+
+section{
+    padding:75px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title h2{
+    font-size:38px;
+    margin-bottom:12px;
+    color:#3b281c;
+}
+
+.section-title p{
+    color:#786a5f;
+}
+
+/* ABOUT */
+
+.about{
+    background:white;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:45px;
+    align-items:center;
+}
+
+.about-image img{
+    width:100%;
+    border-radius:12px;
+}
+
+.about-content h3{
+    font-size:30px;
+    margin-bottom:18px;
+}
+
+.about-content p{
+    line-height:1.8;
+    color:#66584e;
+    margin-bottom:15px;
+}
+
+/* MENU */
+
+.menu{
+    background:#faf7f2;
+}
+
+.menu-buttons{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(270px,1fr));
+    gap:25px;
+}
+
+.menu-card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.menu-card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+}
+
+.menu-info{
+    padding:20px;
+}
+
+.menu-info h3{
+    margin-bottom:8px;
+}
+
+.menu-info p{
+    color:#75675d;
+    line-height:1.6;
+    margin-bottom:10px;
+}
+
+.price{
+    color:#a8751c;
+    font-weight:bold;
+    font-size:19px;
+}
+
+/* GALLERY */
+
+.gallery{
+    background:#24170f;
+    color:white;
+}
+
+.gallery .section-title h2{
+    color:white;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.gallery-grid img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gallery-grid img:hover{
+    transform:scale(1.03);
+}
+
+/* SPECIAL OFFERS */
+
+.offers{
+    background:#f1e6d2;
+}
+
+.offer-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.offer-card{
+    background:white;
+    padding:28px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.offer-card h3{
+    color:#a8751c;
+    margin:12px 0;
+}
+
+.offer-card p{
+    color:#75675d;
+    line-height:1.6;
+}
+
+/* RESERVATION */
+
+.reservation{
+    background:white;
+}
+
+.reservation-box{
+    max-width:850px;
+    margin:auto;
+    background:#faf7f2;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #cfc2b7;
+    border-radius:5px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:120px;
+}
+
+/* TESTIMONIALS */
+
+.testimonials{
+    background:#faf7f2;
+}
+
+.testimonial-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.testimonial{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.avatar{
+    width:65px;
+    height:65px;
+    margin:auto;
+    border-radius:50%;
+    background:#d6a756;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.stars{
+    color:#d6a756;
+    margin:12px;
+}
+
+.testimonial p{
+    color:#6d5e53;
+    line-height:1.7;
+}
+
+/* CONTACT */
+
+.contact{
+    background:#f1e6d2;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1.4fr;
+    gap:30px;
+}
+
+.contact-info{
+    background:#24170f;
+    color:white;
+    padding:30px;
+    border-radius:10px;
+}
+
+.contact-info h3{
+    color:#d6a756;
+    margin-bottom:20px;
+}
+
+.contact-item{
+    margin:20px 0;
+    line-height:1.6;
+}
+
+.contact-form{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+}
+
+/* MAP */
+
+.map{
+    width:100%;
+    height:300px;
+    border:0;
+    border-radius:10px;
+    margin-top:20px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#160d08;
+    color:white;
+    padding:45px 20px 20px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+footer h3{
+    color:#d6a756;
+    margin-bottom:15px;
+}
+
+footer p,
+footer a{
+    color:#cbbfb6;
+    line-height:1.7;
+}
+
+footer a{
+    display:block;
+    text-decoration:none;
+    margin:5px 0;
+}
+
+.copyright{
+    border-top:1px solid #46352a;
+    margin-top:30px;
+    padding-top:20px;
+    text-align:center;
+    color:#9f9188;
+}
+
+/* NOTIFICATION */
+
+#message{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#24170f;
+    color:white;
+    padding:15px 22px;
+    border-radius:6px;
+    display:none;
+    z-index:2000;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:3000;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    align-items:center;
+    justify-content:center;
+}
+
+.modal img{
+    max-width:90%;
+    max-height:85%;
+    border-radius:10px;
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    nav{
+        display:none;
+        width:100%;
+    }
+
+    nav.show{
+        display:block;
+    }
+
+    nav ul{
+        flex-direction:column;
+        padding-top:20px;
+    }
+
+    .navbar{
+        flex-wrap:wrap;
+    }
+
+    .about-grid,
+    .contact-grid,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .section-title h2{
+        font-size:29px;
+    }
+
+    section{
+        padding:55px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+Gourmet <span>Haven</span>
+</div>
+
+<button
+class="menu-btn"
+onclick="toggleMenu()">
+☰ Menu
+</button>
+
+<nav id="navMenu">
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#offers">Offers</a></li>
+<li><a href="#reservation">Reservation</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section
+class="hero"
+id="home">
+
+<div class="hero-content">
+
+<h1>Gourmet Haven</h1>
+
+<h2>Where Taste Meets Elegance</h2>
+
+<p>
+Experience exceptional fine dining,
+carefully crafted dishes and warm hospitality
+in an elegant atmosphere.
+</p>
+
+<a
+href="#menu"
+class="btn btn-gold">
+Explore Our Menu
+</a>
+
+<a
+href="#reservation"
+class="btn btn-light">
+Reserve a Table
+</a>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section
+class="about"
+id="about">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>About Us</h2>
+
+<p>
+Discover the story behind Gourmet Haven.
+</p>
+
+</div>
+
+<div class="about-grid">
+
+<div>
+
+<img
+src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=900&q=80"
+alt="Restaurant">
+
+</div>
+
+<div class="about-content">
+
+<h3>A Passion for Fine Dining</h3>
+
+<p>
+Gourmet Haven was created with a simple vision:
+to combine exceptional ingredients, creative
+cooking and memorable hospitality.
+</p>
+
+<p>
+Our chefs carefully select fresh ingredients
+and transform them into dishes that celebrate
+both traditional flavors and modern culinary
+techniques.
+</p>
+
+<p>
+Every visit is designed to be more than a meal.
+It is an experience filled with flavor,
+elegance and unforgettable moments.
+</p>
+
+<button
+class="btn btn-gold"
+onclick="showMessage('Welcome to Gourmet Haven!')">
+Discover Our Story
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- MENU -->
+
+<section
+class="menu"
+id="menu">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Our Menu</h2>
+
+<p>
+Explore our carefully crafted dishes.
+</p>
+
+</div>
+
+
+<div class="menu-buttons">
+
+<button
+class="btn btn-gold"
+onclick="filterMenu('all')">
+All
+</button>
+
+<button
+class="btn btn-dark"
+onclick="filterMenu('starter')">
+Starters
+</button>
+
+<button
+class="btn btn-dark"
+onclick="filterMenu('main')">
+Main Course
+</button>
+
+<button
+class="btn btn-dark"
+onclick="filterMenu('dessert')">
+Desserts
+</button>
+
+</div>
+
+
+<div class="menu-grid"
+id="menuList">
+
+
+<!-- STARTER -->
+
+<div
+class="menu-card"
+data-category="starter">
+
+<img
+src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Truffle Mushroom Soup</h3>
+
+<p>
+Creamy mushroom soup finished with
+truffle oil and fresh herbs.
+</p>
+
+<div class="price">₹350</div>
+
+</div>
+
+</div>
+
+
+<div
+class="menu-card"
+data-category="starter">
+
+<img
+src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Garden Bruschetta</h3>
+
+<p>
+Toasted artisan bread topped with
+tomatoes, basil and olive oil.
+</p>
+
+<div class="price">₹280</div>
+
+</div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div
+class="menu-card"
+data-category="main">
+
+<img
+src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Grilled Herb Chicken</h3>
+
+<p>
+Tender grilled chicken served with
+seasonal vegetables and sauce.
+</p>
+
+<div class="price">₹650</div>
+
+</div>
+
+</div>
+
+
+<div
+class="menu-card"
+data-category="main">
+
+<img
+src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Royal Vegetable Risotto</h3>
+
+<p>
+Creamy Italian risotto prepared with
+fresh seasonal vegetables.
+</p>
+
+<div class="price">₹520</div>
+
+</div>
+
+</div>
+
+
+<div
+class="menu-card"
+data-category="main">
+
+<img
+src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Classic Pasta</h3>
+
+<p>
+Fresh pasta tossed with tomato sauce,
+herbs and parmesan cheese.
+</p>
+
+<div class="price">₹480</div>
+
+</div>
+
+</div>
+
+
+<!-- DESSERT -->
+
+<div
+class="menu-card"
+data-category="dessert">
+
+<img
+src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Chocolate Celebration Cake</h3>
+
+<p>
+Rich chocolate cake served with
+vanilla cream and berries.
+</p>
+
+<div class="price">₹320</div>
+
+</div>
+
+</div>
+
+
+<div
+class="menu-card"
+data-category="dessert">
+
+<img
+src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=80">
+
+<div class="menu-info">
+
+<h3>Signature Cheesecake</h3>
+
+<p>
+Creamy cheesecake topped with
+fresh seasonal fruits.
+</p>
+
+<div class="price">₹300</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GALLERY -->
+
+<section
+class="gallery"
+id="gallery">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Our Gallery</h2>
+
+<p>
+A glimpse into the Gourmet Haven experience.
+</p>
+
+</div>
+
+
+<div class="gallery-grid">
+
+<img
+src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=700&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=700&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=700&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=700&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80"
+onclick="openImage(this.src)">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SPECIAL OFFERS -->
+
+<section
+class="offers"
+id="offers">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Special Offers & Events</h2>
+
+<p>
+Enjoy our exclusive dining experiences.
+</p>
+
+</div>
+
+
+<div class="offer-grid">
+
+<div class="offer-card">
+
+<div style="font-size:40px">🍽️</div>
+
+<h3>Weekend Special</h3>
+
+<p>
+Enjoy a three-course gourmet dinner
+every Friday and Saturday evening.
+</p>
+
+<strong>20% OFF</strong>
+
+</div>
+
+
+<div class="offer-card">
+
+<div style="font-size:40px">💑</div>
+
+<h3>Romantic Dinner</h3>
+
+<p>
+A special candlelight dinner package
+for couples with complimentary dessert.
+</p>
+
+<strong>₹1,999 / Couple</strong>
+
+</div>
+
+
+<div class="offer-card">
+
+<div style="font-size:40px">🎉</div>
+
+<h3>Private Events</h3>
+
+<p>
+Celebrate birthdays, anniversaries and
+corporate events in our private dining room.
+</p>
+
+<strong>Custom Packages</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RESERVATION -->
+
+<section
+class="reservation"
+id="reservation">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Reserve Your Table</h2>
+
+<p>
+Book your unforgettable dining experience.
+</p>
+
+</div>
+
+
+<div class="reservation-box">
+
+<form
+onsubmit="makeReservation(event)">
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="guestName"
+required
+placeholder="Enter your name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+required
+placeholder="Enter email">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Phone</label>
+
+<input
+type="tel"
+required
+placeholder="Enter phone number">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Number of Guests</label>
+
+<select required>
+
+<option value="">Select</option>
+<option>1 Guest</option>
+<option>2 Guests</option>
+<option>3 Guests</option>
+<option>4 Guests</option>
+<option>5 Guests</option>
+<option>6+ Guests</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Date</label>
+
+<input
+type="date"
+id="bookingDate"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Time</label>
+
+<select required>
+
+<option value="">Select Time</option>
+<option>12:00 PM</option>
+<option>1:00 PM</option>
+<option>2:00 PM</option>
+<option>6:00 PM</option>
+<option>7:00 PM</option>
+<option>8:00 PM</option>
+<option>9:00 PM</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Special Request</label>
+
+<textarea
+placeholder="Birthday, anniversary, dietary requirements, etc."></textarea>
+
+</div>
+
+
+<button
+class="btn btn-gold"
+type="submit">
+
+Confirm Reservation
+
+</button>
+
+<button
+class="btn btn-dark"
+type="reset">
+
+Clear
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TESTIMONIALS -->
+
+<section
+class="testimonials">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Testimonials</h2>
+
+<p>
+What our guests say about us.
+</p>
+
+</div>
+
+
+<div class="testimonial-grid">
+
+<div class="testimonial">
+
+<div class="avatar">R</div>
+
+<div class="stars">★★★★★</div>
+
+<p>
+"Beautiful atmosphere, excellent service
+and absolutely delicious food."
+</p>
+
+<h3>Rahul</h3>
+
+</div>
+
+
+<div class="testimonial">
+
+<div class="avatar">P</div>
+
+<div class="stars">★★★★★</div>
+
+<p>
+"The perfect place for a special dinner.
+Everything was beautifully presented."
+</p>
+
+<h3>Priya</h3>
+
+</div>
+
+
+<div class="testimonial">
+
+<div class="avatar">A</div>
+
+<div class="stars">★★★★★</div>
+
+<p>
+"One of the best dining experiences
+I have had. Highly recommended!"
+</p>
+
+<h3>Arun</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section
+class="contact"
+id="contact">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Contact Us</h2>
+
+<p>
+We would love to hear from you.
+</p>
+
+</div>
+
+
+<div class="contact-grid">
+
+
+<div class="contact-info">
+
+<h3>Gourmet Haven</h3>
+
+<div class="contact-item">
+
+<strong>📍 Address</strong>
+
+12 Royal Avenue,<br>
+Chennai, Tamil Nadu, India
+
+</div>
+
+
+<div class="contact-item">
+
+<strong>📞 Phone</strong>
+
++91 98765 43210
+
+</div>
+
+
+<div class="contact-item">
+
+<strong>📧 Email</strong>
+
+hello@gourmethaven.com
+
+</div>
+
+
+<div class="contact-item">
+
+<strong>🕐 Opening Hours</strong>
+
+Monday - Sunday<br>
+12:00 PM - 11:00 PM
+
+</div>
+
+</div>
+
+
+<div class="contact-form">
+
+<form
+onsubmit="sendContact(event)">
+
+<div class="form-group">
+
+<label>Name</label>
+
+<input
+type="text"
+id="contactName"
+required
+placeholder="Your name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+required
+placeholder="Your email">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Message</label>
+
+<textarea
+required
+placeholder="Write your message"></textarea>
+
+</div>
+
+
+<button
+class="btn btn-gold"
+type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+
+<iframe
+class="map"
+src="https://www.google.com/maps?q=Chennai,Tamil%20Nadu,India&output=embed"
+loading="lazy">
+</iframe>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>Gourmet Haven</h3>
+
+<p>
+Fine dining, exceptional flavors and
+memorable experiences.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="#home">Home</a>
+<a href="#about">About Us</a>
+<a href="#menu">Menu</a>
+<a href="#reservation">Reservation</a>
+
+</div>
+
+
+<div>
+
+<h3>Our Services</h3>
+
+<a href="#menu">Fine Dining</a>
+<a href="#reservation">Table Reservation</a>
+<a href="#offers">Private Events</a>
+<a href="#contact">Customer Support</a>
+
+</div>
+
+
+<div>
+
+<h3>Contact</h3>
+
+<p>+91 98765 43210</p>
+<p>hello@gourmethaven.com</p>
+<p>Chennai, India</p>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 Gourmet Haven. All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<!-- IMAGE MODAL -->
+
+<div
+class="modal"
+id="imageModal"
+onclick="closeImage()">
+
+<span class="close">&times;</span>
+
+<img
+id="modalImage"
+src=""
+onclick="event.stopPropagation()">
+
+</div>
+
+
+<!-- MESSAGE -->
+
+<div id="message"></div>
+
+
+<script>
+
+/* ================= MENU ================= */
+
+function toggleMenu(){
+
+    document
+    .getElementById("navMenu")
+    .classList.toggle("show");
+
+}
+
+
+/* ================= NOTIFICATION ================= */
+
+function showMessage(text){
+
+    const box =
+        document.getElementById("message");
+
+    box.innerText = text;
+
+    box.style.display = "block";
+
+    setTimeout(function(){
+
+        box.style.display = "none";
+
+    },3500);
+
+}
+
+
+/* ================= MENU FILTER ================= */
+
+function filterMenu(category){
+
+    const items =
+        document.querySelectorAll(
+            ".menu-card"
+        );
+
+    items.forEach(function(item){
+
+        const itemCategory =
+            item.getAttribute(
+                "data-category"
+            );
+
+        if(
+            category === "all" ||
+            itemCategory === category
+        ){
+
+            item.style.display = "block";
+
+        }else{
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ================= RESERVATION ================= */
+
+function makeReservation(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("guestName")
+        .value;
+
+    const date =
+        document
+        .getElementById("bookingDate")
+        .value;
+
+    const reservationId =
+        "GH" +
+        Math.floor(
+            10000 +
+            Math.random() * 90000
+        );
+
+    showMessage(
+        "Reservation confirmed for " +
+        name +
+        " on " +
+        date +
+        ". Booking ID: " +
+        reservationId
+    );
+
+    event.target.reset();
+
+}
+
+
+/* ================= CONTACT ================= */
+
+function sendContact(event){
+
+    event.preventDefault();
+
+    const name =
+        document
+        .getElementById("contactName")
+        .value;
+
+    showMessage(
+        "Thank you " +
+        name +
+        "! Your message has been received."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* ================= IMAGE GALLERY ================= */
+
+function openImage(src){
+
+    document
+    .getElementById("modalImage")
+    .src = src;
+
+    document
+    .getElementById("imageModal")
+    .style.display = "flex";
+
+}
+
+function closeImage(){
+
+    document
+    .getElementById("imageModal")
+    .style.display = "none";
+
+}
+
+
+/* ================= SET MINIMUM DATE ================= */
+
+const today =
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+document
+.getElementById("bookingDate")
+.min = today;
+
+</script>
+
+</body>
+</html>

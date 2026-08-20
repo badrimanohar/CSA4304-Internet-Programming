@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Explorer | Travel Blog</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f8fafc;
+    color:#1e293b;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:#0f172a;
+    color:white;
+}
+
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#38bdf8;
+}
+
+nav{
+    display:flex;
+    gap:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#38bdf8;
+}
+
+.menu-btn{
+    display:none;
+    background:#2563eb;
+    color:white;
+    border:0;
+    padding:8px 12px;
+    border-radius:5px;
+}
+
+.hero{
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    background:
+    linear-gradient(rgba(15,23,42,.65),rgba(15,23,42,.65)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+    color:white;
+}
+
+.hero-content{
+    max-width:1200px;
+    width:100%;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:15px;
+}
+
+.hero h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:650px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.btn{
+    padding:11px 20px;
+    border:0;
+    border-radius:6px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+section{
+    padding:70px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-size:36px;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:#64748b;
+}
+
+.categories{
+    background:white;
+}
+
+.category-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+.category{
+    padding:30px;
+    background:#f1f5f9;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.category:hover{
+    transform:translateY(-5px);
+    background:#e0f2fe;
+}
+
+.category-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.blog-section{
+    background:#f1f5f9;
+}
+
+.filter-bar{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.filter-bar input,
+.filter-bar select{
+    padding:11px;
+    border:1px solid #cbd5e1;
+    border-radius:5px;
+}
+
+.filter-bar input{
+    min-width:280px;
+}
+
+.blog-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.blog-card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.blog-card:hover{
+    transform:translateY(-5px);
+}
+
+.blog-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.blog-info{
+    padding:22px;
+}
+
+.blog-info h3{
+    margin:10px 0;
+}
+
+.blog-info p{
+    color:#64748b;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.tag{
+    display:inline-block;
+    padding:5px 9px;
+    background:#dbeafe;
+    color:#1d4ed8;
+    border-radius:15px;
+    font-size:12px;
+}
+
+.meta{
+    color:#64748b;
+    font-size:13px;
+    margin:10px 0;
+}
+
+.map-section{
+    background:white;
+}
+
+.map{
+    height:420px;
+    border-radius:12px;
+    overflow:hidden;
+    position:relative;
+    background:
+    linear-gradient(135deg,#dbeafe,#dcfce7);
+    border:2px solid #cbd5e1;
+}
+
+.map-title{
+    text-align:center;
+    padding:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.marker{
+    position:absolute;
+    width:42px;
+    height:42px;
+    background:#dc2626;
+    color:white;
+    border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+.marker span{
+    transform:rotate(45deg);
+}
+
+.marker:hover{
+    background:#991b1b;
+}
+
+.marker1{
+    left:25%;
+    top:30%;
+}
+
+.marker2{
+    left:50%;
+    top:50%;
+}
+
+.marker3{
+    left:70%;
+    top:25%;
+}
+
+.marker4{
+    left:75%;
+    top:70%;
+}
+
+.map-info{
+    position:absolute;
+    bottom:15px;
+    left:15px;
+    background:white;
+    padding:15px;
+    border-radius:7px;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.gallery{
+    background:#f1f5f9;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.gallery-grid img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gallery-grid img:hover{
+    transform:scale(1.03);
+}
+
+.about{
+    background:white;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+.about-grid img{
+    width:100%;
+    border-radius:12px;
+}
+
+.about-text p{
+    line-height:1.8;
+    color:#64748b;
+    margin-bottom:15px;
+}
+
+.resources{
+    background:#f8fafc;
+}
+
+.resource-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.resource-card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    border-left:5px solid #2563eb;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+
+.resource-card h3{
+    margin-bottom:10px;
+}
+
+.resource-card p{
+    color:#64748b;
+    line-height:1.6;
+}
+
+.contact{
+    background:white;
+}
+
+.contact-form{
+    max-width:700px;
+    margin:auto;
+    background:#f8fafc;
+    padding:30px;
+    border-radius:10px;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:5px;
+}
+
+.form-group textarea{
+    min-height:120px;
+}
+
+footer{
+    background:#020617;
+    color:white;
+    padding:45px 20px 20px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+footer h3{
+    color:#38bdf8;
+    margin-bottom:15px;
+}
+
+footer p,
+footer a{
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+footer a{
+    text-decoration:none;
+    display:block;
+}
+
+.copyright{
+    text-align:center;
+    border-top:1px solid #334155;
+    margin-top:30px;
+    padding-top:20px;
+    color:#94a3b8;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    z-index:3000;
+    align-items:center;
+    justify-content:center;
+}
+
+.modal-box{
+    background:white;
+    width:90%;
+    max-width:700px;
+    padding:30px;
+    border-radius:10px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-box img{
+    width:100%;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+
+.close{
+    float:right;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.comment-box{
+    margin-top:25px;
+    border-top:1px solid #e2e8f0;
+    padding-top:20px;
+}
+
+.comment{
+    background:#f1f5f9;
+    padding:12px;
+    margin-top:10px;
+    border-radius:6px;
+}
+
+#message{
+    display:none;
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#2563eb;
+    color:white;
+    padding:15px 20px;
+    border-radius:7px;
+    z-index:5000;
+}
+
+@media(max-width:800px){
+
+    nav{
+        display:none;
+        position:absolute;
+        top:65px;
+        left:0;
+        right:0;
+        background:#0f172a;
+        flex-direction:column;
+        padding:20px;
+    }
+
+    nav.active{
+        display:flex;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .about-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .filter-bar input{
+        min-width:100%;
+    }
+
+    section{
+        padding:50px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+Travel<span>Explorer</span>
+</div>
+
+<button class="menu-btn" onclick="toggleMenu()">
+☰
+</button>
+
+<nav id="navMenu">
+<a href="#home">Home</a>
+<a href="#blog">Blog</a>
+<a href="#destinations">Destinations</a>
+<a href="#gallery">Gallery</a>
+<a href="#about">About</a>
+<a href="#resources">Resources</a>
+<a href="#contact">Contact</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<h1>Travel. Explore. Discover.</h1>
+
+<h2>Stories From Around the World</h2>
+
+<p>
+Welcome to TravelExplorer, a travel blog created
+to share unforgettable journeys, beautiful destinations,
+travel guides, local food experiences and useful travel tips.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="scrollToSection('blog')">
+Explore Travel Stories
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="categories">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Explore Categories</h2>
+
+<p>
+Find travel stories based on your interests.
+</p>
+
+</div>
+
+<div class="category-grid">
+
+<div class="category"
+onclick="filterBlogs('destination')">
+
+<div class="category-icon">🌍</div>
+
+<h3>Destinations</h3>
+
+</div>
+
+<div class="category"
+onclick="filterBlogs('guide')">
+
+<div class="category-icon">🧭</div>
+
+<h3>Travel Guides</h3>
+
+</div>
+
+<div class="category"
+onclick="filterBlogs('food')">
+
+<div class="category-icon">🍜</div>
+
+<h3>Food Experiences</h3>
+
+</div>
+
+<div class="category"
+onclick="filterBlogs('culture')">
+
+<div class="category-icon">🏛️</div>
+
+<h3>Culture</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BLOG ================= -->
+
+<section class="blog-section" id="blog">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Latest Travel Stories</h2>
+
+<p>
+Read adventures, guides and travel experiences.
+</p>
+
+</div>
+
+
+<div class="filter-bar">
+
+<input
+type="text"
+id="blogSearch"
+placeholder="Search travel articles..."
+onkeyup="searchBlogs()">
+
+<select
+id="blogFilter"
+onchange="filterBlogs(this.value)">
+
+<option value="all">
+All Categories
+</option>
+
+<option value="destination">
+Destinations
+</option>
+
+<option value="guide">
+Travel Guides
+</option>
+
+<option value="food">
+Food Experiences
+</option>
+
+<option value="culture">
+Culture
+</option>
+
+</select>
+
+</div>
+
+
+<div class="blog-grid" id="blogGrid">
+
+
+<!-- BLOG 1 -->
+
+<div class="blog-card"
+data-category="destination"
+data-title="Exploring Manali">
+
+<img
+src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80">
+
+<div class="blog-info">
+
+<span class="tag">Destination</span>
+
+<h3>Exploring the Mountains of Manali</h3>
+
+<div class="meta">
+📍 Himachal Pradesh • 8 min read
+</div>
+
+<p>
+Discover snow-covered mountains, peaceful valleys,
+beautiful roads and exciting adventures in Manali.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArticle(
+'Exploring the Mountains of Manali',
+'Manali is one of the most beautiful mountain destinations in India. From snow-covered peaks to peaceful valleys, the region offers adventure, nature and unforgettable experiences.',
+'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80'
+)">
+
+Read Article
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BLOG 2 -->
+
+<div class="blog-card"
+data-category="guide"
+data-title="Kerala Travel Guide">
+
+<img
+src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80">
+
+<div class="blog-info">
+
+<span class="tag">Travel Guide</span>
+
+<h3>Complete Kerala Travel Guide</h3>
+
+<div class="meta">
+📍 Kerala • 10 min read
+</div>
+
+<p>
+Explore Kerala's backwaters, beaches, hill stations,
+traditional food and cultural experiences.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArticle(
+'Complete Kerala Travel Guide',
+'Kerala is famous for its backwaters, beaches, tea plantations and rich culture. A trip through Kerala can include Kochi, Munnar, Alleppey and Varkala.',
+'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=80'
+)">
+
+Read Article
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BLOG 3 -->
+
+<div class="blog-card"
+data-category="food"
+data-title="Street Food Chennai">
+
+<img
+src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80">
+
+<div class="blog-info">
+
+<span class="tag">Food Experience</span>
+
+<h3>Street Food Adventures in Chennai</h3>
+
+<div class="meta">
+📍 Chennai • 6 min read
+</div>
+
+<p>
+Experience authentic South Indian food, local snacks,
+filter coffee and delicious street food.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArticle(
+'Street Food Adventures in Chennai',
+'Chennai offers an exciting food culture. From crispy dosas and idlis to spicy street snacks and traditional filter coffee, every meal can become a travel experience.',
+'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1200&q=80'
+)">
+
+Read Article
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BLOG 4 -->
+
+<div class="blog-card"
+data-category="culture"
+data-title="Rajasthan Culture">
+
+<img
+src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80">
+
+<div class="blog-info">
+
+<span class="tag">Culture</span>
+
+<h3>Discover the Culture of Rajasthan</h3>
+
+<div class="meta">
+📍 Rajasthan • 9 min read
+</div>
+
+<p>
+Explore royal palaces, forts, traditional music,
+handicrafts and colorful festivals.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArticle(
+'Discover the Culture of Rajasthan',
+'Rajasthan is known for its royal history, magnificent forts, colorful clothing, folk music, traditional crafts and unforgettable desert experiences.',
+'https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1200&q=80'
+)">
+
+Read Article
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BLOG 5 -->
+
+<div class="blog-card"
+data-category="destination"
+data-title="Goa Beach Escape">
+
+<img
+src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80">
+
+<div class="blog-info">
+
+<span class="tag">Destination</span>
+
+<h3>A Relaxing Beach Escape in Goa</h3>
+
+<div class="meta">
+📍 Goa • 7 min read
+</div>
+
+<p>
+Discover beautiful beaches, sunsets, local food
+and peaceful coastal villages.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArticle(
+'A Relaxing Beach Escape in Goa',
+'Goa combines beautiful beaches, Portuguese architecture, local cuisine and relaxed coastal life. It is a great destination for both adventure and relaxation.',
+'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80'
+)">
+
+Read Article
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BLOG 6 -->
+
+<div class="blog-card"
+data-category="guide"
+data-title="Budget Travel Tips">
+
+<img
+src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80">
+
+<div class="blog-info">
+
+<span class="tag">Travel Guide</span>
+
+<h3>10 Tips for Budget Travel</h3>
+
+<div class="meta">
+🌎 Worldwide • 5 min read
+</div>
+
+<p>
+Learn how to reduce travel expenses while still
+enjoying memorable experiences.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArticle(
+'10 Tips for Budget Travel',
+'Plan your trip early, compare transportation options, choose affordable accommodation, travel during off-season periods and explore local food to save money.',
+'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80'
+)">
+
+Read Article
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= INTERACTIVE MAP ================= -->
+
+<section class="map-section" id="destinations">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Visited Destinations</h2>
+
+<p>
+Click a marker to explore a destination.
+</p>
+
+</div>
+
+<div class="map">
+
+<div class="map-title">
+🌎 TravelExplorer Interactive Travel Map
+</div>
+
+
+<div
+class="marker marker1"
+onclick="showLocation('Manali')">
+
+<span>📍</span>
+
+</div>
+
+
+<div
+class="marker marker2"
+onclick="showLocation('Kerala')">
+
+<span>📍</span>
+
+</div>
+
+
+<div
+class="marker marker3"
+onclick="showLocation('Rajasthan')">
+
+<span>📍</span>
+
+</div>
+
+
+<div
+class="marker marker4"
+onclick="showLocation('Goa')">
+
+<span>📍</span>
+
+</div>
+
+
+<div
+class="map-info"
+id="mapInfo">
+
+Click a location marker to view details.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PHOTO GALLERY ================= -->
+
+<section class="gallery" id="gallery">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Travel Photo Gallery</h2>
+
+<p>
+Moments captured from different journeys.
+</p>
+
+</div>
+
+
+<div class="gallery-grid">
+
+<img
+src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1521292270410-a8c4d716d518?auto=format&fit=crop&w=800&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=80"
+onclick="openImage(this.src)">
+
+<img
+src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+onclick="openImage(this.src)">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>About the Traveler</h2>
+
+<p>
+The story behind TravelExplorer.
+</p>
+
+</div>
+
+
+<div class="about-grid">
+
+<img
+src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?auto=format&fit=crop&w=900&q=80"
+alt="Traveler">
+
+
+<div class="about-text">
+
+<h2>Hello, I'm Alex!</h2>
+
+<p>
+I am a travel enthusiast who loves discovering
+new places, meeting people, tasting local food
+and documenting unforgettable experiences.
+</p>
+
+<p>
+TravelExplorer was created to inspire travelers
+to explore new destinations and plan their journeys
+with confidence.
+</p>
+
+<p>
+My goal is to share practical travel guides,
+budget tips, photography and personal stories
+from every journey.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="showMessage('Thank you for visiting TravelExplorer!')">
+
+Follow My Journey
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= RESOURCES ================= -->
+
+<section class="resources" id="resources">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Travel Resources</h2>
+
+<p>
+Useful tools and information for your next trip.
+</p>
+
+</div>
+
+
+<div class="resource-grid">
+
+
+<div class="resource-card">
+
+<h3>🎒 Packing List</h3>
+
+<p>
+Passport, clothes, toiletries, medicines,
+chargers, documents and travel essentials.
+</p>
+
+</div>
+
+
+<div class="resource-card">
+
+<h3>💰 Budget Planner</h3>
+
+<p>
+Plan transportation, accommodation, food,
+activities and emergency expenses.
+</p>
+
+</div>
+
+
+<div class="resource-card">
+
+<h3>🧭 Travel Checklist</h3>
+
+<p>
+Check your documents, bookings, insurance
+and important travel arrangements.
+</p>
+
+</div>
+
+
+<div class="resource-card">
+
+<h3>📸 Photography Tips</h3>
+
+<p>
+Use natural light, interesting perspectives
+and local surroundings to capture memories.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CONTACT ================= -->
+
+<section class="contact" id="contact">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>Contact the Traveler</h2>
+
+<p>
+Have a question or want to share your travel story?
+</p>
+
+</div>
+
+
+<div class="contact-form">
+
+<form onsubmit="submitContact(event)">
+
+<div class="form-group">
+
+<label>Name</label>
+
+<input
+type="text"
+id="contactName"
+required
+placeholder="Enter your name">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+required
+placeholder="Enter your email">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Message</label>
+
+<textarea
+required
+placeholder="Write your message..."></textarea>
+
+</div>
+
+
+<button
+class="btn btn-primary"
+type="submit">
+
+Send Message
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>TravelExplorer</h3>
+
+<p>
+Stories, guides and inspiration for travelers
+around the world.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="#home">Home</a>
+<a href="#blog">Travel Blog</a>
+<a href="#destinations">Destinations</a>
+<a href="#gallery">Gallery</a>
+
+</div>
+
+
+<div>
+
+<h3>Categories</h3>
+
+<a href="#blog">Travel Guides</a>
+<a href="#blog">Food Experiences</a>
+<a href="#blog">Culture</a>
+<a href="#blog">Destinations</a>
+
+</div>
+
+
+<div>
+
+<h3>Social</h3>
+
+<p>📷 Instagram</p>
+<p>▶️ YouTube</p>
+<p>📘 Facebook</p>
+<p>🐦 Twitter</p>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 TravelExplorer. All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<!-- ================= ARTICLE MODAL ================= -->
+
+<div class="modal" id="articleModal">
+
+<div class="modal-box">
+
+<span class="close"
+onclick="closeModal()">
+&times;
+</span>
+
+<img id="articleImage">
+
+<h2 id="articleTitle"></h2>
+
+<br>
+
+<p id="articleText"
+style="line-height:1.8;color:#64748b;">
+</p>
+
+
+<div class="comment-box">
+
+<h3>Reader Comments</h3>
+
+<div id="comments">
+
+<div class="comment">
+<strong>Sarah:</strong>
+Beautiful destination! Thanks for sharing.
+</div>
+
+</div>
+
+<br>
+
+<input
+type="text"
+id="commentInput"
+placeholder="Write a comment...">
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="addComment()">
+
+Post Comment
+
+</button>
+
+<br><br>
+
+<button
+class="btn btn-primary"
+onclick="shareArticle()">
+
+🔗 Share Article
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= IMAGE MODAL ================= -->
+
+<div class="modal" id="imageModal">
+
+<div class="modal-box">
+
+<span class="close"
+onclick="closeImage()">
+&times;
+</span>
+
+<img id="largeImage">
+
+</div>
+
+</div>
+
+
+<!-- ================= NOTIFICATION ================= -->
+
+<div id="message"></div>
+
+
+<script>
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function toggleMenu(){
+
+    document
+    .getElementById("navMenu")
+    .classList.toggle("active");
+
+}
+
+
+function scrollToSection(id){
+
+    document
+    .getElementById(id)
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   BLOG SEARCH
+===================================================== */
+
+function searchBlogs(){
+
+    const search =
+        document
+        .getElementById("blogSearch")
+        .value
+        .toLowerCase();
+
+    const blogs =
+        document.querySelectorAll(
+            ".blog-card"
+        );
+
+
+    blogs.forEach(function(blog){
+
+        const title =
+            blog
+            .getAttribute("data-title")
+            .toLowerCase();
+
+        if(title.includes(search)){
+
+            blog.style.display =
+                "block";
+
+        }else{
+
+            blog.style.display =
+                "none";
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   BLOG FILTER
+===================================================== */
+
+function filterBlogs(category){
+
+    const blogs =
+        document.querySelectorAll(
+            ".blog-card"
+        );
+
+
+    document
+    .getElementById("blogFilter")
+    .value =
+        category;
+
+
+    blogs.forEach(function(blog){
+
+        const blogCategory =
+            blog.getAttribute(
+                "data-category"
+            );
+
+
+        if(
+            category === "all" ||
+            blogCategory === category
+        ){
+
+            blog.style.display =
+                "block";
+
+        }else{
+
+            blog.style.display =
+                "none";
+
+        }
+
+    });
+
+
+    scrollToSection("blog");
+
+}
+
+
+/* =====================================================
+   ARTICLE MODAL
+===================================================== */
+
+function openArticle(title,text,image){
+
+    document
+    .getElementById("articleTitle")
+    .innerText =
+        title;
+
+    document
+    .getElementById("articleText")
+    .innerText =
+        text;
+
+    document
+    .getElementById("articleImage")
+    .src =
+        image;
+
+
+    document
+    .getElementById("articleModal")
+    .style.display =
+        "flex";
+
+}
+
+
+function closeModal(){
+
+    document
+    .getElementById("articleModal")
+    .style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   COMMENTS
+===================================================== */
+
+function addComment(){
+
+    const input =
+        document
+        .getElementById(
+            "commentInput"
+        );
+
+    const text =
+        input.value.trim();
+
+
+    if(text === ""){
+
+        showMessage(
+            "Please enter a comment."
+        );
+
+        return;
+
+    }
+
+
+    const comment =
+        document.createElement(
+            "div"
+        );
+
+
+    comment.className =
+        "comment";
+
+
+    comment.innerHTML =
+        "<strong>You:</strong> "
+        + text;
+
+
+    document
+    .getElementById("comments")
+    .appendChild(comment);
+
+
+    input.value = "";
+
+    showMessage(
+        "Comment posted successfully."
+    );
+
+}
+
+
+/* =====================================================
+   SHARE ARTICLE
+===================================================== */
+
+function shareArticle(){
+
+    if(
+        navigator.clipboard
+    ){
+
+        navigator.clipboard.writeText(
+            window.location.href
+        );
+
+        showMessage(
+            "Article link copied!"
+        );
+
+    }else{
+
+        showMessage(
+            "Share link copied."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   MAP
+===================================================== */
+
+function showLocation(location){
+
+    const info =
+        document
+        .getElementById("mapInfo");
+
+
+    const details = {
+
+        "Manali":
+        "🏔️ Manali - A beautiful Himalayan destination known for mountains, valleys and adventure activities.",
+
+        "Kerala":
+        "🌴 Kerala - Famous for backwaters, beaches, hill stations and traditional culture.",
+
+        "Rajasthan":
+        "🏰 Rajasthan - Explore royal palaces, forts, deserts and colorful traditions.",
+
+        "Goa":
+        "🏖️ Goa - Discover beaches, sunsets, coastal villages and local cuisine."
+
+    };
+
+
+    info.innerText =
+        details[location];
+
+}
+
+
+/* =====================================================
+   IMAGE GALLERY
+===================================================== */
+
+function openImage(src){
+
+    document
+    .getElementById("largeImage")
+    .src =
+        src;
+
+    document
+    .getElementById("imageModal")
+    .style.display =
+        "flex";
+
+}
+
+
+function closeImage(){
+
+    document
+    .getElementById("imageModal")
+    .style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+function submitContact(event){
+
+    event.preventDefault();
+
+
+    const name =
+        document
+        .getElementById("contactName")
+        .value;
+
+
+    showMessage(
+        "Thank you " +
+        name +
+        "! Your message has been sent."
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+function showMessage(text){
+
+    const message =
+        document
+        .getElementById("message");
+
+
+    message.innerText =
+        text;
+
+    message.style.display =
+        "block";
+
+
+    setTimeout(function(){
+
+        message.style.display =
+            "none";
+
+    },3000);
+
+}
+
+
+/* =====================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+===================================================== */
+
+window.onclick =
+function(event){
+
+    const articleModal =
+        document.getElementById(
+            "articleModal"
+        );
+
+    const imageModal =
+        document.getElementById(
+            "imageModal"
+        );
+
+
+    if(event.target === articleModal){
+
+        articleModal.style.display =
+            "none";
+
+    }
+
+
+    if(event.target === imageModal){
+
+        imageModal.style.display =
+            "none";
+
+    }
+
+};
+
+</script>
+
+</body>
+</html>
