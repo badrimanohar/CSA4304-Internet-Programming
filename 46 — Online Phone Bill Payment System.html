@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Phone Bill Payment System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#1e293b;
+}
+
+/* HEADER */
+
+header{
+    background:linear-gradient(135deg,#312e81,#4f46e5);
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    cursor:pointer;
+}
+
+nav a:hover{
+    color:#fde68a;
+}
+
+/* HERO */
+
+.hero{
+    min-height:420px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:50px 7%;
+    background:linear-gradient(135deg,#e0e7ff,#eef2ff);
+}
+
+.hero h1{
+    font-size:44px;
+    color:#312e81;
+    margin-bottom:15px;
+}
+
+.hero p{
+    max-width:750px;
+    line-height:1.7;
+    font-size:18px;
+    color:#475569;
+}
+
+/* BUTTON */
+
+.btn{
+    border:none;
+    padding:12px 22px;
+    margin:8px 4px;
+    border-radius:7px;
+    cursor:pointer;
+    color:white;
+    background:#4f46e5;
+    font-size:15px;
+}
+
+.btn:hover{
+    background:#3730a3;
+}
+
+.btn.green{
+    background:#16a34a;
+}
+
+.btn.red{
+    background:#dc2626;
+}
+
+.btn.orange{
+    background:#ea580c;
+}
+
+/* SECTIONS */
+
+section{
+    padding:50px 7%;
+}
+
+.title{
+    text-align:center;
+    font-size:30px;
+    color:#312e81;
+    margin-bottom:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+/* CARDS */
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* FORM */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px 25px;
+}
+
+.form-group{
+    margin-bottom:5px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#4f46e5;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:none;
+    padding:50px 7%;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.dashboard-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.dashboard-card h3{
+    color:#312e81;
+    margin-bottom:10px;
+}
+
+/* BILL */
+
+.bill-card{
+    margin-top:30px;
+    display:none;
+}
+
+.bill-header{
+    text-align:center;
+    padding-bottom:20px;
+    border-bottom:1px solid #ddd;
+}
+
+.bill-header h2{
+    color:#312e81;
+}
+
+.amount{
+    font-size:38px;
+    font-weight:bold;
+    color:#dc2626;
+    margin:15px 0;
+}
+
+.summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:25px;
+}
+
+.summary-box{
+    padding:20px;
+    background:#eef2ff;
+    border-radius:10px;
+    text-align:center;
+}
+
+.summary-box h3{
+    color:#312e81;
+    margin-bottom:8px;
+}
+
+.summary-box p{
+    font-size:19px;
+    font-weight:bold;
+}
+
+/* PAYMENT */
+
+.payment-box{
+    margin-top:30px;
+    background:#f8fafc;
+    padding:25px;
+    border-radius:10px;
+}
+
+.payment-fields{
+    display:none;
+    margin-top:20px;
+}
+
+/* HISTORY */
+
+.history{
+    margin-top:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,
+td{
+    border:1px solid #ddd;
+    padding:13px;
+    text-align:center;
+}
+
+th{
+    background:#312e81;
+    color:white;
+}
+
+/* REMINDER */
+
+.reminder{
+    margin-top:25px;
+    padding:20px;
+    background:#ecfdf5;
+    border-left:5px solid #16a34a;
+    border-radius:7px;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+}
+
+.modal-box{
+    width:90%;
+    max-width:450px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+}
+
+.close{
+    float:right;
+    font-size:25px;
+    color:#dc2626;
+    cursor:pointer;
+}
+
+/* ADMIN */
+
+.admin-panel{
+    margin-top:30px;
+}
+
+.admin-panel input{
+    margin-bottom:15px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#312e81;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav a{
+        margin:0 7px;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    table{
+        font-size:12px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        📱 PhonePay Bill
+    </div>
+
+    <nav>
+        <a onclick="showHome()">Home</a>
+        <a onclick="openCustomer()">Customer</a>
+        <a onclick="openAdmin()">Admin</a>
+        <a onclick="scrollToContact()">Contact</a>
+    </nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<div id="home">
+
+<section class="hero">
+
+    <div>
+
+        <h1>
+            Online Phone Bill Payment
+        </h1>
+
+        <p>
+            Manage your monthly phone bills,
+            view outstanding amounts,
+            make secure payments,
+            check payment history and
+            receive payment reminders.
+        </p>
+
+        <button class="btn"
+                onclick="openCustomer()">
+
+            Pay Bill
+
+        </button>
+
+        <button class="btn green"
+                onclick="showFeatures()">
+
+            View Features
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section>
+
+<div class="container">
+
+<h2 class="title">
+    System Features
+</h2>
+
+<div class="dashboard-grid">
+
+<div class="dashboard-card">
+
+<h3>📄 Bill Details</h3>
+
+<p>
+View current bill, due date,
+billing period and outstanding amount.
+</p>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>💳 Online Payment</h3>
+
+<p>
+Pay using card, net banking
+or mobile wallet.
+</p>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>📜 Payment History</h3>
+
+<p>
+View previous phone bill
+payments and transactions.
+</p>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>🔔 Notifications</h3>
+
+<p>
+Receive reminders about
+upcoming bill due dates.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- CUSTOMER DASHBOARD -->
+
+<div id="customerDashboard"
+     class="dashboard">
+
+<div class="container">
+
+<h2 class="title">
+    Customer Dashboard
+</h2>
+
+
+<!-- CUSTOMER DETAILS -->
+
+<div class="card">
+
+<h2 style="color:#312e81;">
+    Customer Information
+</h2>
+
+<br>
+
+<div class="form-grid">
+
+<div class="form-group">
+
+<label>
+Customer Name
+</label>
+
+<input type="text"
+       id="customerName"
+       placeholder="Enter your name"
+       required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Mobile Number
+</label>
+
+<input type="tel"
+       id="mobileNumber"
+       placeholder="10 digit mobile number"
+       maxlength="10"
+       required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input type="email"
+       id="customerEmail"
+       placeholder="Enter email"
+       required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Plan Type
+</label>
+
+<select id="planType">
+
+<option value="499">
+Postpaid - ₹499
+</option>
+
+<option value="699">
+Postpaid - ₹699
+</option>
+
+<option value="999">
+Postpaid - ₹999
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button class="btn"
+        onclick="generateBill()">
+
+View Current Bill
+
+</button>
+
+<button class="btn red"
+        onclick="customerLogout()">
+
+Logout
+
+</button>
+
+</div>
+
+
+<!-- BILL -->
+
+<div id="billCard"
+     class="card bill-card">
+
+<div class="bill-header">
+
+<h2>
+Current Phone Bill
+</h2>
+
+<div class="amount">
+₹<span id="billAmount">0</span>
+</div>
+
+<p>
+Outstanding Amount
+</p>
+
+</div>
+
+
+<div class="summary">
+
+<div class="summary-box">
+
+<h3>
+Billing Period
+</h3>
+
+<p id="billingPeriod">
+Current Month
+</p>
+
+</div>
+
+
+<div class="summary-box">
+
+<h3>
+Due Date
+</h3>
+
+<p id="dueDate">
+-
+</p>
+
+</div>
+
+
+<div class="summary-box">
+
+<h3>
+Fine
+</h3>
+
+<p>
+₹<span id="fineAmount">0</span>
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div class="payment-box">
+
+<h2 style="color:#312e81;">
+Make Payment
+</h2>
+
+<br>
+
+<label>
+Payment Amount
+</label>
+
+<input type="number"
+       id="paymentAmount"
+       placeholder="Enter amount">
+
+
+<label style="margin-top:15px;">
+Payment Method
+</label>
+
+<select id="paymentMethod"
+        onchange="showPaymentFields()">
+
+<option value="">
+Select Payment Method
+</option>
+
+<option value="card">
+Credit / Debit Card
+</option>
+
+<option value="netbanking">
+Net Banking
+</option>
+
+<option value="wallet">
+Mobile Wallet
+</option>
+
+</select>
+
+
+<!-- CARD -->
+
+<div id="cardFields"
+     class="payment-fields">
+
+<label>
+Card Number
+</label>
+
+<input type="text"
+       id="cardNumber"
+       maxlength="16"
+       placeholder="16 digit card number">
+
+<br><br>
+
+<label>
+Expiry Date
+</label>
+
+<input type="month"
+       id="expiry">
+
+<br><br>
+
+<label>
+CVV
+</label>
+
+<input type="password"
+       id="cvv"
+       maxlength="3"
+       placeholder="CVV">
+
+</div>
+
+
+<!-- NET BANKING -->
+
+<div id="bankFields"
+     class="payment-fields">
+
+<label>
+Select Bank
+</label>
+
+<select id="bank">
+
+<option>
+State Bank of India
+</option>
+
+<option>
+HDFC Bank
+</option>
+
+<option>
+ICICI Bank
+</option>
+
+<option>
+Axis Bank
+</option>
+
+<option>
+Canara Bank
+</option>
+
+</select>
+
+</div>
+
+
+<!-- WALLET -->
+
+<div id="walletFields"
+     class="payment-fields">
+
+<label>
+Wallet Number
+</label>
+
+<input type="tel"
+       id="walletNumber"
+       placeholder="Enter mobile number">
+
+</div>
+
+
+<button class="btn green"
+        onclick="makePayment()">
+
+Pay Now
+
+</button>
+
+</div>
+
+
+<!-- REMINDER -->
+
+<div class="reminder">
+
+<h3>
+🔔 Bill Reminder
+</h3>
+
+<p>
+Enable notifications to receive reminders
+before your phone bill due date.
+</p>
+
+<button class="btn"
+        onclick="enableReminder()">
+
+Enable Reminder
+
+</button>
+
+</div>
+
+
+<!-- PAYMENT HISTORY -->
+
+<div class="history">
+
+<h2 style="color:#312e81;">
+Payment History
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+
+<th>Amount</th>
+
+<th>Method</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyBody">
+
+<tr>
+
+<td colspan="4">
+No payments yet
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+
+<div id="adminDashboard"
+     class="dashboard">
+
+<div class="container">
+
+<h2 class="title">
+Administrator Dashboard
+</h2>
+
+
+<div class="dashboard-grid">
+
+<div class="dashboard-card">
+
+<h3>
+👥 Customers
+</h3>
+
+<p>
+Manage customer accounts
+and billing information.
+</p>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>
+📅 Monthly Billing
+</h3>
+
+<p>
+Manage monthly billing periods
+and due dates.
+</p>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>
+💰 Fine Management
+</h3>
+
+<p>
+₹10 fine is added for each
+day after the due date.
+</p>
+
+</div>
+
+
+<div class="dashboard-card">
+
+<h3>
+📊 Reports
+</h3>
+
+<p>
+View payment and billing reports.
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN UPDATE -->
+
+<div class="card admin-panel">
+
+<h2 style="color:#312e81;">
+Update Billing Information
+</h2>
+
+<br>
+
+<label>
+Monthly Base Bill (₹)
+</label>
+
+<input type="number"
+       id="adminBill"
+       value="499">
+
+<label>
+Fine Per Day (₹)
+</label>
+
+<input type="number"
+       id="adminFine"
+       value="10">
+
+<label>
+Billing Period Start
+</label>
+
+<input type="date"
+       id="startDate">
+
+<label>
+Billing Period End
+</label>
+
+<input type="date"
+       id="endDate">
+
+<label>
+Last Payment Date
+</label>
+
+<input type="date"
+       id="lastPaymentDate">
+
+<button class="btn green"
+        onclick="updateBilling()">
+
+Update Billing
+
+</button>
+
+</div>
+
+
+<br>
+
+<button class="btn red"
+        onclick="adminLogout()">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN LOGIN -->
+
+<div id="adminModal"
+     class="modal">
+
+<div class="modal-box">
+
+<span class="close"
+      onclick="closeAdmin()">
+×
+</span>
+
+<h2 style="color:#312e81;">
+Administrator Login
+</h2>
+
+<br>
+
+<form onsubmit="adminLogin(event)">
+
+<label>
+Username
+</label>
+
+<input type="text"
+       id="adminUsername"
+       required>
+
+<br>
+
+<label>
+Password
+</label>
+
+<input type="password"
+       id="adminPassword"
+       required>
+
+<br>
+
+<button class="btn"
+        type="submit">
+
+Login
+
+</button>
+
+</form>
+
+<p style="margin-top:15px;color:#64748b;">
+Demo Login: admin / admin123
+</p>
+
+</div>
+
+</div>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="container">
+
+<h2 class="title">
+Contact Us
+</h2>
+
+<div class="card">
+
+<h3>
+PhonePay Customer Support
+</h3>
+
+<br>
+
+<p>
+📞 Customer Care: 1800-123-4567
+</p>
+
+<br>
+
+<p>
+📧 Email: support@phonepaybill.com
+</p>
+
+<br>
+
+<p>
+🕐 Support Time: 9:00 AM – 6:00 PM
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+© 2026 Online Phone Bill Payment System
+</p>
+
+<p>
+Internet Programming Lab Project - Question 46
+</p>
+
+</footer>
+
+
+<script>
+
+/* ==========================================
+   GLOBAL BILL CONFIGURATION
+========================================== */
+
+let billingConfig = {
+
+    monthlyBill: 499,
+
+    finePerDay: 10,
+
+    startDate: "",
+
+    endDate: "",
+
+    lastPaymentDate: ""
+
+};
+
+
+/* ==========================================
+   HOME
+========================================== */
+
+function showHome(){
+
+    document.getElementById("home")
+        .style.display="block";
+
+    document.getElementById("customerDashboard")
+        .style.display="none";
+
+    document.getElementById("adminDashboard")
+        .style.display="none";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ==========================================
+   OPEN CUSTOMER
+========================================== */
+
+function openCustomer(){
+
+    document.getElementById("home")
+        .style.display="none";
+
+    document.getElementById("adminDashboard")
+        .style.display="none";
+
+    document.getElementById("customerDashboard")
+        .style.display="block";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ==========================================
+   GENERATE BILL
+========================================== */
+
+function generateBill(){
+
+    let name =
+        document.getElementById("customerName")
+        .value.trim();
+
+    let mobile =
+        document.getElementById("mobileNumber")
+        .value.trim();
+
+    let email =
+        document.getElementById("customerEmail")
+        .value.trim();
+
+    let plan =
+        Number(
+            document.getElementById("planType")
+            .value
+        );
+
+
+    if(name === "" ||
+       mobile === "" ||
+       email === ""){
+
+        alert(
+            "Please enter customer details."
+        );
+
+        return;
+
+    }
+
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        alert(
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        return;
+
+    }
+
+
+    let today =
+        new Date();
+
+
+    let due =
+        new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            15
+        );
+
+
+    let fine = 0;
+
+
+    /*
+       Calculate fine if today
+       is after due date.
+    */
+
+    if(today > due){
+
+        let difference =
+            today - due;
+
+        let daysLate =
+            Math.floor(
+                difference /
+                (1000*60*60*24)
+            );
+
+        fine =
+            daysLate *
+            billingConfig.finePerDay;
+
+    }
+
+
+    let total =
+        plan + fine;
+
+
+    document.getElementById("billAmount")
+        .innerText =
+        formatMoney(total);
+
+
+    document.getElementById("fineAmount")
+        .innerText =
+        formatMoney(fine);
+
+
+    document.getElementById("dueDate")
+        .innerText =
+        formatDate(due);
+
+
+    document.getElementById("billingPeriod")
+        .innerText =
+        getCurrentMonth();
+
+
+    document.getElementById("paymentAmount")
+        .value =
+        total;
+
+
+    document.getElementById("billCard")
+        .style.display="block";
+
+
+    document.getElementById("billCard")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* ==========================================
+   PAYMENT FIELDS
+========================================== */
+
+function showPaymentFields(){
+
+    document.getElementById("cardFields")
+        .style.display="none";
+
+    document.getElementById("bankFields")
+        .style.display="none";
+
+    document.getElementById("walletFields")
+        .style.display="none";
+
+
+    let method =
+        document.getElementById("paymentMethod")
+        .value;
+
+
+    if(method === "card"){
+
+        document.getElementById("cardFields")
+            .style.display="block";
+
+    }
+
+
+    if(method === "netbanking"){
+
+        document.getElementById("bankFields")
+            .style.display="block";
+
+    }
+
+
+    if(method === "wallet"){
+
+        document.getElementById("walletFields")
+            .style.display="block";
+
+    }
+
+}
+
+
+/* ==========================================
+   MAKE PAYMENT
+========================================== */
+
+function makePayment(){
+
+    let amount =
+        Number(
+            document.getElementById("paymentAmount")
+            .value
+        );
+
+
+    let method =
+        document.getElementById("paymentMethod")
+        .value;
+
+
+    if(amount <= 0){
+
+        alert(
+            "Enter a valid payment amount."
+        );
+
+        return;
+
+    }
+
+
+    if(method === ""){
+
+        alert(
+            "Please select a payment method."
+        );
+
+        return;
+
+    }
+
+
+    /* CARD VALIDATION */
+
+    if(method === "card"){
+
+        let card =
+            document.getElementById("cardNumber")
+            .value.trim();
+
+        let cvv =
+            document.getElementById("cvv")
+            .value.trim();
+
+
+        if(!/^[0-9]{16}$/.test(card)){
+
+            alert(
+                "Enter a valid 16 digit card number."
+            );
+
+            return;
+
+        }
+
+
+        if(!/^[0-9]{3}$/.test(cvv)){
+
+            alert(
+                "Enter a valid 3 digit CVV."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    /* WALLET VALIDATION */
+
+    if(method === "wallet"){
+
+        let wallet =
+            document.getElementById("walletNumber")
+            .value.trim();
+
+
+        if(!/^[0-9]{10}$/.test(wallet)){
+
+            alert(
+                "Enter a valid wallet mobile number."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    let methodName = "";
+
+
+    if(method === "card"){
+
+        methodName =
+            "Credit/Debit Card";
+
+    }
+
+    else if(method === "netbanking"){
+
+        methodName =
+            "Net Banking";
+
+    }
+
+    else{
+
+        methodName =
+            "Mobile Wallet";
+
+    }
+
+
+    /*
+       Create transaction record
+    */
+
+    let date =
+        new Date()
+        .toLocaleDateString("en-IN");
+
+
+    let history =
+        document.getElementById("historyBody");
+
+
+    /*
+       Remove "No payments" row
+    */
+
+    if(history.children.length === 1 &&
+       history.innerText.includes("No payments")){
+
+        history.innerHTML="";
+
+    }
+
+
+    let row =
+        history.insertRow();
+
+
+    row.insertCell(0)
+        .innerText=date;
+
+    row.insertCell(1)
+        .innerText="₹"+
+        formatMoney(amount);
+
+    row.insertCell(2)
+        .innerText=methodName;
+
+    row.insertCell(3)
+        .innerText="Successful";
+
+
+    alert(
+        "Payment Successful!\n\n" +
+        "Amount: ₹" +
+        formatMoney(amount) +
+        "\nMethod: " +
+        methodName +
+        "\n\nReceipt generated successfully."
+    );
+
+
+    /*
+       Clear payment fields
+    */
+
+    document.getElementById("paymentMethod")
+        .value="";
+
+    document.getElementById("cardFields")
+        .style.display="none";
+
+    document.getElementById("bankFields")
+        .style.display="none";
+
+    document.getElementById("walletFields")
+        .style.display="none";
+
+}
+
+
+/* ==========================================
+   ENABLE REMINDER
+========================================== */
+
+function enableReminder(){
+
+    let email =
+        document.getElementById("customerEmail")
+        .value;
+
+
+    if(email === ""){
+
+        alert(
+            "Please enter your email first."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Bill reminder enabled successfully!\n\n" +
+        "Reminder notifications will be sent to:\n" +
+        email
+    );
+
+}
+
+
+/* ==========================================
+   ADMIN LOGIN
+========================================== */
+
+function openAdmin(){
+
+    document.getElementById("adminModal")
+        .style.display="flex";
+
+}
+
+
+function closeAdmin(){
+
+    document.getElementById("adminModal")
+        .style.display="none";
+
+}
+
+
+function adminLogin(event){
+
+    event.preventDefault();
+
+
+    let username =
+        document.getElementById("adminUsername")
+        .value;
+
+
+    let password =
+        document.getElementById("adminPassword")
+        .value;
+
+
+    if(
+        username === "admin" &&
+        password === "admin123"
+    ){
+
+        closeAdmin();
+
+
+        document.getElementById("home")
+            .style.display="none";
+
+        document.getElementById("customerDashboard")
+            .style.display="none";
+
+        document.getElementById("adminDashboard")
+            .style.display="block";
+
+
+        window.scrollTo(0,0);
+
+    }
+
+    else{
+
+        alert(
+            "Invalid Admin Login.\n\n" +
+            "Username: admin\n" +
+            "Password: admin123"
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   ADMIN BILLING UPDATE
+========================================== */
+
+function updateBilling(){
+
+    let bill =
+        Number(
+            document.getElementById("adminBill")
+            .value
+        );
+
+
+    let fine =
+        Number(
+            document.getElementById("adminFine")
+            .value
+        );
+
+
+    let start =
+        document.getElementById("startDate")
+        .value;
+
+
+    let end =
+        document.getElementById("endDate")
+        .value;
+
+
+    let last =
+        document.getElementById("lastPaymentDate")
+        .value;
+
+
+    if(bill <= 0){
+
+        alert(
+            "Enter a valid bill amount."
+        );
+
+        return;
+
+    }
+
+
+    if(fine < 0){
+
+        alert(
+            "Fine cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    billingConfig.monthlyBill =
+        bill;
+
+    billingConfig.finePerDay =
+        fine;
+
+    billingConfig.startDate =
+        start;
+
+    billingConfig.endDate =
+        end;
+
+    billingConfig.lastPaymentDate =
+        last;
+
+
+    alert(
+        "Billing information updated successfully!"
+    );
+
+}
+
+
+/* ==========================================
+   ADMIN LOGOUT
+========================================== */
+
+function adminLogout(){
+
+    document.getElementById("adminDashboard")
+        .style.display="none";
+
+    document.getElementById("home")
+        .style.display="block";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ==========================================
+   CUSTOMER LOGOUT
+========================================== */
+
+function customerLogout(){
+
+    document.getElementById("customerDashboard")
+        .style.display="none";
+
+    document.getElementById("home")
+        .style.display="block";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ==========================================
+   FEATURES
+========================================== */
+
+function showFeatures(){
+
+    alert(
+        "System Features\n\n" +
+
+        "✓ Customer Registration\n" +
+        "✓ Customer Login\n" +
+        "✓ View Current Bill\n" +
+        "✓ Due Date\n" +
+        "✓ Fine Calculation\n" +
+        "✓ Card Payment\n" +
+        "✓ Net Banking\n" +
+        "✓ Mobile Wallet\n" +
+        "✓ Payment History\n" +
+        "✓ Bill Reminder\n" +
+        "✓ Admin Billing Management"
+    );
+
+}
+
+
+/* ==========================================
+   DATE FORMAT
+========================================== */
+
+function formatDate(date){
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* ==========================================
+   CURRENT MONTH
+========================================== */
+
+function getCurrentMonth(){
+
+    return new Date().toLocaleDateString(
+        "en-IN",
+        {
+            month:"long",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+/* ==========================================
+   MONEY FORMAT
+========================================== */
+
+function formatMoney(value){
+
+    return Number(value)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* ==========================================
+   CONTACT
+========================================== */
+
+function scrollToContact(){
+
+    document.getElementById("contact")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Painting Rating & Review System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f6fa;
+    color: #222;
+}
+
+header {
+    background: linear-gradient(135deg, #42275a, #734b6d);
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #ffd166;
+}
+
+.hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f7e9ff, #ffffff);
+}
+
+.hero h1 {
+    font-size: 45px;
+    color: #42275a;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 700px;
+    line-height: 1.7;
+    color: #555;
+    font-size: 18px;
+}
+
+.btn {
+    border: none;
+    padding: 12px 22px;
+    margin: 7px;
+    border-radius: 7px;
+    background: #42275a;
+    color: white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #734b6d;
+}
+
+.btn.green {
+    background: #198754;
+}
+
+.btn.red {
+    background: #dc3545;
+}
+
+.btn.orange {
+    background: #f39c12;
+}
+
+section {
+    padding: 50px 7%;
+}
+
+.title {
+    text-align: center;
+    color: #42275a;
+    margin-bottom: 30px;
+    font-size: 30px;
+}
+
+.painting-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.painting-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.painting-image {
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+.painting-info {
+    padding: 20px;
+}
+
+.painting-info h3 {
+    color: #42275a;
+    margin-bottom: 10px;
+}
+
+.rating {
+    color: #f4b400;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.dashboard {
+    display: none;
+    padding: 40px 7%;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    color: #42275a;
+    margin-bottom: 12px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-box {
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.modal-box h2 {
+    color: #42275a;
+    margin-bottom: 20px;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    color: #dc3545;
+}
+
+.review {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.stars {
+    display: flex;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #bbb;
+}
+
+.star.active {
+    color: #f4b400;
+}
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.summary-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.summary-box h3 {
+    color: #42275a;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #42275a;
+    color: white;
+}
+
+footer {
+    background: #42275a;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+@media(max-width:700px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 7px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+
+    <div class="logo">
+        🎨 ArtReview
+    </div>
+
+    <nav>
+        <a onclick="showHome()">Home</a>
+        <a onclick="openLogin('customer')">Customer</a>
+        <a onclick="openLogin('owner')">Owner</a>
+        <a onclick="openLogin('admin')">Admin</a>
+    </nav>
+
+</header>
+
+
+<!-- HOME PAGE -->
+<div id="home">
+
+<section class="hero">
+
+    <div>
+
+        <h1>Painting Rating & Review</h1>
+
+        <p>
+            Discover beautiful paintings, share your opinions,
+            provide ratings and reviews, and help artists
+            understand what customers think about their artwork.
+        </p>
+
+        <button class="btn green"
+                onclick="scrollToPaintings()">
+            Explore Painting
+        </button>
+
+        <button class="btn"
+                onclick="openLogin('customer')">
+            Customer Login
+        </button>
+
+    </div>
+
+</section>
+
+
+<section id="paintings">
+
+    <h2 class="title">
+        Featured Painting
+    </h2>
+
+    <div class="painting-container">
+
+        <div class="painting-card">
+
+            <div class="painting-image">
+                🌅
+            </div>
+
+            <div class="painting-info">
+
+                <h3 id="paintingTitle">
+                    Sunset Dreams
+                </h3>
+
+                <p>
+                    A beautiful artistic painting
+                    representing a peaceful sunset.
+                </p>
+
+                <div class="rating">
+                    <span id="averageStars">
+                        ★★★★☆
+                    </span>
+                </div>
+
+                <p>
+                    Average Rating:
+                    <strong id="averageRating">
+                        4.0
+                    </strong>/5
+                </p>
+
+                <button class="btn"
+                        onclick="viewReviews()">
+                    View Reviews
+                </button>
+
+                <button class="btn green"
+                        onclick="openReview()">
+                    Give Review
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2 class="title">
+        Customer Feedback
+    </h2>
+
+    <div class="summary">
+
+        <div class="summary-box">
+            <h3 id="totalReviews">3</h3>
+            <p>Total Reviews</p>
+        </div>
+
+        <div class="summary-box">
+            <h3 id="positiveCount">2</h3>
+            <p>Positive Reviews</p>
+        </div>
+
+        <div class="summary-box">
+            <h3 id="negativeCount">1</h3>
+            <p>Negative Reviews</p>
+        </div>
+
+        <div class="summary-box">
+            <h3 id="ratingSummary">4.0/5</h3>
+            <p>Average Rating</p>
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+
+    <div class="modal-box">
+
+        <span class="close"
+              onclick="closeModal('loginModal')">
+            ×
+        </span>
+
+        <h2 id="loginTitle">
+            Login
+        </h2>
+
+        <form onsubmit="login(event)">
+
+            <label>Email / Username</label>
+
+            <input type="text"
+                   id="username"
+                   placeholder="Enter username"
+                   required>
+
+            <label>Password</label>
+
+            <input type="password"
+                   id="password"
+                   placeholder="Enter password"
+                   required>
+
+            <button class="btn"
+                    type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p id="loginHint"
+           style="color:#666;margin-top:15px;">
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- CUSTOMER DASHBOARD -->
+<div id="customerDashboard"
+     class="dashboard">
+
+    <h2>Customer Dashboard</h2>
+
+    <br>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>🎨 Current Painting</h3>
+
+            <p>
+                Sunset Dreams
+            </p>
+
+            <button class="btn green"
+                    onclick="openReview()">
+                Submit Review
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>⭐ Rating</h3>
+
+            <p>
+                Current average rating:
+                <strong id="customerRating">
+                    4.0
+                </strong>/5
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>💬 Reviews</h3>
+
+            <p>
+                Read feedback submitted by
+                other customers.
+            </p>
+
+            <button class="btn"
+                    onclick="viewReviews()">
+                View Reviews
+            </button>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn red"
+            onclick="logout()">
+        Logout
+    </button>
+
+</div>
+
+
+<!-- OWNER DASHBOARD -->
+<div id="ownerDashboard"
+     class="dashboard">
+
+    <h2>Painting Owner Dashboard</h2>
+
+    <br>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>🎨 My Painting</h3>
+
+            <p>
+                Sunset Dreams
+            </p>
+
+            <button class="btn"
+                    onclick="viewReviews()">
+                View Reviews
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>⭐ Rating</h3>
+
+            <p>
+                Average:
+                <strong id="ownerRating">
+                    4.0
+                </strong>/5
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>💰 Package</h3>
+
+            <p>
+                Current package:
+                ₹500 / 7 days
+            </p>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <button class="btn red"
+            onclick="logout()">
+        Logout
+    </button>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminDashboard"
+     class="dashboard">
+
+    <h2>Administrator Dashboard</h2>
+
+    <br>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>🎨 Current Painting</h3>
+
+            <p>
+                Sunset Dreams
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>⭐ Average Rating</h3>
+
+            <p>
+                <strong id="adminRating">
+                    4.0
+                </strong>/5
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>💬 Reviews</h3>
+
+            <p>
+                <strong id="adminReviews">
+                    3
+                </strong>
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>💰 Revenue</h3>
+
+            <p>
+                ₹5,000
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <br><br>
+
+    <h2>Upload New Painting</h2>
+
+    <div class="card">
+
+        <label>Painting Name</label>
+
+        <input type="text"
+               id="newPaintingName"
+               placeholder="Enter painting name">
+
+        <label>Package</label>
+
+        <select id="package">
+
+            <option value="300">
+                ₹300 - 3 Days
+            </option>
+
+            <option value="500">
+                ₹500 - 7 Days
+            </option>
+
+            <option value="1000">
+                ₹1000 - 15 Days
+            </option>
+
+            <option value="1500">
+                ₹1500 - 30 Days
+            </option>
+
+        </select>
+
+        <button class="btn green"
+                onclick="uploadPainting()">
+            Upload Painting
+        </button>
+
+    </div>
+
+
+    <br><br>
+
+    <h2>Customer Reviews</h2>
+
+    <div id="adminReviewList"></div>
+
+
+    <br>
+
+    <button class="btn red"
+            onclick="logout()">
+        Logout
+    </button>
+
+</div>
+
+
+<!-- REVIEW MODAL -->
+<div id="reviewModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <span class="close"
+              onclick="closeModal('reviewModal')">
+            ×
+        </span>
+
+        <h2>
+            Rate & Review Painting
+        </h2>
+
+        <label>Your Rating</label>
+
+        <div class="stars">
+
+            <span class="star"
+                  onclick="setRating(1)">★</span>
+
+            <span class="star"
+                  onclick="setRating(2)">★</span>
+
+            <span class="star"
+                  onclick="setRating(3)">★</span>
+
+            <span class="star"
+                  onclick="setRating(4)">★</span>
+
+            <span class="star"
+                  onclick="setRating(5)">★</span>
+
+        </div>
+
+        <label>Your Review</label>
+
+        <textarea id="reviewText"
+                  rows="5"
+                  placeholder="Write your feedback">
+        </textarea>
+
+        <button class="btn green"
+                onclick="submitReview()">
+            Submit Review
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- REVIEWS MODAL -->
+<div id="reviewsModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <span class="close"
+              onclick="closeModal('reviewsModal')">
+            ×
+        </span>
+
+        <h2>
+            Painting Reviews
+        </h2>
+
+        <div id="reviewList"></div>
+
+    </div>
+
+</div>
+
+
+<!-- OWNER REGISTRATION MODAL -->
+<div id="ownerRegisterModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <span class="close"
+              onclick="closeModal('ownerRegisterModal')">
+            ×
+        </span>
+
+        <h2>
+            Painting Owner Registration
+        </h2>
+
+        <form onsubmit="registerOwner(event)">
+
+            <label>Owner Name</label>
+
+            <input type="text"
+                   id="ownerName"
+                   required>
+
+            <label>Email</label>
+
+            <input type="email"
+                   id="ownerEmail"
+                   required>
+
+            <label>Password</label>
+
+            <input type="password"
+                   id="ownerPassword"
+                   required>
+
+            <label>Painting Name</label>
+
+            <input type="text"
+                   id="ownerPainting"
+                   required>
+
+            <button class="btn green"
+                    type="submit">
+                Register & Continue
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 ArtReview - Painting Rating & Review System
+    </p>
+
+    <p>
+        Internet Programming Lab Project
+    </p>
+
+</footer>
+
+
+<script>
+
+/* ============================
+   GLOBAL VARIABLES
+============================ */
+
+let loginType = "";
+
+let selectedRating = 0;
+
+let currentPainting =
+    "Sunset Dreams";
+
+
+/* ============================
+   REVIEW DATA
+============================ */
+
+let reviews = [
+
+    {
+        name: "Arun",
+        rating: 5,
+        text: "Beautiful painting. The colors are amazing!"
+    },
+
+    {
+        name: "Priya",
+        rating: 4,
+        text: "Very attractive artwork and good creativity."
+    },
+
+    {
+        name: "Rahul",
+        rating: 3,
+        text: "Good painting, but the colors could be improved."
+    }
+
+];
+
+
+/* ============================
+   OPEN LOGIN
+============================ */
+
+function openLogin(type) {
+
+    loginType = type;
+
+    document.getElementById("loginModal")
+        .style.display = "flex";
+
+
+    let title =
+        document.getElementById("loginTitle");
+
+    let hint =
+        document.getElementById("loginHint");
+
+
+    if(type === "admin") {
+
+        title.innerText =
+            "Administrator Login";
+
+        hint.innerText =
+            "Demo: admin / admin123";
+
+    }
+
+    else if(type === "owner") {
+
+        title.innerText =
+            "Painting Owner Login";
+
+        hint.innerText =
+            "Demo: owner / owner123";
+
+    }
+
+    else {
+
+        title.innerText =
+            "Customer Login";
+
+        hint.innerText =
+            "Demo: customer / 1234";
+
+    }
+
+}
+
+
+/* ============================
+   LOGIN
+============================ */
+
+function login(event) {
+
+    event.preventDefault();
+
+
+    let username =
+        document.getElementById("username").value;
+
+    let password =
+        document.getElementById("password").value;
+
+
+    if(loginType === "admin") {
+
+        if(username === "admin" &&
+           password === "admin123") {
+
+            closeModal("loginModal");
+
+            showDashboard("admin");
+
+        }
+
+        else {
+
+            alert(
+                "Invalid Admin Login.\n\n" +
+                "Username: admin\n" +
+                "Password: admin123"
+            );
+
+        }
+
+    }
+
+
+    else if(loginType === "owner") {
+
+        if(username === "owner" &&
+           password === "owner123") {
+
+            closeModal("loginModal");
+
+            showDashboard("owner");
+
+        }
+
+        else {
+
+            alert(
+                "Invalid Owner Login.\n\n" +
+                "Username: owner\n" +
+                "Password: owner123"
+            );
+
+        }
+
+    }
+
+
+    else {
+
+        if(username === "customer" &&
+           password === "1234") {
+
+            closeModal("loginModal");
+
+            showDashboard("customer");
+
+        }
+
+        else {
+
+            alert(
+                "Invalid Customer Login.\n\n" +
+                "Username: customer\n" +
+                "Password: 1234"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* ============================
+   SHOW DASHBOARD
+============================ */
+
+function showDashboard(type) {
+
+    document.getElementById("home")
+        .style.display = "none";
+
+    document.getElementById("customerDashboard")
+        .style.display = "none";
+
+    document.getElementById("ownerDashboard")
+        .style.display = "none";
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+
+    if(type === "customer") {
+
+        document.getElementById("customerDashboard")
+            .style.display = "block";
+
+    }
+
+    else if(type === "owner") {
+
+        document.getElementById("ownerDashboard")
+            .style.display = "block";
+
+    }
+
+    else {
+
+        document.getElementById("adminDashboard")
+            .style.display = "block";
+
+        loadAdminReviews();
+
+    }
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ============================
+   HOME
+============================ */
+
+function showHome() {
+
+    document.getElementById("home")
+        .style.display = "block";
+
+    document.getElementById("customerDashboard")
+        .style.display = "none";
+
+    document.getElementById("ownerDashboard")
+        .style.display = "none";
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ============================
+   SCROLL TO PAINTINGS
+============================ */
+
+function scrollToPaintings() {
+
+    document.getElementById("paintings")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* ============================
+   REVIEW MODAL
+============================ */
+
+function openReview() {
+
+    selectedRating = 0;
+
+    document.getElementById("reviewText")
+        .value = "";
+
+    updateStars();
+
+    document.getElementById("reviewModal")
+        .style.display = "flex";
+
+}
+
+
+/* ============================
+   SET RATING
+============================ */
+
+function setRating(rating) {
+
+    selectedRating = rating;
+
+    updateStars();
+
+}
+
+
+/* ============================
+   UPDATE STARS
+============================ */
+
+function updateStars() {
+
+    let stars =
+        document.querySelectorAll(".star");
+
+
+    stars.forEach(
+        function(star,index) {
+
+            if(index < selectedRating) {
+
+                star.classList.add("active");
+
+            }
+
+            else {
+
+                star.classList.remove("active");
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ============================
+   SUBMIT REVIEW
+============================ */
+
+function submitReview() {
+
+    if(selectedRating === 0) {
+
+        alert(
+            "Please select a rating."
+        );
+
+        return;
+
+    }
+
+
+    let text =
+        document.getElementById("reviewText")
+        .value.trim();
+
+
+    if(text === "") {
+
+        alert(
+            "Please write your review."
+        );
+
+        return;
+
+    }
+
+
+    reviews.push({
+
+        name: "Current Customer",
+
+        rating: selectedRating,
+
+        text: text
+
+    });
+
+
+    closeModal("reviewModal");
+
+
+    updateRating();
+
+
+    alert(
+        "Thank you! Your review has been submitted."
+    );
+
+}
+
+
+/* ============================
+   UPDATE RATING
+============================ */
+
+function updateRating() {
+
+    let total = 0;
+
+    reviews.forEach(
+        function(review) {
+
+            total += review.rating;
+
+        }
+    );
+
+
+    let average =
+        total / reviews.length;
+
+
+    average =
+        average.toFixed(1);
+
+
+    document.getElementById("averageRating")
+        .innerText = average;
+
+    document.getElementById("ratingSummary")
+        .innerText = average + "/5";
+
+    document.getElementById("customerRating")
+        .innerText = average;
+
+    document.getElementById("ownerRating")
+        .innerText = average;
+
+    document.getElementById("adminRating")
+        .innerText = average;
+
+
+    document.getElementById("totalReviews")
+        .innerText = reviews.length;
+
+    document.getElementById("adminReviews")
+        .innerText = reviews.length;
+
+
+    let positive = 0;
+
+    let negative = 0;
+
+
+    reviews.forEach(
+        function(review) {
+
+            if(review.rating >= 4) {
+
+                positive++;
+
+            }
+
+            else {
+
+                negative++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById("positiveCount")
+        .innerText = positive;
+
+    document.getElementById("negativeCount")
+        .innerText = negative;
+
+
+    let rounded =
+        Math.round(average);
+
+
+    let stars = "";
+
+    for(let i=1;i<=5;i++) {
+
+        if(i <= rounded) {
+
+            stars += "★";
+
+        }
+
+        else {
+
+            stars += "☆";
+
+        }
+
+    }
+
+
+    document.getElementById("averageStars")
+        .innerText = stars;
+
+}
+
+
+/* ============================
+   VIEW REVIEWS
+============================ */
+
+function viewReviews() {
+
+    loadReviews();
+
+    document.getElementById("reviewsModal")
+        .style.display = "flex";
+
+}
+
+
+/* ============================
+   LOAD REVIEWS
+============================ */
+
+function loadReviews() {
+
+    let container =
+        document.getElementById("reviewList");
+
+
+    container.innerHTML = "";
+
+
+    reviews.forEach(
+        function(review) {
+
+            let stars = "";
+
+
+            for(let i=1;i<=5;i++) {
+
+                stars +=
+                    i <= review.rating
+                    ? "★"
+                    : "☆";
+
+            }
+
+
+            container.innerHTML +=
+
+                "<div class='review'>" +
+
+                "<strong>" +
+                review.name +
+                "</strong>" +
+
+                "<div class='rating'>" +
+                stars +
+                "</div>" +
+
+                "<p>" +
+                review.text +
+                "</p>" +
+
+                "</div>";
+
+        }
+    );
+
+}
+
+
+/* ============================
+   ADMIN REVIEWS
+============================ */
+
+function loadAdminReviews() {
+
+    let container =
+        document.getElementById("adminReviewList");
+
+
+    container.innerHTML = "";
+
+
+    reviews.forEach(
+        function(review,index) {
+
+            container.innerHTML +=
+
+                "<div class='review'>" +
+
+                "<strong>" +
+                review.name +
+                "</strong>" +
+
+                "<p>Rating: " +
+                review.rating +
+                "/5</p>" +
+
+                "<p>" +
+                review.text +
+                "</p>" +
+
+                "<button class='btn orange' " +
+                "onclick='respondReview(" +
+                index +
+                ")'>" +
+
+                "Respond" +
+
+                "</button>" +
+
+                "</div>";
+
+        }
+    );
+
+}
+
+
+/* ============================
+   ADMIN RESPONSE
+============================ */
+
+function respondReview(index) {
+
+    let response =
+        prompt(
+            "Enter response to " +
+            reviews[index].name +
+            ":"
+        );
+
+
+    if(response &&
+       response.trim() !== "") {
+
+        alert(
+            "Response sent successfully."
+        );
+
+    }
+
+}
+
+
+/* ============================
+   UPLOAD PAINTING
+============================ */
+
+function uploadPainting() {
+
+    let name =
+        document.getElementById("newPaintingName")
+        .value.trim();
+
+
+    let packageAmount =
+        document.getElementById("package")
+        .value;
+
+
+    if(name === "") {
+
+        alert(
+            "Please enter painting name."
+        );
+
+        return;
+
+    }
+
+
+    currentPainting = name;
+
+
+    document.getElementById("paintingTitle")
+        .innerText = name;
+
+
+    alert(
+
+        "New painting uploaded successfully!\n\n" +
+
+        "Painting: " +
+        name +
+
+        "\nPackage: ₹" +
+        packageAmount
+
+    );
+
+}
+
+
+/* ============================
+   OWNER REGISTRATION
+============================ */
+
+function registerOwner(event) {
+
+    event.preventDefault();
+
+
+    let name =
+        document.getElementById("ownerName")
+        .value;
+
+
+    let email =
+        document.getElementById("ownerEmail")
+        .value;
+
+
+    alert(
+        "Owner registration successful!\n\n" +
+        "Welcome " + name +
+        "\nEmail: " + email
+    );
+
+
+    closeModal("ownerRegisterModal");
+
+}
+
+
+/* ============================
+   CLOSE MODAL
+============================ */
+
+function closeModal(id) {
+
+    document.getElementById(id)
+        .style.display = "none";
+
+}
+
+
+/* ============================
+   LOGOUT
+============================ */
+
+function logout() {
+
+    showHome();
+
+}
+
+
+/* ============================
+   INITIALIZATION
+============================ */
+
+window.onload = function() {
+
+    updateRating();
+
+};
+
+</script>
+
+</body>
+</html>

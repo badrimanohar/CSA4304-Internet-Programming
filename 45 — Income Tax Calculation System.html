@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Income Tax Calculation System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    color: #222;
+}
+
+header {
+    background: linear-gradient(135deg, #172554, #2563eb);
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #fde68a;
+}
+
+.hero {
+    min-height: 400px;
+    padding: 50px 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+}
+
+.hero h1 {
+    font-size: 44px;
+    color: #172554;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    max-width: 750px;
+    line-height: 1.7;
+    color: #475569;
+    font-size: 18px;
+}
+
+.btn {
+    padding: 12px 22px;
+    margin: 8px 4px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+}
+
+.btn.green {
+    background: #16a34a;
+}
+
+.btn.red {
+    background: #dc2626;
+}
+
+.btn.orange {
+    background: #ea580c;
+}
+
+section {
+    padding: 50px 7%;
+}
+
+.title {
+    text-align: center;
+    color: #172554;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+}
+
+.form-card,
+.result-card,
+.info-card,
+.dashboard-card {
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px 25px;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+}
+
+.result-card {
+    display: none;
+    margin-top: 30px;
+}
+
+.result-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.result-header h2 {
+    color: #172554;
+}
+
+.tax-amount {
+    font-size: 36px;
+    font-weight: bold;
+    color: #dc2626;
+    margin: 12px 0;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.summary-box {
+    background: #eff6ff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.summary-box h3 {
+    color: #172554;
+    margin-bottom: 8px;
+}
+
+.summary-box p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+}
+
+th,
+td {
+    padding: 13px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #172554;
+    color: white;
+}
+
+.tip {
+    background: #ecfdf5;
+    border-left: 5px solid #16a34a;
+    padding: 18px;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+
+.error {
+    color: #dc2626;
+    margin-top: 10px;
+}
+
+.dashboard {
+    display: none;
+    padding: 50px 7%;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.dashboard-card h3 {
+    color: #172554;
+    margin-bottom: 12px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-box {
+    background: white;
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    color: #dc2626;
+    cursor: pointer;
+}
+
+.norm-card {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.norm-card h3 {
+    color: #172554;
+    margin-bottom: 10px;
+}
+
+footer {
+    background: #172554;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+@media(max-width:700px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 7px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        💰 TaxCalc
+    </div>
+
+    <nav>
+        <a onclick="showHome()">Home</a>
+        <a onclick="scrollToCalculator()">Tax Calculator</a>
+        <a onclick="openAdminLogin()">Admin</a>
+    </nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<div id="home">
+
+<section class="hero">
+
+    <div>
+
+        <h1>Income Tax Calculator</h1>
+
+        <p>
+            Calculate your estimated income tax based on
+            salary, house rent allowance, pension,
+            health insurance and applicable tax slabs.
+        </p>
+
+        <button class="btn"
+                onclick="scrollToCalculator()">
+            Calculate Tax
+        </button>
+
+        <button class="btn green"
+                onclick="showTaxSlabs()">
+            View Tax Slabs
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- TAX CALCULATOR -->
+
+<section id="calculator">
+
+    <div class="container">
+
+        <h2 class="title">
+            Employee Tax Calculation
+        </h2>
+
+        <div class="form-card">
+
+            <form id="taxForm"
+                  onsubmit="calculateTax(event)">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>
+                            Employee Name
+                        </label>
+
+                        <input type="text"
+                               id="employeeName"
+                               placeholder="Enter your name"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input type="email"
+                               id="employeeEmail"
+                               placeholder="Enter email"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Monthly Gross Pay (₹)
+                        </label>
+
+                        <input type="number"
+                               id="grossPay"
+                               min="0"
+                               placeholder="Example: 60000"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Monthly HRA (₹)
+                        </label>
+
+                        <input type="number"
+                               id="hra"
+                               min="0"
+                               placeholder="Example: 10000"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Monthly Pension Contribution (₹)
+                        </label>
+
+                        <input type="number"
+                               id="pension"
+                               min="0"
+                               placeholder="Example: 5000"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            Monthly Health Insurance (₹)
+                        </label>
+
+                        <input type="number"
+                               id="health"
+                               min="0"
+                               placeholder="Example: 2000"
+                               required>
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label>
+                            Standard Deduction
+                        </label>
+
+                        <input type="number"
+                               value="50000"
+                               id="standardDeduction"
+                               readonly>
+
+                    </div>
+
+                </div>
+
+
+                <button class="btn green"
+                        type="submit">
+
+                    Calculate Tax
+
+                </button>
+
+                <button class="btn red"
+                        type="reset"
+                        onclick="clearResult()">
+
+                    Clear
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div id="resultCard"
+             class="result-card">
+
+            <div class="result-header">
+
+                <h2>
+                    Income Tax Calculation Result
+                </h2>
+
+                <p id="resultEmployee"></p>
+
+                <div class="tax-amount">
+                    ₹<span id="taxAmount">0</span>
+                </div>
+
+                <p>
+                    Estimated Tax Liability
+                </p>
+
+            </div>
+
+
+            <div class="summary-grid">
+
+                <div class="summary-box">
+
+                    <h3>
+                        Annual Gross Pay
+                    </h3>
+
+                    <p>
+                        ₹<span id="annualGross">0</span>
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <h3>
+                        Total Deductions
+                    </h3>
+
+                    <p>
+                        ₹<span id="totalDeductions">0</span>
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <h3>
+                        Net Taxable Income
+                    </h3>
+
+                    <p>
+                        ₹<span id="netIncome">0</span>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <h3 style="margin-top:30px;color:#172554;">
+                Calculation Breakdown
+            </h3>
+
+
+            <table>
+
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+
+                <tr>
+                    <td>Annual Gross Pay</td>
+                    <td>₹<span id="breakGross">0</span></td>
+                </tr>
+
+                <tr>
+                    <td>Annual HRA</td>
+                    <td>₹<span id="breakHra">0</span></td>
+                </tr>
+
+                <tr>
+                    <td>Standard Deduction</td>
+                    <td>₹<span id="breakStandard">0</span></td>
+                </tr>
+
+                <tr>
+                    <td>Annual Pension Deduction</td>
+                    <td>₹<span id="breakPension">0</span></td>
+                </tr>
+
+                <tr>
+                    <td>Annual Health Insurance</td>
+                    <td>₹<span id="breakHealth">0</span></td>
+                </tr>
+
+                <tr>
+                    <th>Net Taxable Income</th>
+                    <th>₹<span id="breakNet">0</span></th>
+                </tr>
+
+                <tr>
+                    <th>Total Tax</th>
+                    <th>₹<span id="breakTax">0</span></th>
+                </tr>
+
+            </table>
+
+
+            <div class="tip">
+
+                <strong>
+                    💡 Tax Saving Tip
+                </strong>
+
+                <p id="taxTip">
+                    Review eligible deductions and
+                    investments to reduce taxable income.
+                </p>
+
+            </div>
+
+
+            <button class="btn"
+                    onclick="window.print()">
+
+                Print Report
+
+            </button>
+
+            <button class="btn orange"
+                    onclick="downloadReport()">
+
+                Download Report
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TAX SLABS -->
+
+<section>
+
+    <div class="container">
+
+        <h2 class="title">
+            Tax Slabs
+        </h2>
+
+        <div class="info-card">
+
+            <table>
+
+                <tr>
+                    <th>Taxable Income</th>
+                    <th>Tax Calculation</th>
+                </tr>
+
+                <tr>
+                    <td>₹0 – ₹2,50,000</td>
+                    <td>0%</td>
+                </tr>
+
+                <tr>
+                    <td>₹2,50,001 – ₹5,00,000</td>
+                    <td>5%</td>
+                </tr>
+
+                <tr>
+                    <td>₹5,00,001 – ₹10,00,000</td>
+                    <td>₹12,500 + 20%</td>
+                </tr>
+
+                <tr>
+                    <td>Above ₹10,00,000</td>
+                    <td>₹1,12,500 + 30%</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+
+<div id="adminDashboard"
+     class="dashboard">
+
+    <div class="container">
+
+        <h2 class="title">
+            Administrator Dashboard
+        </h2>
+
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+
+                <h3>
+                    👨‍💼 Employee Records
+                </h3>
+
+                <p>
+                    Manage employee tax information.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    📊 Tax Norms
+                </h3>
+
+                <p>
+                    Update tax calculation rules.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    📑 Reports
+                </h3>
+
+                <p>
+                    View generated tax reports.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    ⚙️ Standard Deduction
+                </h3>
+
+                <p>
+                    Current value:
+                    ₹50,000
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <br><br>
+
+
+        <div class="form-card">
+
+            <h2 style="color:#172554;">
+                Update Tax Norms
+            </h2>
+
+            <br>
+
+            <label>
+                Standard Deduction (₹)
+            </label>
+
+            <input type="number"
+                   id="adminStandard"
+                   value="50000">
+
+            <label>
+                Maximum Pension Deduction (₹)
+            </label>
+
+            <input type="number"
+                   id="adminPensionLimit"
+                   value="150000">
+
+            <label>
+                Tax Rate for ₹2,50,001 – ₹5,00,000 (%)
+            </label>
+
+            <input type="number"
+                   id="adminRate1"
+                   value="5">
+
+            <label>
+                Tax Rate for ₹5,00,001 – ₹10,00,000 (%)
+            </label>
+
+            <input type="number"
+                   id="adminRate2"
+                   value="20">
+
+            <label>
+                Tax Rate above ₹10,00,000 (%)
+            </label>
+
+            <input type="number"
+                   id="adminRate3"
+                   value="30">
+
+            <button class="btn green"
+                    onclick="updateNorms()">
+
+                Update Norms
+
+            </button>
+
+        </div>
+
+
+        <br>
+
+        <button class="btn red"
+                onclick="adminLogout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ADMIN LOGIN MODAL -->
+
+<div id="adminModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <span class="close"
+              onclick="closeAdminLogin()">
+            ×
+        </span>
+
+        <h2 style="color:#172554;">
+            Administrator Login
+        </h2>
+
+        <br>
+
+        <form onsubmit="adminLogin(event)">
+
+            <label>
+                Username
+            </label>
+
+            <input type="text"
+                   id="adminUsername"
+                   required>
+
+            <label>
+                Password
+            </label>
+
+            <input type="password"
+                   id="adminPassword"
+                   required>
+
+            <button class="btn"
+                    type="submit">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <p style="margin-top:15px;color:#64748b;">
+            Demo: admin / admin123
+        </p>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>
+        © 2026 TaxCalc - Income Tax Calculation System
+    </p>
+
+    <p>
+        Internet Programming Lab Project
+    </p>
+
+</footer>
+
+
+<script>
+
+/* ==========================================
+   TAX CONFIGURATION
+========================================== */
+
+let taxConfig = {
+
+    standardDeduction: 50000,
+
+    pensionLimit: 150000,
+
+    rate1: 5,
+
+    rate2: 20,
+
+    rate3: 30
+
+};
+
+
+/* ==========================================
+   SCROLL
+========================================== */
+
+function scrollToCalculator() {
+
+    document.getElementById("calculator")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* ==========================================
+   SHOW HOME
+========================================== */
+
+function showHome() {
+
+    document.getElementById("home")
+        .style.display = "block";
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+    window.scrollTo(0, 0);
+
+}
+
+
+/* ==========================================
+   CALCULATE TAX
+========================================== */
+
+function calculateTax(event) {
+
+    event.preventDefault();
+
+
+    let name =
+        document.getElementById("employeeName")
+        .value.trim();
+
+
+    let email =
+        document.getElementById("employeeEmail")
+        .value.trim();
+
+
+    let gross =
+        Number(
+            document.getElementById("grossPay")
+            .value
+        );
+
+
+    let hra =
+        Number(
+            document.getElementById("hra")
+            .value
+        );
+
+
+    let pension =
+        Number(
+            document.getElementById("pension")
+            .value
+        );
+
+
+    let health =
+        Number(
+            document.getElementById("health")
+            .value
+        );
+
+
+    /* Annual values */
+
+    let annualGross =
+        gross * 12;
+
+
+    let annualHra =
+        hra * 12;
+
+
+    let annualPension =
+        pension * 12;
+
+
+    let annualHealth =
+        health * 12;
+
+
+    /* Pension maximum deduction */
+
+    let allowedPension =
+        Math.min(
+            annualPension,
+            taxConfig.pensionLimit
+        );
+
+
+    /* Net taxable income */
+
+    let netTaxable =
+        annualGross
+        - annualHra
+        - taxConfig.standardDeduction
+        - allowedPension
+        - annualHealth;
+
+
+    if(netTaxable < 0) {
+
+        netTaxable = 0;
+
+    }
+
+
+    /* Calculate tax */
+
+    let tax = calculateTaxAmount(
+        netTaxable
+    );
+
+
+    /* Total deductions */
+
+    let deductions =
+        annualHra
+        + taxConfig.standardDeduction
+        + allowedPension
+        + annualHealth;
+
+
+    /* Display */
+
+    document.getElementById("resultCard")
+        .style.display = "block";
+
+
+    document.getElementById("resultEmployee")
+        .innerText =
+        "Employee: " +
+        name +
+        " | Email: " +
+        email;
+
+
+    document.getElementById("taxAmount")
+        .innerText =
+        formatMoney(tax);
+
+
+    document.getElementById("annualGross")
+        .innerText =
+        formatMoney(annualGross);
+
+
+    document.getElementById("totalDeductions")
+        .innerText =
+        formatMoney(deductions);
+
+
+    document.getElementById("netIncome")
+        .innerText =
+        formatMoney(netTaxable);
+
+
+    document.getElementById("breakGross")
+        .innerText =
+        formatMoney(annualGross);
+
+
+    document.getElementById("breakHra")
+        .innerText =
+        formatMoney(annualHra);
+
+
+    document.getElementById("breakStandard")
+        .innerText =
+        formatMoney(
+            taxConfig.standardDeduction
+        );
+
+
+    document.getElementById("breakPension")
+        .innerText =
+        formatMoney(allowedPension);
+
+
+    document.getElementById("breakHealth")
+        .innerText =
+        formatMoney(annualHealth);
+
+
+    document.getElementById("breakNet")
+        .innerText =
+        formatMoney(netTaxable);
+
+
+    document.getElementById("breakTax")
+        .innerText =
+        formatMoney(tax);
+
+
+    document.getElementById("taxTip")
+        .innerText =
+        generateTaxTip(
+            netTaxable,
+            tax
+        );
+
+
+    document.getElementById("resultCard")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* ==========================================
+   TAX CALCULATION
+========================================== */
+
+function calculateTaxAmount(income) {
+
+    let tax = 0;
+
+
+    /*
+       0 - 2,50,000
+       Tax = 0
+    */
+
+    if(income <= 250000) {
+
+        tax = 0;
+
+    }
+
+
+    /*
+       2,50,001 - 5,00,000
+       5%
+    */
+
+    else if(income <= 500000) {
+
+        tax =
+            (income - 250000)
+            * (taxConfig.rate1 / 100);
+
+    }
+
+
+    /*
+       5,00,001 - 10,00,000
+       12,500 + 20%
+    */
+
+    else if(income <= 1000000) {
+
+        tax =
+            12500 +
+            (income - 500000)
+            * (taxConfig.rate2 / 100);
+
+    }
+
+
+    /*
+       Above 10,00,000
+       1,12,500 + 30%
+    */
+
+    else {
+
+        tax =
+            112500 +
+            (income - 1000000)
+            * (taxConfig.rate3 / 100);
+
+    }
+
+
+    return Math.round(tax);
+
+}
+
+
+/* ==========================================
+   FORMAT MONEY
+========================================== */
+
+function formatMoney(value) {
+
+    return Number(value)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* ==========================================
+   TAX TIP
+========================================== */
+
+function generateTaxTip(
+    income,
+    tax
+) {
+
+    if(income <= 250000) {
+
+        return "Your taxable income is within the tax-free range.";
+
+    }
+
+
+    if(income <= 500000) {
+
+        return "Consider eligible investments and deductions to reduce your taxable income.";
+
+    }
+
+
+    if(income <= 1000000) {
+
+        return "Review pension contributions, health insurance and other eligible deductions.";
+
+    }
+
+
+    return "Your income falls into the highest slab. Review all eligible deductions and tax-saving investments.";
+
+}
+
+
+/* ==========================================
+   CLEAR RESULT
+========================================== */
+
+function clearResult() {
+
+    document.getElementById("resultCard")
+        .style.display = "none";
+
+}
+
+
+/* ==========================================
+   SHOW TAX SLABS
+========================================== */
+
+function showTaxSlabs() {
+
+    alert(
+        "Income Tax Slabs\n\n" +
+
+        "₹0 – ₹2,50,000 : 0%\n" +
+
+        "₹2,50,001 – ₹5,00,000 : 5%\n" +
+
+        "₹5,00,001 – ₹10,00,000 : " +
+        "₹12,500 + 20%\n" +
+
+        "Above ₹10,00,000 : " +
+        "₹1,12,500 + 30%"
+    );
+
+}
+
+
+/* ==========================================
+   DOWNLOAD REPORT
+========================================== */
+
+function downloadReport() {
+
+    let employee =
+        document.getElementById("employeeName")
+        .value;
+
+
+    let income =
+        document.getElementById("netIncome")
+        .innerText;
+
+
+    let tax =
+        document.getElementById("taxAmount")
+        .innerText;
+
+
+    let report =
+
+        "INCOME TAX CALCULATION REPORT\n" +
+        "================================\n\n" +
+
+        "Employee Name: " +
+        employee +
+        "\n\n" +
+
+        "Net Taxable Income: ₹" +
+        income +
+        "\n\n" +
+
+        "Estimated Tax Liability: ₹" +
+        tax +
+        "\n\n" +
+
+        "Standard Deduction: ₹" +
+        formatMoney(
+            taxConfig.standardDeduction
+        ) +
+        "\n\n" +
+
+        "Generated by TaxCalc";
+
+
+
+    let blob =
+        new Blob(
+            [report],
+            {
+                type: "text/plain"
+            }
+        );
+
+
+    let url =
+        URL.createObjectURL(blob);
+
+
+    let link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download =
+        "income-tax-report.txt";
+
+
+    link.click();
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* ==========================================
+   ADMIN LOGIN
+========================================== */
+
+function openAdminLogin() {
+
+    document.getElementById("adminModal")
+        .style.display = "flex";
+
+}
+
+
+function closeAdminLogin() {
+
+    document.getElementById("adminModal")
+        .style.display = "none";
+
+}
+
+
+/* ==========================================
+   ADMIN AUTHENTICATION
+========================================== */
+
+function adminLogin(event) {
+
+    event.preventDefault();
+
+
+    let username =
+        document.getElementById("adminUsername")
+        .value;
+
+
+    let password =
+        document.getElementById("adminPassword")
+        .value;
+
+
+    if(
+        username === "admin" &&
+        password === "admin123"
+    ) {
+
+        closeAdminLogin();
+
+
+        document.getElementById("home")
+            .style.display = "none";
+
+
+        document.getElementById("adminDashboard")
+            .style.display = "block";
+
+
+        window.scrollTo(0,0);
+
+    }
+
+    else {
+
+        alert(
+            "Invalid Admin Login.\n\n" +
+            "Username: admin\n" +
+            "Password: admin123"
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   UPDATE TAX NORMS
+========================================== */
+
+function updateNorms() {
+
+    let standard =
+        Number(
+            document.getElementById("adminStandard")
+            .value
+        );
+
+
+    let pensionLimit =
+        Number(
+            document.getElementById("adminPensionLimit")
+            .value
+        );
+
+
+    let rate1 =
+        Number(
+            document.getElementById("adminRate1")
+            .value
+        );
+
+
+    let rate2 =
+        Number(
+            document.getElementById("adminRate2")
+            .value
+        );
+
+
+    let rate3 =
+        Number(
+            document.getElementById("adminRate3")
+            .value
+        );
+
+
+    if(
+        standard < 0 ||
+        pensionLimit < 0 ||
+        rate1 < 0 ||
+        rate2 < 0 ||
+        rate3 < 0
+    ) {
+
+        alert(
+            "Values cannot be negative."
+        );
+
+        return;
+
+    }
+
+
+    taxConfig.standardDeduction =
+        standard;
+
+
+    taxConfig.pensionLimit =
+        pensionLimit;
+
+
+    taxConfig.rate1 =
+        rate1;
+
+
+    taxConfig.rate2 =
+        rate2;
+
+
+    taxConfig.rate3 =
+        rate3;
+
+
+    document.getElementById("standardDeduction")
+        .value =
+        standard;
+
+
+    alert(
+        "Tax norms updated successfully!"
+    );
+
+}
+
+
+/* ==========================================
+   ADMIN LOGOUT
+========================================== */
+
+function adminLogout() {
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+
+    document.getElementById("home")
+        .style.display = "block";
+
+
+    window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Placement Examination System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #222;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #16213e, #0f3460);
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 22px;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: #5ee7df;
+}
+
+/* HERO */
+.hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #e8f0ff, #ffffff);
+}
+
+.hero h1 {
+    font-size: 45px;
+    color: #16213e;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #555;
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.7;
+}
+
+.btn {
+    border: none;
+    padding: 12px 24px;
+    margin: 10px 5px;
+    border-radius: 7px;
+    background: #0f3460;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn:hover {
+    background: #16213e;
+}
+
+.btn.green {
+    background: #198754;
+}
+
+.btn.red {
+    background: #dc3545;
+}
+
+.btn.orange {
+    background: #f39c12;
+}
+
+/* SECTIONS */
+section {
+    padding: 55px 7%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    color: #16213e;
+    margin-bottom: 35px;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    color: #0f3460;
+    margin-bottom: 12px;
+}
+
+.card p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-box {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 12px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-box h2 {
+    color: #16213e;
+    margin-bottom: 20px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+    color: #dc3545;
+}
+
+/* DASHBOARD */
+.dashboard {
+    display: none;
+    padding: 40px 7%;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dashboard-header h2 {
+    color: #16213e;
+}
+
+/* ADMIN TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 13px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #0f3460;
+    color: white;
+}
+
+/* EXAM */
+.exam-container {
+    display: none;
+    padding: 40px 7%;
+}
+
+.question-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    max-width: 850px;
+    margin: auto;
+}
+
+.question-number {
+    color: #0f3460;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.question {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.option {
+    background: #f1f4f8;
+    padding: 13px;
+    margin: 10px 0;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #dce8f8;
+}
+
+.option input {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* TIMER */
+.timer {
+    background: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* RESULT */
+.result-box {
+    background: white;
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 35px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.score {
+    font-size: 50px;
+    font-weight: bold;
+    color: #198754;
+    margin: 20px;
+}
+
+.pass {
+    color: #198754;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.fail {
+    color: #dc3545;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* FOOTER */
+footer {
+    background: #16213e;
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+/* MOBILE */
+@media(max-width:700px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 7px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    .question {
+        font-size: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">🎓 PlacementExam</div>
+
+    <nav>
+        <a onclick="showHome()">Home</a>
+        <a onclick="openLogin('candidate')">Candidate Login</a>
+        <a onclick="openLogin('admin')">Admin Login</a>
+    </nav>
+</header>
+
+
+<!-- HOME -->
+<div id="home">
+
+<section class="hero">
+    <div>
+        <h1>Online Placement Examination</h1>
+
+        <p>
+            A secure online examination platform for conducting placement
+            examinations, evaluating candidates automatically and publishing
+            examination results.
+        </p>
+
+        <br>
+
+        <button class="btn green"
+                onclick="openLogin('candidate')">
+            Candidate Login
+        </button>
+
+        <button class="btn"
+                onclick="openLogin('admin')">
+            Admin Login
+        </button>
+    </div>
+</section>
+
+
+<section>
+    <h2 class="section-title">System Features</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>📝 Online Examination</h3>
+            <p>
+                Candidates can attend scheduled placement examinations
+                through an online examination dashboard.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>⏰ Exam Scheduling</h3>
+            <p>
+                Admin can schedule examinations and provide examination
+                access to candidates.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>⚡ Automatic Evaluation</h3>
+            <p>
+                Answers are evaluated automatically and the candidate's
+                score is generated immediately.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Ranking</h3>
+            <p>
+                Candidate scores can be compared to generate examination
+                rankings.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>📊 Result Management</h3>
+            <p>
+                Candidates can view their scores, pass/fail status and
+                performance details.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🔄 Re-evaluation</h3>
+            <p>
+                Candidates can submit a re-evaluation request if they
+                have concerns about their result.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+</div>
+
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+
+    <div class="modal-box">
+
+        <span class="close" onclick="closeModal('loginModal')">
+            ×
+        </span>
+
+        <h2 id="loginTitle">Login</h2>
+
+        <form onsubmit="login(event)">
+
+            <label>Email / Username</label>
+            <input type="text"
+                   id="loginUser"
+                   placeholder="Enter username"
+                   required>
+
+            <label>Password</label>
+            <input type="password"
+                   id="loginPassword"
+                   placeholder="Enter password"
+                   required>
+
+            <button class="btn"
+                    type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p id="loginHint"
+           style="margin-top:15px;color:#666;">
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminDashboard" class="dashboard">
+
+    <div class="dashboard-header">
+
+        <h2>Admin Dashboard</h2>
+
+        <button class="btn red"
+                onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>👥 Candidates</h3>
+            <p id="candidateCount">25</p>
+        </div>
+
+        <div class="card">
+            <h3>📅 Scheduled Exams</h3>
+            <p>3 Exams</p>
+        </div>
+
+        <div class="card">
+            <h3>📊 Published Results</h3>
+            <p>2 Results</p>
+        </div>
+
+    </div>
+
+
+    <br><br>
+
+    <h2>Schedule Examination</h2>
+
+    <div class="card">
+
+        <label>Exam Name</label>
+        <input type="text"
+               id="examName"
+               placeholder="Placement Aptitude Test">
+
+        <label>Exam Date</label>
+        <input type="date"
+               id="examDate">
+
+        <label>Exam Time</label>
+        <input type="time"
+               id="examTime">
+
+        <button class="btn green"
+                onclick="scheduleExam()">
+            Schedule Exam
+        </button>
+
+    </div>
+
+
+    <br><br>
+
+    <h2>Scheduled Examination</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Exam</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="examTable">
+
+            <tr>
+                <td>Placement Aptitude Test</td>
+                <td>2026-08-25</td>
+                <td>10:00 AM</td>
+                <td>Scheduled</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- CANDIDATE DASHBOARD -->
+<div id="candidateDashboard" class="dashboard">
+
+    <div class="dashboard-header">
+
+        <div>
+            <h2>Candidate Dashboard</h2>
+            <p>
+                Welcome, <strong id="candidateName">
+                Candidate
+                </strong>
+            </p>
+        </div>
+
+        <button class="btn red"
+                onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>📅 Scheduled Examination</h3>
+
+            <p>
+                Placement Aptitude Test
+            </p>
+
+            <p>
+                Date: 25 August 2026
+            </p>
+
+            <p>
+                Time: 10:00 AM
+            </p>
+
+            <button class="btn green"
+                    onclick="startExam()">
+                Start Examination
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📊 My Result</h3>
+
+            <p>
+                View your examination result after
+                completing the examination.
+            </p>
+
+            <button class="btn"
+                    onclick="showResult()">
+                View Result
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🔄 Re-evaluation</h3>
+
+            <p>
+                Submit a request for result
+                re-evaluation.
+            </p>
+
+            <button class="btn orange"
+                    onclick="requestReevaluation()">
+                Request Re-evaluation
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- EXAM -->
+<div id="examContainer" class="exam-container">
+
+    <div class="question-box">
+
+        <div class="timer">
+            ⏱ Time Left:
+            <span id="timer">
+                05:00
+            </span>
+        </div>
+
+        <div id="questionArea"></div>
+
+        <button class="btn"
+                onclick="previousQuestion()">
+            Previous
+        </button>
+
+        <button class="btn green"
+                onclick="nextQuestion()">
+            Next
+        </button>
+
+        <button class="btn red"
+                onclick="submitExam()">
+            Submit Exam
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- RESULT -->
+<div id="resultSection" class="dashboard">
+
+    <div class="result-box">
+
+        <h2>Examination Result</h2>
+
+        <div class="score">
+            <span id="finalScore">0</span>/5
+        </div>
+
+        <p id="resultStatus"></p>
+
+        <br>
+
+        <p>
+            Percentage:
+            <strong id="percentage">0%</strong>
+        </p>
+
+        <p>
+            Rank:
+            <strong id="rank">-</strong>
+        </p>
+
+        <br>
+
+        <button class="btn"
+                onclick="downloadScorecard()">
+            Download Scorecard
+        </button>
+
+        <button class="btn orange"
+                onclick="requestReevaluation()">
+            Re-evaluation
+        </button>
+
+        <button class="btn red"
+                onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>
+        © 2026 Online Placement Examination System
+    </p>
+
+    <p>
+        Internet Programming Lab Project
+    </p>
+
+</footer>
+
+
+<script>
+
+/* ================================
+   GLOBAL VARIABLES
+================================ */
+
+let currentUserType = "";
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let timerSeconds = 300;
+
+let timerInterval;
+
+let userAnswers = [];
+
+let examSubmitted = false;
+
+
+/* ================================
+   QUESTIONS
+================================ */
+
+const questions = [
+
+    {
+        question:
+        "Which language is primarily used for web page structure?",
+
+        options: [
+            "HTML",
+            "Python",
+            "Java",
+            "SQL"
+        ],
+
+        answer: 0
+    },
+
+    {
+        question:
+        "Which technology is used to style a web page?",
+
+        options: [
+            "JavaScript",
+            "CSS",
+            "SQL",
+            "PHP"
+        ],
+
+        answer: 1
+    },
+
+    {
+        question:
+        "Which language is mainly used to add interactivity to web pages?",
+
+        options: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "XML"
+        ],
+
+        answer: 2
+    },
+
+    {
+        question:
+        "Which HTML tag is used to create a hyperlink?",
+
+        options: [
+            "<link>",
+            "<a>",
+            "<href>",
+            "<url>"
+        ],
+
+        answer: 1
+    },
+
+    {
+        question:
+        "Which method is commonly used to send form data securely?",
+
+        options: [
+            "GET",
+            "POST",
+            "SEND",
+            "PUTFORM"
+        ],
+
+        answer: 1
+    }
+
+];
+
+
+/* ================================
+   LOGIN
+================================ */
+
+function openLogin(type) {
+
+    currentUserType = type;
+
+    document.getElementById("loginModal")
+        .style.display = "flex";
+
+    if(type === "admin") {
+
+        document.getElementById("loginTitle")
+            .innerText = "Admin Login";
+
+        document.getElementById("loginHint")
+            .innerText =
+            "Demo: username = admin, password = admin123";
+
+    } else {
+
+        document.getElementById("loginTitle")
+            .innerText = "Candidate Login";
+
+        document.getElementById("loginHint")
+            .innerText =
+            "Demo: username = candidate, password = 1234";
+
+    }
+
+}
+
+
+/* ================================
+   CLOSE MODAL
+================================ */
+
+function closeModal(id) {
+
+    document.getElementById(id)
+        .style.display = "none";
+
+}
+
+
+/* ================================
+   LOGIN FUNCTION
+================================ */
+
+function login(event) {
+
+    event.preventDefault();
+
+    let username =
+        document.getElementById("loginUser").value;
+
+    let password =
+        document.getElementById("loginPassword").value;
+
+
+    if(currentUserType === "admin") {
+
+        if(username === "admin" &&
+           password === "admin123") {
+
+            closeModal("loginModal");
+
+            showDashboard("admin");
+
+        } else {
+
+            alert(
+                "Invalid admin login.\n\n" +
+                "Username: admin\n" +
+                "Password: admin123"
+            );
+
+        }
+
+    } else {
+
+        if(username === "candidate" &&
+           password === "1234") {
+
+            document.getElementById("candidateName")
+                .innerText = "Candidate";
+
+            closeModal("loginModal");
+
+            showDashboard("candidate");
+
+        } else {
+
+            alert(
+                "Invalid candidate login.\n\n" +
+                "Username: candidate\n" +
+                "Password: 1234"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* ================================
+   SHOW DASHBOARD
+================================ */
+
+function showDashboard(type) {
+
+    document.getElementById("home")
+        .style.display = "none";
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+    document.getElementById("candidateDashboard")
+        .style.display = "none";
+
+    document.getElementById("examContainer")
+        .style.display = "none";
+
+    document.getElementById("resultSection")
+        .style.display = "none";
+
+
+    if(type === "admin") {
+
+        document.getElementById("adminDashboard")
+            .style.display = "block";
+
+    } else {
+
+        document.getElementById("candidateDashboard")
+            .style.display = "block";
+
+    }
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ================================
+   HOME
+================================ */
+
+function showHome() {
+
+    document.getElementById("home")
+        .style.display = "block";
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+    document.getElementById("candidateDashboard")
+        .style.display = "none";
+
+    document.getElementById("examContainer")
+        .style.display = "none";
+
+    document.getElementById("resultSection")
+        .style.display = "none";
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ================================
+   ADMIN - SCHEDULE EXAM
+================================ */
+
+function scheduleExam() {
+
+    let name =
+        document.getElementById("examName").value;
+
+    let date =
+        document.getElementById("examDate").value;
+
+    let time =
+        document.getElementById("examTime").value;
+
+
+    if(name === "" ||
+       date === "" ||
+       time === "") {
+
+        alert("Please enter all examination details.");
+
+        return;
+
+    }
+
+
+    let table =
+        document.getElementById("examTable");
+
+
+    let row =
+        table.insertRow();
+
+
+    row.innerHTML =
+
+        "<td>" + name + "</td>" +
+        "<td>" + date + "</td>" +
+        "<td>" + time + "</td>" +
+        "<td>Scheduled</td>";
+
+
+    alert("Examination scheduled successfully.");
+
+}
+
+
+/* ================================
+   START EXAM
+================================ */
+
+function startExam() {
+
+    if(examSubmitted) {
+
+        alert(
+            "You have already submitted the examination."
+        );
+
+        return;
+
+    }
+
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    userAnswers = [];
+
+    timerSeconds = 300;
+
+
+    document.getElementById("candidateDashboard")
+        .style.display = "none";
+
+    document.getElementById("examContainer")
+        .style.display = "block";
+
+
+    loadQuestion();
+
+    startTimer();
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ================================
+   LOAD QUESTION
+================================ */
+
+function loadQuestion() {
+
+    let q =
+        questions[currentQuestion];
+
+
+    let html =
+
+        "<div class='question-number'>" +
+
+        "Question " +
+        (currentQuestion + 1) +
+        " of " +
+        questions.length +
+
+        "</div>" +
+
+        "<div class='question'>" +
+
+        q.question +
+
+        "</div>";
+
+
+    q.options.forEach(
+        function(option, index) {
+
+            let checked = "";
+
+            if(userAnswers[currentQuestion]
+               === index) {
+
+                checked = "checked";
+
+            }
+
+
+            html +=
+
+                "<label class='option'>" +
+
+                "<input type='radio' " +
+
+                "name='answer' " +
+
+                "value='" + index + "' " +
+
+                checked +
+
+                " onchange='saveAnswer(" +
+                index +
+                ")'>" +
+
+                option +
+
+                "</label>";
+
+        }
+    );
+
+
+    document.getElementById("questionArea")
+        .innerHTML = html;
+
+}
+
+
+/* ================================
+   SAVE ANSWER
+================================ */
+
+function saveAnswer(answer) {
+
+    userAnswers[currentQuestion] =
+        answer;
+
+}
+
+
+/* ================================
+   NEXT QUESTION
+================================ */
+
+function nextQuestion() {
+
+    if(currentQuestion <
+       questions.length - 1) {
+
+        currentQuestion++;
+
+        loadQuestion();
+
+    } else {
+
+        alert(
+            "This is the last question. " +
+            "Click Submit Exam."
+        );
+
+    }
+
+}
+
+
+/* ================================
+   PREVIOUS QUESTION
+================================ */
+
+function previousQuestion() {
+
+    if(currentQuestion > 0) {
+
+        currentQuestion--;
+
+        loadQuestion();
+
+    }
+
+}
+
+
+/* ================================
+   TIMER
+================================ */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    timerInterval =
+        setInterval(function() {
+
+            timerSeconds--;
+
+
+            let minutes =
+                Math.floor(timerSeconds / 60);
+
+            let seconds =
+                timerSeconds % 60;
+
+
+            document.getElementById("timer")
+                .innerText =
+
+                String(minutes).padStart(2,"0") +
+                ":" +
+                String(seconds).padStart(2,"0");
+
+
+            if(timerSeconds <= 0) {
+
+                clearInterval(timerInterval);
+
+                alert(
+                    "Time is over. " +
+                    "Your examination will be submitted."
+                );
+
+                submitExam();
+
+            }
+
+        },1000);
+
+}
+
+
+/* ================================
+   SUBMIT EXAM
+================================ */
+
+function submitExam() {
+
+    if(examSubmitted) return;
+
+
+    clearInterval(timerInterval);
+
+
+    score = 0;
+
+
+    questions.forEach(
+        function(question,index) {
+
+            if(userAnswers[index] ===
+               question.answer) {
+
+                score++;
+
+            }
+
+        }
+    );
+
+
+    examSubmitted = true;
+
+
+    localStorage.setItem(
+        "placementScore",
+        score
+    );
+
+
+    document.getElementById("examContainer")
+        .style.display = "none";
+
+
+    displayResult();
+
+}
+
+
+/* ================================
+   DISPLAY RESULT
+================================ */
+
+function displayResult() {
+
+    document.getElementById("resultSection")
+        .style.display = "block";
+
+
+    document.getElementById("finalScore")
+        .innerText = score;
+
+
+    let percentage =
+        (score / questions.length) * 100;
+
+
+    document.getElementById("percentage")
+        .innerText =
+        percentage + "%";
+
+
+    let status =
+        document.getElementById("resultStatus");
+
+
+    if(percentage >= 50) {
+
+        status.innerHTML =
+            "<span class='pass'>" +
+            "PASS" +
+            "</span>";
+
+    } else {
+
+        status.innerHTML =
+            "<span class='fail'>" +
+            "FAIL" +
+            "</span>";
+
+    }
+
+
+    let rank = 10 - score;
+
+    if(rank < 1) rank = 1;
+
+
+    document.getElementById("rank")
+        .innerText =
+        "#" + rank;
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ================================
+   SHOW RESULT
+================================ */
+
+function showResult() {
+
+    let savedScore =
+        localStorage.getItem(
+            "placementScore"
+        );
+
+
+    if(savedScore === null) {
+
+        alert(
+            "You have not attended the examination yet."
+        );
+
+        return;
+
+    }
+
+
+    score =
+        parseInt(savedScore);
+
+
+    document.getElementById("candidateDashboard")
+        .style.display = "none";
+
+
+    document.getElementById("resultSection")
+        .style.display = "block";
+
+
+    displayResult();
+
+}
+
+
+/* ================================
+   RE-EVALUATION
+================================ */
+
+function requestReevaluation() {
+
+    let reason =
+        prompt(
+            "Enter reason for re-evaluation:"
+        );
+
+
+    if(reason &&
+       reason.trim() !== "") {
+
+        alert(
+            "Re-evaluation request submitted successfully.\n\n" +
+            "Reason: " + reason
+        );
+
+    }
+
+}
+
+
+/* ================================
+   DOWNLOAD SCORECARD
+================================ */
+
+function downloadScorecard() {
+
+    let percentage =
+        (score / questions.length) * 100;
+
+
+    let status =
+        percentage >= 50
+        ? "PASS"
+        : "FAIL";
+
+
+    let content =
+
+        "ONLINE PLACEMENT EXAMINATION\n" +
+        "================================\n\n" +
+
+        "Candidate: Candidate\n" +
+
+        "Examination: Placement Aptitude Test\n\n" +
+
+        "Total Questions: " +
+        questions.length +
+        "\n" +
+
+        "Correct Answers: " +
+        score +
+        "\n" +
+
+        "Percentage: " +
+        percentage +
+        "%\n" +
+
+        "Result: " +
+        status +
+        "\n\n" +
+
+        "Generated by Online Placement Examination System";
+
+
+    let blob =
+        new Blob(
+            [content],
+            {type:"text/plain"}
+        );
+
+
+    let url =
+        URL.createObjectURL(blob);
+
+
+    let a =
+        document.createElement("a");
+
+
+    a.href = url;
+
+    a.download =
+        "Placement_Scorecard.txt";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+function logout() {
+
+    clearInterval(timerInterval);
+
+
+    document.getElementById("home")
+        .style.display = "block";
+
+    document.getElementById("adminDashboard")
+        .style.display = "none";
+
+    document.getElementById("candidateDashboard")
+        .style.display = "none";
+
+    document.getElementById("examContainer")
+        .style.display = "none";
+
+    document.getElementById("resultSection")
+        .style.display = "none";
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ================================
+   INITIALIZATION
+================================ */
+
+window.onload = function() {
+
+    document.getElementById("home")
+        .style.display = "block";
+
+};
+
+</script>
+
+</body>
+</html>
