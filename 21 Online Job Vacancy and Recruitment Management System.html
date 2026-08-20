@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JobConnect - Online Job Vacancy Management System</title>
+
+    <style>
+        /* ===============================
+           GENERAL STYLING
+        ================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        /* ===============================
+           HEADER
+        ================================ */
+
+        header {
+            background: #123c69;
+            color: white;
+            padding: 15px 8%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f4b400;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            color: #f4b400;
+        }
+
+        /* ===============================
+           HERO
+        ================================ */
+
+        .hero {
+            background: linear-gradient(rgba(18,60,105,0.85),
+                        rgba(18,60,105,0.85)),
+                        url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 10%;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 750px;
+            margin: auto;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            margin: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #f4b400;
+            color: #222;
+        }
+
+        .btn-primary:hover {
+            background: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #123c69;
+        }
+
+        .btn-secondary:hover {
+            background: #f4b400;
+        }
+
+        /* ===============================
+           SECTION
+        ================================ */
+
+        section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            color: #123c69;
+            font-size: 32px;
+        }
+
+        .section-title p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* ===============================
+           SEARCH SECTION
+        ================================ */
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #123c69;
+        }
+
+        /* ===============================
+           JOB CARDS
+        ================================ */
+
+        .job-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .job-card h3 {
+            color: #123c69;
+            margin-bottom: 10px;
+        }
+
+        .company {
+            color: #f4a300;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .job-info {
+            margin: 7px 0;
+            color: #555;
+        }
+
+        .job-card p {
+            margin: 15px 0;
+            color: #666;
+        }
+
+        .job-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ===============================
+           FEATURES
+        ================================ */
+
+        .features {
+            background: #eaf1f8;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .feature-card h3 {
+            color: #123c69;
+            margin: 15px 0 10px;
+        }
+
+        .feature-card .icon {
+            font-size: 40px;
+        }
+
+        /* ===============================
+           FORMS
+        ================================ */
+
+        .form-container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* ===============================
+           ROLE CARDS
+        ================================ */
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .role-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        .role-card h2 {
+            color: #123c69;
+            margin-bottom: 20px;
+        }
+
+        .role-card ul {
+            margin-left: 20px;
+        }
+
+        .role-card li {
+            margin: 12px 0;
+        }
+
+        /* ===============================
+           SAVED JOBS
+        ================================ */
+
+        .saved-list {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .saved-job {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ===============================
+           FOOTER
+        ================================ */
+
+        footer {
+            background: #0b2745;
+            color: white;
+            padding: 40px 8%;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        footer h3 {
+            color: #f4b400;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            display: block;
+            color: #ddd;
+            text-decoration: none;
+            margin: 8px 0;
+        }
+
+        footer a:hover {
+            color: #f4b400;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #52677d;
+        }
+
+        /* ===============================
+           MESSAGE
+        ================================ */
+
+        #message {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #198754;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            display: none;
+            z-index: 2000;
+        }
+
+        /* ===============================
+           RESPONSIVE
+        ================================ */
+
+        @media(max-width: 800px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .saved-job {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media(max-width: 500px) {
+
+            section {
+                padding: 50px 5%;
+            }
+
+            nav ul {
+                gap: 12px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 70px 5%;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+        <div class="navbar">
+
+            <div class="logo">
+                Job<span>Connect</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#jobs">Vacancies</a></li>
+                    <li><a href="#roles">Roles</a></li>
+                    <li><a href="#postjob">Post Job</a></li>
+                    <li><a href="#saved">Saved Jobs</a></li>
+                    <li><a href="#register">Register</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- HOME -->
+
+    <section class="hero" id="home">
+
+        <div>
+            <h1>Find Your Dream Job</h1>
+
+            <p>
+                Browse thousands of vacancies, search jobs based on location
+                and category, apply online and save your favorite jobs in one
+                simple platform.
+            </p>
+
+            <a href="#jobs">
+                <button class="btn btn-primary">Browse Jobs</button>
+            </a>
+
+            <a href="#register">
+                <button class="btn btn-secondary">Create Account</button>
+            </a>
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section id="jobs">
+
+        <div class="section-title">
+            <h2>Search Vacancies</h2>
+            <p>Find jobs based on your skills, location and category.</p>
+        </div>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search job title or company..."
+            >
+
+            <select id="locationFilter">
+                <option value="">All Locations</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="IT">IT</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+                <option value="HR">HR</option>
+            </select>
+
+            <button class="btn btn-primary" onclick="filterJobs()">
+                Search
+            </button>
+
+        </div>
+
+        <br><br>
+
+        <!-- JOB LIST -->
+
+        <div class="job-container" id="jobContainer">
+
+            <div class="job-card"
+                 data-title="Software Developer"
+                 data-company="Tech Solutions"
+                 data-location="Chennai"
+                 data-category="IT">
+
+                <h3>Software Developer</h3>
+
+                <div class="company">Tech Solutions Pvt Ltd</div>
+
+                <div class="job-info">📍 Chennai</div>
+                <div class="job-info">💼 IT</div>
+                <div class="job-info">💰 ₹5 - ₹8 LPA</div>
+
+                <p>
+                    Looking for a skilled software developer with knowledge
+                    of HTML, CSS, JavaScript and programming concepts.
+                </p>
+
+                <div class="job-buttons">
+                    <button class="btn btn-primary"
+                        onclick="applyJob('Software Developer')">
+                        Apply
+                    </button>
+
+                    <button class="btn btn-secondary"
+                        onclick="saveJob('Software Developer','Tech Solutions Pvt Ltd')">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="job-card"
+                 data-title="Web Developer"
+                 data-company="Digital India"
+                 data-location="Bangalore"
+                 data-category="IT">
+
+                <h3>Web Developer</h3>
+
+                <div class="company">Digital India Technologies</div>
+
+                <div class="job-info">📍 Bangalore</div>
+                <div class="job-info">💼 IT</div>
+                <div class="job-info">💰 ₹4 - ₹7 LPA</div>
+
+                <p>
+                    Build responsive websites and web applications using
+                    modern frontend technologies.
+                </p>
+
+                <div class="job-buttons">
+                    <button class="btn btn-primary"
+                        onclick="applyJob('Web Developer')">
+                        Apply
+                    </button>
+
+                    <button class="btn btn-secondary"
+                        onclick="saveJob('Web Developer','Digital India Technologies')">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="job-card"
+                 data-title="Marketing Executive"
+                 data-company="Bright Media"
+                 data-location="Mumbai"
+                 data-category="Marketing">
+
+                <h3>Marketing Executive</h3>
+
+                <div class="company">Bright Media</div>
+
+                <div class="job-info">📍 Mumbai</div>
+                <div class="job-info">💼 Marketing</div>
+                <div class="job-info">💰 ₹3 - ₹5 LPA</div>
+
+                <p>
+                    Manage marketing campaigns and help improve the
+                    company's digital and offline brand presence.
+                </p>
+
+                <div class="job-buttons">
+                    <button class="btn btn-primary"
+                        onclick="applyJob('Marketing Executive')">
+                        Apply
+                    </button>
+
+                    <button class="btn btn-secondary"
+                        onclick="saveJob('Marketing Executive','Bright Media')">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="job-card"
+                 data-title="HR Executive"
+                 data-company="People First"
+                 data-location="Hyderabad"
+                 data-category="HR">
+
+                <h3>HR Executive</h3>
+
+                <div class="company">People First Pvt Ltd</div>
+
+                <div class="job-info">📍 Hyderabad</div>
+                <div class="job-info">💼 HR</div>
+                <div class="job-info">💰 ₹4 - ₹6 LPA</div>
+
+                <p>
+                    Handle recruitment, employee communication and
+                    human resource management activities.
+                </p>
+
+                <div class="job-buttons">
+                    <button class="btn btn-primary"
+                        onclick="applyJob('HR Executive')">
+                        Apply
+                    </button>
+
+                    <button class="btn btn-secondary"
+                        onclick="saveJob('HR Executive','People First Pvt Ltd')">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+
+            <div class="job-card"
+                 data-title="Financial Analyst"
+                 data-company="Finance World"
+                 data-location="Chennai"
+                 data-category="Finance">
+
+                <h3>Financial Analyst</h3>
+
+                <div class="company">Finance World</div>
+
+                <div class="job-info">📍 Chennai</div>
+                <div class="job-info">💼 Finance</div>
+                <div class="job-info">💰 ₹6 - ₹9 LPA</div>
+
+                <p>
+                    Analyze financial information, prepare reports and
+                    support business decision making.
+                </p>
+
+                <div class="job-buttons">
+                    <button class="btn btn-primary"
+                        onclick="applyJob('Financial Analyst')">
+                        Apply
+                    </button>
+
+                    <button class="btn btn-secondary"
+                        onclick="saveJob('Financial Analyst','Finance World')">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+        <div class="section-title">
+            <h2>Why Use JobConnect?</h2>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="icon">🔍</div>
+                <h3>Easy Search</h3>
+                <p>
+                    Search vacancies quickly according to job title,
+                    company and skills.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📍</div>
+                <h3>Location Filter</h3>
+                <p>
+                    Filter jobs according to your preferred location.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">💼</div>
+                <h3>Job Categories</h3>
+                <p>
+                    Find jobs from IT, Marketing, Finance, HR and more.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📌</div>
+                <h3>Save Jobs</h3>
+                <p>
+                    Save important vacancies and apply whenever required.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📄</div>
+                <h3>Online Resume</h3>
+                <p>
+                    Submit your resume online and reduce time and effort.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔔</div>
+                <h3>Notifications</h3>
+                <p>
+                    Receive updates about vacancies and job opportunities.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- USER ROLES -->
+
+    <section id="roles">
+
+        <div class="section-title">
+            <h2>System Users and Modules</h2>
+            <p>The system provides separate functionality for Admin, Director and User.</p>
+        </div>
+
+        <div class="role-grid">
+
+            <!-- ADMIN -->
+
+            <div class="role-card">
+
+                <h2>Admin</h2>
+
+                <ul>
+                    <li>Login</li>
+                    <li>Approve Director</li>
+                    <li>View Users</li>
+                    <li>View Reports</li>
+                    <li>Manage System</li>
+                </ul>
+
+                <br>
+
+                <button class="btn btn-primary"
+                    onclick="showMessage('Admin Login Selected')">
+                    Admin Login
+                </button>
+
+            </div>
+
+
+            <!-- DIRECTOR -->
+
+            <div class="role-card">
+
+                <h2>Director</h2>
+
+                <ul>
+                    <li>Register</li>
+                    <li>Login</li>
+                    <li>Post Vacancy</li>
+                    <li>Upload Job Image</li>
+                    <li>Add Description and Contact</li>
+                    <li>View Vacancy</li>
+                    <li>View Applied Users</li>
+                    <li>View Resumes</li>
+                    <li>Select Candidates</li>
+                    <li>Logout</li>
+                </ul>
+
+                <br>
+
+                <button class="btn btn-primary"
+                    onclick="showMessage('Director Login Selected')">
+                    Director Login
+                </button>
+
+            </div>
+
+
+            <!-- USER -->
+
+            <div class="role-card">
+
+                <h2>User / Applicant</h2>
+
+                <ul>
+                    <li>Register</li>
+                    <li>Login</li>
+                    <li>Search Vacancy</li>
+                    <li>Filter by Location</li>
+                    <li>Filter by Category</li>
+                    <li>Apply for Vacancy</li>
+                    <li>Upload Resume</li>
+                    <li>Save Jobs</li>
+                    <li>Set Privacy Level</li>
+                    <li>Receive Notifications</li>
+                    <li>Logout</li>
+                </ul>
+
+                <br>
+
+                <button class="btn btn-primary"
+                    onclick="showMessage('User Login Selected')">
+                    User Login
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- POST VACANCY -->
+
+    <section id="postjob">
+
+        <div class="section-title">
+            <h2>Director - Post Vacancy</h2>
+            <p>Post a new job vacancy for applicants.</p>
+        </div>
+
+        <div class="form-container">
+
+            <form id="jobForm">
+
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text"
+                           id="jobTitle"
+                           placeholder="Enter job title"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text"
+                           id="companyName"
+                           placeholder="Enter company name"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+
+                    <select id="jobLocation" required>
+                        <option value="">Select Location</option>
+                        <option>Chennai</option>
+                        <option>Bangalore</option>
+                        <option>Hyderabad</option>
+                        <option>Mumbai</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Category</label>
+
+                    <select id="jobCategory" required>
+                        <option value="">Select Category</option>
+                        <option>IT</option>
+                        <option>Marketing</option>
+                        <option>Finance</option>
+                        <option>HR</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Job Description</label>
+
+                    <textarea id="jobDescription"
+                              placeholder="Enter job description"
+                              required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Email</label>
+
+                    <input type="email"
+                           id="jobContact"
+                           placeholder="Enter contact email"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Job Image</label>
+
+                    <input type="file"
+                           id="jobImage"
+                           accept="image/*">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Post Vacancy
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- SAVED JOBS -->
+
+    <section id="saved">
+
+        <div class="section-title">
+            <h2>My Saved Jobs</h2>
+            <p>Jobs saved according to your needs.</p>
+        </div>
+
+        <div class="saved-list" id="savedJobs">
+
+            <p id="emptyMessage"
+               style="text-align:center;color:#777;">
+                No jobs saved yet.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- REGISTER -->
+
+    <section id="register">
+
+        <div class="section-title">
+            <h2>Create Account</h2>
+            <p>Register as a job applicant or director.</p>
+        </div>
+
+        <div class="form-container">
+
+            <form id="registerForm">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text"
+                           id="fullName"
+                           placeholder="Enter your full name"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email"
+                           id="userEmail"
+                           placeholder="Enter your email"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Register As</label>
+
+                    <select id="userRole" required>
+                        <option value="">Select Role</option>
+                        <option>User / Job Applicant</option>
+                        <option>Director / Employer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password"
+                           id="password"
+                           placeholder="Enter password"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Privacy Level</label>
+
+                    <select id="privacy">
+                        <option>Public - All Companies</option>
+                        <option>Private - Selected Companies</option>
+                        <option>Hidden Resume</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Resume</label>
+
+                    <input type="file"
+                           id="resume"
+                           accept=".pdf,.doc,.docx">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Register
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div>
+                <h3>JobConnect</h3>
+                <p>
+                    An online job vacancy and recruitment management system
+                    connecting applicants with companies.
+                </p>
+            </div>
+
+            <div>
+                <h3>For Users</h3>
+                <a href="#jobs">Search Jobs</a>
+                <a href="#saved">Saved Jobs</a>
+                <a href="#register">Register</a>
+            </div>
+
+            <div>
+                <h3>For Directors</h3>
+                <a href="#postjob">Post Vacancy</a>
+                <a href="#roles">View Applications</a>
+                <a href="#roles">Director Login</a>
+            </div>
+
+            <div>
+                <h3>Contact</h3>
+                <p>Email: support@jobconnect.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 JobConnect | Online Job Vacancy and Recruitment Management System
+        </div>
+
+    </footer>
+
+
+    <!-- MESSAGE -->
+
+    <div id="message"></div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // ===============================
+        // SHOW MESSAGE
+        // ===============================
+
+        function showMessage(text) {
+
+            const message = document.getElementById("message");
+
+            message.innerText = text;
+            message.style.display = "block";
+
+            setTimeout(function() {
+                message.style.display = "none";
+            }, 3000);
+        }
+
+
+        // ===============================
+        // SEARCH AND FILTER JOBS
+        // ===============================
+
+        function filterJobs() {
+
+            const searchText =
+                document.getElementById("searchInput")
+                .value.toLowerCase();
+
+            const location =
+                document.getElementById("locationFilter")
+                .value;
+
+            const category =
+                document.getElementById("categoryFilter")
+                .value;
+
+            const jobs =
+                document.querySelectorAll(".job-card");
+
+            let found = 0;
+
+            jobs.forEach(function(job) {
+
+                const title =
+                    job.dataset.title.toLowerCase();
+
+                const company =
+                    job.dataset.company.toLowerCase();
+
+                const jobLocation =
+                    job.dataset.location;
+
+                const jobCategory =
+                    job.dataset.category;
+
+                const searchMatch =
+                    title.includes(searchText) ||
+                    company.includes(searchText);
+
+                const locationMatch =
+                    location === "" ||
+                    jobLocation === location;
+
+                const categoryMatch =
+                    category === "" ||
+                    jobCategory === category;
+
+                if(searchMatch && locationMatch && categoryMatch) {
+
+                    job.style.display = "block";
+                    found++;
+
+                } else {
+
+                    job.style.display = "none";
+
+                }
+
+            });
+
+            if(found === 0) {
+                showMessage("No vacancies found.");
+            } else {
+                showMessage(found + " job(s) found.");
+            }
+        }
+
+
+        // ===============================
+        // APPLY JOB
+        // ===============================
+
+        function applyJob(jobName) {
+
+            const answer =
+                confirm(
+                    "Do you want to apply for " +
+                    jobName +
+                    "?"
+                );
+
+            if(answer) {
+
+                showMessage(
+                    "Application submitted successfully for " +
+                    jobName
+                );
+            }
+        }
+
+
+        // ===============================
+        // SAVE JOB
+        // ===============================
+
+        function saveJob(jobTitle, company) {
+
+            const savedJobs =
+                document.getElementById("savedJobs");
+
+            const emptyMessage =
+                document.getElementById("emptyMessage");
+
+            if(emptyMessage) {
+                emptyMessage.style.display = "none";
+            }
+
+            const savedJob =
+                document.createElement("div");
+
+            savedJob.className = "saved-job";
+
+            savedJob.innerHTML = `
+                <div>
+                    <h3>${jobTitle}</h3>
+                    <p>${company}</p>
+                </div>
+
+                <button class="btn btn-primary"
+                    onclick="removeSavedJob(this)">
+                    Remove
+                </button>
+            `;
+
+            savedJobs.appendChild(savedJob);
+
+            showMessage(jobTitle + " saved successfully.");
+        }
+
+
+        // ===============================
+        // REMOVE SAVED JOB
+        // ===============================
+
+        function removeSavedJob(button) {
+
+            button.parentElement.remove();
+
+            const savedJobs =
+                document.querySelectorAll(".saved-job");
+
+            if(savedJobs.length === 0) {
+
+                document.getElementById("emptyMessage")
+                    .style.display = "block";
+            }
+
+            showMessage("Job removed from saved list.");
+        }
+
+
+        // ===============================
+        // POST JOB
+        // ===============================
+
+        document.getElementById("jobForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const title =
+                    document.getElementById("jobTitle").value;
+
+                const company =
+                    document.getElementById("companyName").value;
+
+                const location =
+                    document.getElementById("jobLocation").value;
+
+                const category =
+                    document.getElementById("jobCategory").value;
+
+                const description =
+                    document.getElementById("jobDescription").value;
+
+                const jobContainer =
+                    document.getElementById("jobContainer");
+
+                const newJob =
+                    document.createElement("div");
+
+                newJob.className = "job-card";
+
+                newJob.dataset.title = title;
+                newJob.dataset.company = company;
+                newJob.dataset.location = location;
+                newJob.dataset.category = category;
+
+                newJob.innerHTML = `
+                    <h3>${title}</h3>
+
+                    <div class="company">${company}</div>
+
+                    <div class="job-info">📍 ${location}</div>
+                    <div class="job-info">💼 ${category}</div>
+
+                    <p>${description}</p>
+
+                    <div class="job-buttons">
+
+                        <button class="btn btn-primary"
+                            onclick="applyJob('${title}')">
+                            Apply
+                        </button>
+
+                        <button class="btn btn-secondary"
+                            onclick="saveJob('${title}','${company}')">
+                            Save
+                        </button>
+
+                    </div>
+                `;
+
+                jobContainer.appendChild(newJob);
+
+                document.getElementById("jobForm").reset();
+
+                showMessage(
+                    "Vacancy posted successfully: " +
+                    title
+                );
+            });
+
+
+        // ===============================
+        // REGISTER USER
+        // ===============================
+
+        document.getElementById("registerForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const name =
+                    document.getElementById("fullName").value;
+
+                const role =
+                    document.getElementById("userRole").value;
+
+                showMessage(
+                    "Registration successful! Welcome " +
+                    name +
+                    " as " +
+                    role
+                );
+
+                document.getElementById("registerForm").reset();
+            });
+
+
+        // ===============================
+        // LIVE SEARCH
+        // ===============================
+
+        document.getElementById("searchInput")
+            .addEventListener("keyup", filterJobs);
+
+    </script>
+
+</body>
+</html>

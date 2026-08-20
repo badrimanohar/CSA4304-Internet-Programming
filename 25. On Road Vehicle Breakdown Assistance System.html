@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RoadRescue - Vehicle Breakdown Assistance</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f5f7fa;
+    color: #333;
+}
+
+/* HEADER */
+header {
+    background: #172554;
+    color: white;
+    padding: 15px 7%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #facc15;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #facc15;
+}
+
+/* HERO */
+.hero {
+    min-height: 540px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 80px 10%;
+
+    background:
+    linear-gradient(rgba(10,25,70,.75), rgba(10,25,70,.8)),
+    url("https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    max-width: 800px;
+    line-height: 1.6;
+    margin: auto;
+}
+
+/* BUTTON */
+.btn {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
+    transition: .3s;
+}
+
+.btn-primary {
+    background: #facc15;
+    color: #111827;
+}
+
+.btn-primary:hover {
+    background: white;
+}
+
+.btn-blue {
+    background: #172554;
+    color: white;
+}
+
+.btn-blue:hover {
+    background: #0f1b43;
+}
+
+.btn-green {
+    background: #198754;
+    color: white;
+}
+
+.btn-red {
+    background: #dc3545;
+    color: white;
+}
+
+/* SECTION */
+section {
+    padding: 70px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #172554;
+    font-size: 32px;
+}
+
+.section-title p {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* SEARCH */
+.search-section {
+    background: white;
+}
+
+.search-box {
+    max-width: 950px;
+    margin: auto;
+    padding: 30px;
+    background: #eef2ff;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #172554;
+}
+
+/* MECHANICS */
+.mechanic-section {
+    background: #f1f5f9;
+}
+
+.mechanic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.mechanic-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+    transition: .3s;
+}
+
+.mechanic-card:hover {
+    transform: translateY(-5px);
+}
+
+.mechanic-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.mechanic-content {
+    padding: 20px;
+}
+
+.mechanic-content h3 {
+    color: #172554;
+    margin-bottom: 10px;
+}
+
+.mechanic-content p {
+    margin: 8px 0;
+}
+
+.verified {
+    display: inline-block;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* SERVICES */
+.services {
+    background: white;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.service-card {
+    background: #f8fafc;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.service-icon {
+    font-size: 45px;
+}
+
+.service-card h3 {
+    color: #172554;
+    margin: 15px 0 10px;
+}
+
+/* LOCATION */
+.location-section {
+    background: #eef2ff;
+}
+
+.location-box {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+#map {
+    height: 300px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background:
+    linear-gradient(45deg, #dbeafe 25%, #bfdbfe 25%, #bfdbfe 50%, #dbeafe 50%, #dbeafe 75%, #bfdbfe 75%);
+    background-size: 40px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #172554;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* PROFILE */
+.profile-container {
+    max-width: 750px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+/* FEEDBACK */
+.feedback-section {
+    background: white;
+}
+
+.feedback-container {
+    max-width: 750px;
+    margin: auto;
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+/* ADMIN */
+.admin-section {
+    background: #eef2ff;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.admin-card {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.admin-card h3 {
+    color: #172554;
+}
+
+.admin-number {
+    font-size: 35px;
+    font-weight: bold;
+    color: #172554;
+    margin: 10px;
+}
+
+/* BUSINESS */
+.business-section {
+    background: white;
+}
+
+.business-container {
+    max-width: 800px;
+    margin: auto;
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+/* TABLE */
+.table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #172554;
+    color: white;
+}
+
+th,
+td {
+    padding: 13px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+/* FOOTER */
+footer {
+    background: #0f172a;
+    color: white;
+    padding: 45px 8% 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+footer h3 {
+    color: #facc15;
+    margin-bottom: 15px;
+}
+
+footer p,
+footer a {
+    color: #ddd;
+    margin: 8px 0;
+    text-decoration: none;
+}
+
+footer a {
+    display: block;
+}
+
+footer a:hover {
+    color: #facc15;
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid #475569;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+/* MESSAGE */
+#message {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #198754;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 6px;
+    display: none;
+    z-index: 2000;
+}
+
+/* MOBILE */
+@media(max-width: 800px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+}
+
+@media(max-width: 500px) {
+
+    section {
+        padding: 50px 5%;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+
+<div class="navbar">
+
+    <div class="logo">
+        🚗 Road<span>Rescue</span>
+    </div>
+
+    <nav>
+
+        <ul>
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#search">Find Mechanic</a>
+            </li>
+
+            <li>
+                <a href="#services">Services</a>
+            </li>
+
+            <li>
+                <a href="#location">Location</a>
+            </li>
+
+            <li>
+                <a href="#feedback">Feedback</a>
+            </li>
+
+            <li>
+                <a href="#profile">My Profile</a>
+            </li>
+
+            <li>
+                <a href="#admin">Admin</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+<div>
+
+    <h1>24/7 Roadside Vehicle Assistance</h1>
+
+    <p>
+        Find verified and licensed mechanics near your location
+        whenever your vehicle breaks down.
+    </p>
+
+    <br>
+
+    <a href="#search">
+        <button class="btn btn-primary">
+            🔧 Find a Mechanic
+        </button>
+    </a>
+
+    <button
+        class="btn btn-primary"
+        onclick="emergencyHelp()">
+
+        🚨 Emergency Help
+
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- SEARCH -->
+<section class="search-section" id="search">
+
+<div class="section-title">
+
+    <h2>Search Nearby Mechanics</h2>
+
+    <p>
+        Search licensed mechanics based on location and vehicle type.
+    </p>
+
+</div>
+
+
+<div class="search-box">
+
+    <div class="form-grid">
+
+        <div class="form-group">
+
+            <label>Your Location</label>
+
+            <input
+                type="text"
+                id="locationInput"
+                placeholder="Example: Chennai">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Vehicle Type</label>
+
+            <select id="vehicleType">
+
+                <option value="">
+                    Select Vehicle
+                </option>
+
+                <option>Car</option>
+
+                <option>Bike</option>
+
+                <option>SUV</option>
+
+                <option>Van</option>
+
+                <option>Truck</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>Problem</label>
+
+            <select id="vehicleProblem">
+
+                <option value="">
+                    Select Problem
+                </option>
+
+                <option>Engine Problem</option>
+
+                <option>Flat Tyre</option>
+
+                <option>Battery Problem</option>
+
+                <option>Brake Problem</option>
+
+                <option>Fuel Problem</option>
+
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="btn btn-blue"
+        onclick="searchMechanics()">
+
+        🔍 Search Mechanics
+
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- MECHANICS -->
+<section class="mechanic-section">
+
+<div class="section-title">
+
+    <h2>Licensed Mechanics</h2>
+
+    <p>
+        Verified professionals available for roadside assistance.
+    </p>
+
+</div>
+
+
+<div class="mechanic-grid" id="mechanicList">
+
+
+<!-- MECHANIC 1 -->
+<div class="mechanic-card">
+
+    <img
+        src="https://images.unsplash.com/photo-1632823471565-1ecdf5c0c8b7?auto=format&fit=crop&w=800&q=80">
+
+    <div class="mechanic-content">
+
+        <h3>Raj Auto Works</h3>
+
+        <span class="verified">
+            ✓ Licensed Mechanic
+        </span>
+
+        <p>
+            📍 Anna Nagar, Chennai
+        </p>
+
+        <p>
+            📞 +91 98765 43210
+        </p>
+
+        <p>
+            ⭐ 4.8 / 5
+        </p>
+
+        <p>
+            🚗 Car & SUV Specialist
+        </p>
+
+        <button
+            class="btn btn-blue"
+            onclick="requestMechanic('Raj Auto Works')">
+
+            Request Assistance
+
+        </button>
+
+        <button
+            class="btn btn-green"
+            onclick="callMechanic('9876543210')">
+
+            📞 Call
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- MECHANIC 2 -->
+<div class="mechanic-card">
+
+    <img
+        src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=800&q=80">
+
+    <div class="mechanic-content">
+
+        <h3>Speed Motors</h3>
+
+        <span class="verified">
+            ✓ Licensed Mechanic
+        </span>
+
+        <p>
+            📍 T. Nagar, Chennai
+        </p>
+
+        <p>
+            📞 +91 91234 56789
+        </p>
+
+        <p>
+            ⭐ 4.7 / 5
+        </p>
+
+        <p>
+            🏍️ Bike & Car Specialist
+        </p>
+
+        <button
+            class="btn btn-blue"
+            onclick="requestMechanic('Speed Motors')">
+
+            Request Assistance
+
+        </button>
+
+        <button
+            class="btn btn-green"
+            onclick="callMechanic('9123456789')">
+
+            📞 Call
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- MECHANIC 3 -->
+<div class="mechanic-card">
+
+    <img
+        src="https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=800&q=80">
+
+    <div class="mechanic-content">
+
+        <h3>Highway Auto Care</h3>
+
+        <span class="verified">
+            ✓ Licensed Mechanic
+        </span>
+
+        <p>
+            📍 Tambaram, Chennai
+        </p>
+
+        <p>
+            📞 +91 99887 66554
+        </p>
+
+        <p>
+            ⭐ 4.9 / 5
+        </p>
+
+        <p>
+            🚗 All Vehicle Types
+        </p>
+
+        <button
+            class="btn btn-blue"
+            onclick="requestMechanic('Highway Auto Care')">
+
+            Request Assistance
+
+        </button>
+
+        <button
+            class="btn btn-green"
+            onclick="callMechanic('9988766554')">
+
+            📞 Call
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SERVICES -->
+<section class="services" id="services">
+
+<div class="section-title">
+
+    <h2>Roadside Assistance Services</h2>
+
+    <p>
+        Get help with common vehicle breakdown problems.
+    </p>
+
+</div>
+
+
+<div class="service-grid">
+
+    <div class="service-card">
+
+        <div class="service-icon">🔋</div>
+
+        <h3>Battery Assistance</h3>
+
+        <p>
+            Get help when your vehicle battery is dead.
+        </p>
+
+    </div>
+
+
+    <div class="service-card">
+
+        <div class="service-icon">🛞</div>
+
+        <h3>Flat Tyre</h3>
+
+        <p>
+            Get professional tyre replacement and repair.
+        </p>
+
+    </div>
+
+
+    <div class="service-card">
+
+        <div class="service-icon">⛽</div>
+
+        <h3>Fuel Delivery</h3>
+
+        <p>
+            Emergency fuel delivery when your vehicle runs out.
+        </p>
+
+    </div>
+
+
+    <div class="service-card">
+
+        <div class="service-icon">🔧</div>
+
+        <h3>Engine Repair</h3>
+
+        <p>
+            Professional roadside engine inspection and repair.
+        </p>
+
+    </div>
+
+
+    <div class="service-card">
+
+        <div class="service-icon">🚙</div>
+
+        <h3>Towing Service</h3>
+
+        <p>
+            Vehicle towing to the nearest service center.
+        </p>
+
+    </div>
+
+
+    <div class="service-card">
+
+        <div class="service-icon">🚨</div>
+
+        <h3>Emergency Assistance</h3>
+
+        <p>
+            Quick assistance during unexpected vehicle breakdowns.
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+
+<div class="section-title">
+
+    <h2>Google Geo Location</h2>
+
+    <p>
+        Find your current location and nearby assistance.
+    </p>
+
+</div>
+
+
+<div class="location-box">
+
+    <h3 id="locationStatus">
+        📍 Location not detected
+    </h3>
+
+    <br>
+
+    <button
+        class="btn btn-blue"
+        onclick="getLocation()">
+
+        Detect My Location
+
+    </button>
+
+
+    <div id="map">
+
+        🗺️ Map Location Area
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- USER PROFILE -->
+<section id="profile">
+
+<div class="section-title">
+
+    <h2>My Profile</h2>
+
+    <p>
+        Manage your RoadRescue account.
+    </p>
+
+</div>
+
+
+<div class="profile-container">
+
+<form id="profileForm">
+
+    <div class="form-group">
+
+        <label>Full Name</label>
+
+        <input
+            type="text"
+            id="profileName"
+            value="Manu Badri"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Email</label>
+
+        <input
+            type="email"
+            id="profileEmail"
+            value="user@gmail.com"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Phone Number</label>
+
+        <input
+            type="tel"
+            id="profilePhone"
+            value="+91 9876543210"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Vehicle</label>
+
+        <select id="profileVehicle">
+
+            <option>Car</option>
+            <option>Bike</option>
+            <option>SUV</option>
+            <option>Van</option>
+
+        </select>
+
+    </div>
+
+
+    <button
+        type="submit"
+        class="btn btn-blue">
+
+        Update Profile
+
+    </button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- FEEDBACK -->
+<section class="feedback-section" id="feedback">
+
+<div class="section-title">
+
+    <h2>Post Feedback</h2>
+
+    <p>
+        Share your experience with our mechanics.
+    </p>
+
+</div>
+
+
+<div class="feedback-container">
+
+<form id="feedbackForm">
+
+    <div class="form-group">
+
+        <label>Mechanic</label>
+
+        <select id="feedbackMechanic" required>
+
+            <option value="">
+                Select Mechanic
+            </option>
+
+            <option>Raj Auto Works</option>
+
+            <option>Speed Motors</option>
+
+            <option>Highway Auto Care</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Rating</label>
+
+        <select id="rating" required>
+
+            <option value="">
+                Select Rating
+            </option>
+
+            <option>⭐⭐⭐⭐⭐ - Excellent</option>
+
+            <option>⭐⭐⭐⭐ - Very Good</option>
+
+            <option>⭐⭐⭐ - Good</option>
+
+            <option>⭐⭐ - Poor</option>
+
+            <option>⭐ - Very Poor</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Feedback</label>
+
+        <textarea
+            id="feedbackText"
+            placeholder="Write your experience..."
+            required></textarea>
+
+    </div>
+
+
+    <button
+        type="submit"
+        class="btn btn-blue">
+
+        Submit Feedback
+
+    </button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- FEEDBACK TABLE -->
+<section>
+
+<div class="section-title">
+
+    <h2>Recent Feedback</h2>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+    <th>User</th>
+
+    <th>Mechanic</th>
+
+    <th>Rating</th>
+
+    <th>Feedback</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="feedbackTable">
+
+<tr>
+
+    <td>Arun</td>
+
+    <td>Raj Auto Works</td>
+
+    <td>⭐⭐⭐⭐⭐</td>
+
+    <td>Quick and professional service.</td>
+
+</tr>
+
+
+<tr>
+
+    <td>Priya</td>
+
+    <td>Speed Motors</td>
+
+    <td>⭐⭐⭐⭐</td>
+
+    <td>Mechanic arrived quickly.</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- MECHANIC BUSINESS -->
+<section class="business-section">
+
+<div class="section-title">
+
+    <h2>Mechanic Business Registration</h2>
+
+    <p>
+        Licensed mechanics can register their business.
+    </p>
+
+</div>
+
+
+<div class="business-container">
+
+<form id="businessForm">
+
+    <div class="form-group">
+
+        <label>Mechanic Name</label>
+
+        <input
+            type="text"
+            id="businessMechanic"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Business Name</label>
+
+        <input
+            type="text"
+            id="businessName"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Location</label>
+
+        <input
+            type="text"
+            id="businessLocation"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Phone</label>
+
+        <input
+            type="tel"
+            id="businessPhone"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Vehicle Types</label>
+
+        <select id="businessVehicle">
+
+            <option>Car</option>
+            <option>Bike</option>
+            <option>Car & Bike</option>
+            <option>All Vehicles</option>
+
+        </select>
+
+    </div>
+
+
+    <button
+        type="submit"
+        class="btn btn-blue">
+
+        Register Business
+
+    </button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN -->
+<section class="admin-section" id="admin">
+
+<div class="section-title">
+
+    <h2>Admin Dashboard</h2>
+
+    <p>
+        Admin manages mechanic approval and platform activities.
+    </p>
+
+</div>
+
+
+<div class="admin-grid">
+
+    <div class="admin-card">
+
+        <h3>Registered Mechanics</h3>
+
+        <div class="admin-number" id="mechanicCount">
+            3
+        </div>
+
+        <p>Total registered mechanics</p>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <h3>Pending Approval</h3>
+
+        <div class="admin-number" id="pendingCount">
+            2
+        </div>
+
+        <p>Mechanics waiting for approval</p>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <h3>Customer Requests</h3>
+
+        <div class="admin-number" id="requestCount">
+            8
+        </div>
+
+        <p>Assistance requests</p>
+
+    </div>
+
+
+    <div class="admin-card">
+
+        <h3>Total Feedback</h3>
+
+        <div class="admin-number" id="feedbackCount">
+            2
+        </div>
+
+        <p>Customer feedback</p>
+
+    </div>
+
+</div>
+
+<br><br>
+
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+    <th>Mechanic</th>
+
+    <th>Business</th>
+
+    <th>Location</th>
+
+    <th>Status</th>
+
+    <th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="mechanicApprovalTable">
+
+<tr>
+
+    <td>Raj Kumar</td>
+
+    <td>Raj Auto Works</td>
+
+    <td>Chennai</td>
+
+    <td id="status1">
+        Pending
+    </td>
+
+    <td>
+
+        <button
+            class="btn btn-green"
+            onclick="approveMechanic(1)">
+
+            Approve
+
+        </button>
+
+    </td>
+
+</tr>
+
+
+<tr>
+
+    <td>Vijay Kumar</td>
+
+    <td>Vijay Motors</td>
+
+    <td>Chennai</td>
+
+    <td id="status2">
+        Pending
+    </td>
+
+    <td>
+
+        <button
+            class="btn btn-green"
+            onclick="approveMechanic(2)">
+
+            Approve
+
+        </button>
+
+    </td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+<div class="footer-grid">
+
+    <div>
+
+        <h3>RoadRescue</h3>
+
+        <p>
+            Reliable roadside vehicle breakdown
+            assistance whenever you need it.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>Services</h3>
+
+        <a href="#services">
+            Battery Assistance
+        </a>
+
+        <a href="#services">
+            Flat Tyre
+        </a>
+
+        <a href="#services">
+            Towing
+        </a>
+
+        <a href="#services">
+            Engine Repair
+        </a>
+
+    </div>
+
+
+    <div>
+
+        <h3>Quick Links</h3>
+
+        <a href="#search">
+            Find Mechanic
+        </a>
+
+        <a href="#location">
+            Location
+        </a>
+
+        <a href="#feedback">
+            Feedback
+        </a>
+
+        <a href="#profile">
+            My Profile
+        </a>
+
+    </div>
+
+
+    <div>
+
+        <h3>Contact</h3>
+
+        <p>
+            📞 +91 98765 43210
+        </p>
+
+        <p>
+            ✉️ support@roadrescue.com
+        </p>
+
+        <p>
+            🚨 Emergency: 24/7
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="copyright">
+
+    © 2026 RoadRescue | Vehicle Breakdown Assistance System
+
+</div>
+
+</footer>
+
+
+<!-- MESSAGE -->
+<div id="message"></div>
+
+
+<script>
+
+/* MESSAGE FUNCTION */
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+    setTimeout(function() {
+
+        message.style.display = "none";
+
+    }, 3000);
+}
+
+
+/* SEARCH MECHANICS */
+
+function searchMechanics() {
+
+    const location =
+        document.getElementById("locationInput").value;
+
+    const vehicle =
+        document.getElementById("vehicleType").value;
+
+    const problem =
+        document.getElementById("vehicleProblem").value;
+
+
+    if(location === "") {
+
+        showMessage(
+            "Please enter your location."
+        );
+
+        return;
+    }
+
+
+    let result =
+        "Searching mechanics near " +
+        location;
+
+
+    if(vehicle !== "") {
+
+        result +=
+            " for " +
+            vehicle;
+
+    }
+
+
+    if(problem !== "") {
+
+        result +=
+            " (" +
+            problem +
+            ")";
+
+    }
+
+
+    result += ".";
+
+
+    showMessage(result);
+
+
+    document
+        .querySelector(".mechanic-section")
+        .scrollIntoView();
+
+}
+
+
+/* REQUEST MECHANIC */
+
+function requestMechanic(name) {
+
+    let requestCount =
+        document.getElementById("requestCount");
+
+
+    let count =
+        parseInt(requestCount.innerText);
+
+
+    count++;
+
+
+    requestCount.innerText = count;
+
+
+    showMessage(
+        "Assistance requested from " +
+        name +
+        "."
+    );
+
+}
+
+
+/* CALL MECHANIC */
+
+function callMechanic(number) {
+
+    showMessage(
+        "Calling mechanic: +91 " +
+        number
+    );
+
+}
+
+
+/* EMERGENCY */
+
+function emergencyHelp() {
+
+    showMessage(
+        "🚨 Emergency assistance request sent!"
+    );
+
+
+    document
+        .getElementById("search")
+        .scrollIntoView();
+
+}
+
+
+/* GET LOCATION */
+
+function getLocation() {
+
+    const status =
+        document.getElementById("locationStatus");
+
+    const map =
+        document.getElementById("map");
+
+
+    if(!navigator.geolocation) {
+
+        status.innerText =
+            "Geolocation is not supported by your browser.";
+
+        return;
+    }
+
+
+    status.innerText =
+        "📍 Detecting your location...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+
+            status.innerText =
+                "📍 Location detected: " +
+                latitude.toFixed(4) +
+                ", " +
+                longitude.toFixed(4);
+
+
+            map.innerHTML =
+                "📍 Your Location<br>" +
+                latitude.toFixed(4) +
+                ", " +
+                longitude.toFixed(4);
+
+
+            showMessage(
+                "Your location detected successfully."
+            );
+
+        },
+
+
+        function() {
+
+            status.innerText =
+                "Unable to access your location.";
+
+            showMessage(
+                "Please allow location access in your browser."
+            );
+
+        }
+
+    );
+
+}
+
+
+/* PROFILE UPDATE */
+
+document
+.getElementById("profileForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("profileName").value;
+
+
+    showMessage(
+        "Profile updated successfully for " +
+        name
+    );
+
+});
+
+
+/* FEEDBACK */
+
+document
+.getElementById("feedbackForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const mechanic =
+        document.getElementById("feedbackMechanic").value;
+
+    const rating =
+        document.getElementById("rating").value;
+
+    const feedback =
+        document.getElementById("feedbackText").value;
+
+
+    const table =
+        document.getElementById("feedbackTable");
+
+
+    const row =
+        document.createElement("tr");
+
+
+    row.innerHTML = `
+
+        <td>User</td>
+
+        <td>${mechanic}</td>
+
+        <td>${rating}</td>
+
+        <td>${feedback}</td>
+
+    `;
+
+
+    table.appendChild(row);
+
+
+    const feedbackCount =
+        document.getElementById("feedbackCount");
+
+
+    feedbackCount.innerText =
+        table.querySelectorAll("tr").length;
+
+
+    document
+        .getElementById("feedbackForm")
+        .reset();
+
+
+    showMessage(
+        "Feedback submitted successfully!"
+    );
+
+});
+
+
+/* BUSINESS REGISTRATION */
+
+document
+.getElementById("businessForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const business =
+        document.getElementById("businessName").value;
+
+
+    const mechanicCount =
+        document.getElementById("mechanicCount");
+
+
+    mechanicCount.innerText =
+        parseInt(mechanicCount.innerText) + 1;
+
+
+    document
+        .getElementById("businessForm")
+        .reset();
+
+
+    showMessage(
+        business +
+        " registered successfully and sent for approval."
+    );
+
+});
+
+
+/* ADMIN APPROVAL */
+
+function approveMechanic(id) {
+
+    const status =
+        document.getElementById("status" + id);
+
+
+    if(status.innerText === "Approved") {
+
+        return;
+
+    }
+
+
+    status.innerText =
+        "Approved";
+
+
+    status.style.color =
+        "#198754";
+
+
+    status.style.fontWeight =
+        "bold";
+
+
+    let pending =
+        document.getElementById("pendingCount");
+
+
+    let count =
+        parseInt(pending.innerText);
+
+
+    if(count > 0) {
+
+        count--;
+
+    }
+
+
+    pending.innerText =
+        count;
+
+
+    showMessage(
+        "Mechanic approved successfully."
+    );
+
+}
+
+</script>
+
+</body>
+</html>

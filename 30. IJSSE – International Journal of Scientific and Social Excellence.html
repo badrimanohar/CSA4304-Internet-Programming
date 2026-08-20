@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IJSSE | International Journal of Scientific and Social Excellence</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* TOP HEADER */
+        .top-bar {
+            background: #152238;
+            color: white;
+            padding: 8px 8%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            padding: 15px 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: #152238;
+            font-size: 28px;
+        }
+
+        .logo span {
+            color: #0288d1;
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #152238;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #0288d1;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: #152238;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 500px;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 70px 8%;
+            background:
+                linear-gradient(rgba(21,34,56,0.88), rgba(21,34,56,0.88)),
+                url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 950px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #4fc3f7;
+        }
+
+        .hero p {
+            font-size: 19px;
+            color: #e5e5e5;
+            margin-bottom: 20px;
+        }
+
+        .issn-box {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .issn {
+            background: rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* BUTTON */
+        .btn {
+            display: inline-block;
+            padding: 13px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #0288d1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #015f94;
+        }
+
+        .btn-light {
+            background: white;
+            color: #152238;
+        }
+
+        .btn-light:hover {
+            background: #ddd;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* GENERAL */
+        section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            color: #152238;
+            font-size: 35px;
+        }
+
+        .section-title p {
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* STATS */
+        .stats {
+            background: #0288d1;
+            color: white;
+            padding: 35px 8%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat h2 {
+            font-size: 36px;
+        }
+
+        /* ABOUT */
+        .about {
+            background: white;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .info-card {
+            padding: 30px;
+            background: #f4f6f8;
+            border-radius: 10px;
+            border-left: 5px solid #0288d1;
+        }
+
+        .info-card h3 {
+            color: #152238;
+            margin-bottom: 15px;
+        }
+
+        /* CARDS */
+        .card-section {
+            background: #f4f6f8;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card h3 {
+            color: #152238;
+            margin-bottom: 12px;
+        }
+
+        .card .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        /* EDITORIAL BOARD */
+        .editorial {
+            background: white;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .editor-card {
+            background: #f4f6f8;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .editor-card img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .editor-card h3 {
+            color: #152238;
+        }
+
+        .editor-card p {
+            color: #0288d1;
+            font-weight: bold;
+        }
+
+        /* FORMS */
+        .forms {
+            background: #f4f6f8;
+        }
+
+        .form-wrapper {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 130px;
+            padding: 12px;
+            cursor: pointer;
+            border: none;
+            background: #ddd;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .tab-btn.active {
+            background: #0288d1;
+            color: white;
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ARTICLES */
+        .articles {
+            background: white;
+        }
+
+        .article-list {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .article {
+            background: #f4f6f8;
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            border-left: 5px solid #0288d1;
+        }
+
+        .article h3 {
+            color: #152238;
+            margin-bottom: 8px;
+        }
+
+        .article-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* SEARCH */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+        }
+
+        /* ETHICS */
+        .ethics {
+            background: #f4f6f8;
+        }
+
+        .ethics-list {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .ethics-item {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .ethics-item h3 {
+            color: #152238;
+            margin-bottom: 8px;
+        }
+
+        /* CALL FOR PAPER */
+        .call-paper {
+            background: #152238;
+            color: white;
+            text-align: center;
+        }
+
+        .call-paper h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .call-paper p {
+            max-width: 750px;
+            margin: auto;
+            color: #ddd;
+        }
+
+        /* CONTACT */
+        .contact {
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .contact-info,
+        .contact-form {
+            padding: 30px;
+            background: #f4f6f8;
+            border-radius: 10px;
+        }
+
+        .contact-info h3,
+        .contact-form h3 {
+            color: #152238;
+            margin-bottom: 20px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0c1420;
+            color: #ddd;
+            padding: 50px 8% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 30px;
+        }
+
+        footer h3 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            color: #ddd;
+            display: block;
+            text-decoration: none;
+            margin: 8px 0;
+        }
+
+        footer a:hover {
+            color: #4fc3f7;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        /* MESSAGE */
+        #messageBox {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #152238;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 7px;
+            display: none;
+            z-index: 3000;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            nav {
+                width: 100%;
+                display: none;
+            }
+
+            nav.show {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+        }
+
+        @media(max-width: 500px) {
+
+            section {
+                padding: 55px 5%;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+    <div>International Journal of Scientific and Social Excellence</div>
+    <div>ISSN: 2395-1443 | Online ISSN: 2395-1451</div>
+</div>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="navbar">
+
+        <div class="logo">
+            <h1>IJ<span>SSE</span></h1>
+            <p>Scientific and Social Excellence</p>
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+
+        <nav id="navMenu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#ethics">Ethics</a></li>
+                <li><a href="#board">Editors</a></li>
+                <li><a href="#articles">Articles</a></li>
+                <li><a href="#forms">Portal</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</header>
+
+
+<!-- HOME -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            International Journal of
+            <span>Scientific and Social Excellence</span>
+        </h1>
+
+        <p>
+            A professional academic publishing platform supporting
+            authors, reviewers, editors and researchers through
+            a transparent publication and peer-review process.
+        </p>
+
+        <div class="issn-box">
+            <div class="issn">
+                <strong>Print ISSN</strong><br>
+                2395-1443
+            </div>
+
+            <div class="issn">
+                <strong>Online ISSN</strong><br>
+                2395-1451
+            </div>
+
+            <div class="issn">
+                <strong>Journal Portal</strong><br>
+                Research • Review • Publish
+            </div>
+        </div>
+
+        <a href="#forms" class="btn btn-primary">
+            Submit Manuscript
+        </a>
+
+        <a href="#articles" class="btn btn-light">
+            View Articles
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stats-grid">
+
+        <div class="stat">
+            <h2 id="articleCount">250+</h2>
+            <p>Published Articles</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="authorCount">500+</h2>
+            <p>Authors</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="reviewerCount">100+</h2>
+            <p>Reviewers</p>
+        </div>
+
+        <div class="stat">
+            <h2>12</h2>
+            <p>Annual Issues</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT JOURNAL -->
+
+<section class="about" id="about">
+
+    <div class="section-title">
+        <h2>About the Journal</h2>
+        <p>Promoting quality research in scientific and social disciplines.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div class="info-card">
+
+                <h3>Our Mission</h3>
+
+                <p>
+                    The International Journal of Scientific and Social
+                    Excellence aims to provide a professional platform
+                    for researchers to publish high-quality research
+                    and exchange innovative ideas.
+                </p>
+
+                <br>
+
+                <p>
+                    The journal supports transparent academic publishing,
+                    peer review, research integrity and global knowledge
+                    sharing.
+                </p>
+
+            </div>
+
+            <div class="info-card">
+
+                <h3>Journal Scope</h3>
+
+                <p>
+                    IJSSE welcomes original research papers, review
+                    articles, case studies and innovative academic work
+                    in the areas of:
+                </p>
+
+                <br>
+
+                <p>
+                    Artificial Intelligence, Computer Science,
+                    Engineering, Social Science, Management,
+                    Education, Technology and Interdisciplinary Research.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PUBLICATION ETHICS -->
+
+<section class="ethics" id="ethics">
+
+    <div class="section-title">
+        <h2>Publication Ethics</h2>
+        <p>Maintaining integrity, transparency and ethical research practices.</p>
+    </div>
+
+    <div class="ethics-list">
+
+        <div class="ethics-item">
+            <h3>1. Originality</h3>
+            <p>
+                Submitted manuscripts must contain original research work
+                and should not be published elsewhere.
+            </p>
+        </div>
+
+        <div class="ethics-item">
+            <h3>2. Plagiarism Policy</h3>
+            <p>
+                All submitted articles are expected to follow academic
+                integrity standards and avoid plagiarism.
+            </p>
+        </div>
+
+        <div class="ethics-item">
+            <h3>3. Confidentiality</h3>
+            <p>
+                Editors and reviewers must maintain the confidentiality
+                of manuscripts during the review process.
+            </p>
+        </div>
+
+        <div class="ethics-item">
+            <h3>4. Fair Peer Review</h3>
+            <p>
+                Articles are evaluated based on research quality,
+                originality and relevance without unfair discrimination.
+            </p>
+        </div>
+
+        <div class="ethics-item">
+            <h3>5. Conflict of Interest</h3>
+            <p>
+                Authors, reviewers and editors should disclose conflicts
+                that may influence the publication process.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EDITORIAL BOARD -->
+
+<section class="editorial" id="board">
+
+    <div class="section-title">
+        <h2>Editorial Board</h2>
+        <p>Our experienced editorial and academic committee.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="editor-grid">
+
+            <div class="editor-card">
+
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&q=80"
+                     alt="Editor">
+
+                <h3>Dr. Robert Wilson</h3>
+                <p>Editor-in-Chief</p>
+                <small>Computer Science & Research</small>
+
+            </div>
+
+            <div class="editor-card">
+
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80"
+                     alt="Editor">
+
+                <h3>Dr. Sophia Thomas</h3>
+                <p>Managing Editor</p>
+                <small>Social Science & Education</small>
+
+            </div>
+
+            <div class="editor-card">
+
+                <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=300&q=80"
+                     alt="Editor">
+
+                <h3>Dr. James Martin</h3>
+                <p>Associate Editor</p>
+                <small>Engineering & Technology</small>
+
+            </div>
+
+            <div class="editor-card">
+
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=300&q=80"
+                     alt="Editor">
+
+                <h3>Dr. Olivia Brown</h3>
+                <p>Editorial Committee</p>
+                <small>Management & Research</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PORTAL -->
+
+<section class="forms" id="forms">
+
+    <div class="section-title">
+        <h2>Journal Portal</h2>
+        <p>Register and access services as an Author, Reviewer or Editor.</p>
+    </div>
+
+    <div class="form-wrapper">
+
+        <div class="tabs">
+
+            <button class="tab-btn active"
+                    onclick="openTab('author', this)">
+                Author
+            </button>
+
+            <button class="tab-btn"
+                    onclick="openTab('reviewer', this)">
+                Reviewer
+            </button>
+
+            <button class="tab-btn"
+                    onclick="openTab('editor', this)">
+                Editor
+            </button>
+
+        </div>
+
+
+        <!-- AUTHOR FORM -->
+
+        <div class="form-content active" id="author">
+
+            <h3>Author Registration & Manuscript Submission</h3>
+            <br>
+
+            <form onsubmit="submitForm(event, 'Author')">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required
+                           placeholder="Enter full name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" required
+                           placeholder="Enter email">
+                </div>
+
+                <div class="form-group">
+                    <label>Institution</label>
+                    <input type="text" required
+                           placeholder="University / Organization">
+                </div>
+
+                <div class="form-group">
+                    <label>Article Title</label>
+                    <input type="text"
+                           placeholder="Enter manuscript title">
+                </div>
+
+                <div class="form-group">
+                    <label>Article Category</label>
+                    <select>
+                        <option>Research Article</option>
+                        <option>Review Article</option>
+                        <option>Case Study</option>
+                        <option>Technical Paper</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary"
+                        type="submit">
+                    Register / Submit
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- REVIEWER FORM -->
+
+        <div class="form-content" id="reviewer">
+
+            <h3>Reviewer Registration</h3>
+            <br>
+
+            <form onsubmit="submitForm(event, 'Reviewer')">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Area of Expertise</label>
+                    <input type="text"
+                           placeholder="Example: AI, Engineering">
+                </div>
+
+                <div class="form-group">
+                    <label>Academic Qualification</label>
+                    <input type="text"
+                           placeholder="Ph.D / M.Tech / Other">
+                </div>
+
+                <button class="btn btn-primary"
+                        type="submit">
+                    Register as Reviewer
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- EDITOR FORM -->
+
+        <div class="form-content" id="editor">
+
+            <h3>Editor Registration</h3>
+            <br>
+
+            <form onsubmit="submitForm(event, 'Editor')">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Department / Institution</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Editorial Experience</label>
+                    <textarea
+                        placeholder="Describe your academic or editorial experience">
+                    </textarea>
+                </div>
+
+                <button class="btn btn-primary"
+                        type="submit">
+                    Submit Editor Registration
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AUTHOR SERVICES -->
+
+<section class="card-section">
+
+    <div class="section-title">
+        <h2>Author Services</h2>
+        <p>Everything authors need for successful manuscript submission.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="card-grid">
+
+            <div class="card">
+                <div class="icon">📄</div>
+                <h3>Author Instructions</h3>
+                <p>Detailed instructions for preparing and submitting manuscripts.</p>
+                <button class="btn btn-primary"
+                        onclick="showMessage('Author Instructions opened successfully.')">
+                    View Details
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">💰</div>
+                <h3>Publication Charge</h3>
+                <p>View information regarding journal publication charges.</p>
+                <button class="btn btn-primary"
+                        onclick="showMessage('Publication charge information opened.')">
+                    View Charges
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">📝</div>
+                <h3>Article Template</h3>
+                <p>Download the recommended format for article preparation.</p>
+                <button class="btn btn-primary"
+                        onclick="showMessage('Article template download started.')">
+                    Download Template
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="icon">©️</div>
+                <h3>Copyright Form</h3>
+                <p>Access the copyright declaration form for accepted articles.</p>
+                <button class="btn btn-primary"
+                        onclick="showMessage('Copyright form opened.')">
+                    View Form
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ARTICLES -->
+
+<section class="articles" id="articles">
+
+    <div class="section-title">
+        <h2>Journal Articles</h2>
+        <p>Explore current and archived research publications.</p>
+    </div>
+
+    <div class="search-box">
+
+        <input type="text"
+               id="articleSearch"
+               placeholder="Search articles by title or author">
+
+        <button class="btn btn-primary"
+                onclick="searchArticles()">
+            Search
+        </button>
+
+    </div>
+
+    <div class="article-list" id="articleList">
+
+        <div class="article">
+            <h3>Artificial Intelligence for Smart Agriculture</h3>
+            <div class="article-meta">
+                Dr. Arun Kumar | Volume 12, Issue 1 | Current Issue
+            </div>
+            <p>
+                Research on the application of artificial intelligence
+                and machine learning for modern agricultural systems.
+            </p>
+        </div>
+
+        <div class="article">
+            <h3>Cloud Computing and Modern Digital Transformation</h3>
+            <div class="article-meta">
+                Sarah Williams | Volume 11, Issue 4 | Most Viewed
+            </div>
+            <p>
+                An analysis of cloud technologies and their role
+                in organizational digital transformation.
+            </p>
+        </div>
+
+        <div class="article">
+            <h3>Cybersecurity Challenges in Digital Society</h3>
+            <div class="article-meta">
+                Rahul Sharma | Volume 11, Issue 2 | Most Cited
+            </div>
+            <p>
+                A study of emerging cybersecurity threats and
+                strategies for protecting digital infrastructure.
+            </p>
+        </div>
+
+        <div class="article">
+            <h3>Machine Learning in Healthcare Systems</h3>
+            <div class="article-meta">
+                Priya Nair | Volume 10, Issue 3 | Archive
+            </div>
+            <p>
+                Exploring predictive analytics and machine learning
+                applications in healthcare environments.
+            </p>
+        </div>
+
+        <div class="article">
+            <h3>Social Media and Modern Communication</h3>
+            <div class="article-meta">
+                Dr. David Thomas | Volume 12, Upcoming | About to Print
+            </div>
+            <p>
+                A study examining the influence of digital communication
+                platforms on modern society.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CALL FOR PAPER -->
+
+<section class="call-paper">
+
+    <h2>Call for Papers</h2>
+
+    <p>
+        IJSSE invites researchers, academicians and professionals to
+        submit original and high-quality research manuscripts for
+        upcoming journal issues.
+    </p>
+
+    <br>
+
+    <button class="btn btn-primary"
+            onclick="document.getElementById('forms').scrollIntoView()">
+        Submit Manuscript
+    </button>
+
+    <button class="btn btn-light"
+            onclick="showMessage('Newsletter subscription feature selected.')">
+        Subscribe Newsletter
+    </button>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+    <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Get in touch with the IJSSE publication team.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="contact-grid">
+
+            <div class="contact-info">
+
+                <h3>Journal Contact Information</h3>
+
+                <p><strong>📧 Email:</strong> editor@ijssejournal.com</p>
+                <br>
+
+                <p><strong>📞 Phone:</strong> +91 98765 43210</p>
+                <br>
+
+                <p><strong>🌐 Website:</strong> IJSSE Journal Portal</p>
+                <br>
+
+                <p>
+                    <strong>Publication Services:</strong><br>
+                    Manuscript submission, peer review,
+                    editorial management and publication support.
+                </p>
+
+            </div>
+
+
+            <div class="contact-form">
+
+                <h3>Send Feedback</h3>
+
+                <form onsubmit="sendFeedback(event)">
+
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text"
+                               id="feedbackName"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Feedback Message</label>
+                        <textarea required></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Send Feedback
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>IJSSE</h3>
+
+            <p>
+                International Journal of Scientific and
+                Social Excellence.
+            </p>
+
+            <p>
+                Supporting research, innovation and
+                academic excellence.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Journal</h3>
+
+            <a href="#about">About Journal</a>
+            <a href="#ethics">Publication Ethics</a>
+            <a href="#board">Editorial Board</a>
+            <a href="#articles">Current Issue</a>
+
+        </div>
+
+
+        <div>
+
+            <h3>For Authors</h3>
+
+            <a href="#forms">Author Registration</a>
+            <a href="#forms">Author Login</a>
+            <a href="#forms">Submit Manuscript</a>
+            <a href="#articles">Published Articles</a>
+
+        </div>
+
+
+        <div>
+
+            <h3>For Reviewers</h3>
+
+            <a href="#forms">Reviewer Registration</a>
+            <a href="#forms">Reviewer Login</a>
+            <a href="#forms">Reviewer Resources</a>
+            <a href="#forms">Article Review</a>
+
+        </div>
+
+
+        <div>
+
+            <h3>For Editors</h3>
+
+            <a href="#forms">Editor Registration</a>
+            <a href="#forms">Editor Login</a>
+            <a href="#board">Editorial Committee</a>
+            <a href="#board">Editor Responsibility</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        © 2026 International Journal of Scientific and Social Excellence (IJSSE).
+        All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<!-- MESSAGE BOX -->
+
+<div id="messageBox"></div>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    /* MOBILE MENU */
+
+    function toggleMenu() {
+
+        document
+            .getElementById("navMenu")
+            .classList
+            .toggle("show");
+
+    }
+
+
+    /* OPEN TABS */
+
+    function openTab(tabName, button) {
+
+        const forms =
+            document.querySelectorAll(".form-content");
+
+        forms.forEach(function(form) {
+            form.classList.remove("active");
+        });
+
+        const buttons =
+            document.querySelectorAll(".tab-btn");
+
+        buttons.forEach(function(btn) {
+            btn.classList.remove("active");
+        });
+
+        document
+            .getElementById(tabName)
+            .classList
+            .add("active");
+
+        button.classList.add("active");
+
+    }
+
+
+    /* SHOW MESSAGE */
+
+    function showMessage(text) {
+
+        const box =
+            document.getElementById("messageBox");
+
+        box.innerText = text;
+
+        box.style.display = "block";
+
+        setTimeout(function() {
+
+            box.style.display = "none";
+
+        }, 3500);
+
+    }
+
+
+    /* FORM SUBMISSION */
+
+    function submitForm(event, type) {
+
+        event.preventDefault();
+
+        showMessage(
+            type +
+            " registration submitted successfully!"
+        );
+
+        event.target.reset();
+
+    }
+
+
+    /* FEEDBACK */
+
+    function sendFeedback(event) {
+
+        event.preventDefault();
+
+        const name =
+            document
+            .getElementById("feedbackName")
+            .value;
+
+        showMessage(
+            "Thank you " +
+            name +
+            "! Your feedback has been sent successfully."
+        );
+
+        event.target.reset();
+
+    }
+
+
+    /* ARTICLE SEARCH */
+
+    function searchArticles() {
+
+        const searchText =
+            document
+            .getElementById("articleSearch")
+            .value
+            .toLowerCase();
+
+        const articles =
+            document.querySelectorAll(".article");
+
+        let found = false;
+
+        articles.forEach(function(article) {
+
+            const content =
+                article.innerText.toLowerCase();
+
+            if(content.includes(searchText)) {
+
+                article.style.display = "block";
+                found = true;
+
+            } else {
+
+                article.style.display = "none";
+
+            }
+
+        });
+
+        if(searchText === "") {
+
+            articles.forEach(function(article) {
+                article.style.display = "block";
+            });
+
+            return;
+        }
+
+        if(!found) {
+
+            showMessage(
+                "No articles found for your search."
+            );
+
+        }
+
+    }
+
+
+    /* ENTER KEY ARTICLE SEARCH */
+
+    document
+        .getElementById("articleSearch")
+        .addEventListener("keyup", function(event) {
+
+            if(event.key === "Enter") {
+                searchArticles();
+            }
+
+        });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ArtistryHub - Emily Harris</title>
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #faf7f2;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: #2b1d16;
+    color: white;
+
+    padding: 15px 7%;
+
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #e9a23b;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #e9a23b;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 650px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+
+    padding: 80px 10%;
+
+    background:
+    linear-gradient(
+        rgba(43,29,22,0.65),
+        rgba(43,29,22,0.75)
+    ),
+    url("https://images.unsplash.com/photo-1547891654-e66ed7ebb968?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.hero h1 {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    color: #f3bd64;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    max-width: 750px;
+    margin: auto;
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 12px 25px;
+    margin: 10px 5px;
+
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #e9a23b;
+    color: #2b1d16;
+}
+
+.btn-primary:hover {
+    background: white;
+}
+
+.btn-dark {
+    background: #2b1d16;
+    color: white;
+}
+
+.btn-dark:hover {
+    background: #51372a;
+}
+
+.btn-light {
+    background: white;
+    color: #2b1d16;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+section {
+    padding: 75px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-size: 38px;
+    color: #2b1d16;
+}
+
+.section-title p {
+    color: #777;
+    margin-top: 8px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    background: white;
+}
+
+.about-container {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    height: 450px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.about-text h3 {
+    font-size: 30px;
+    color: #2b1d16;
+    margin-bottom: 15px;
+}
+
+.about-text p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.artist-info {
+    margin-top: 20px;
+}
+
+.info-item {
+    margin: 10px 0;
+}
+
+.info-item strong {
+    color: #2b1d16;
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio {
+    background: #faf7f2;
+}
+
+.filter-buttons {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 10px 18px;
+    margin: 5px;
+
+    border: 1px solid #2b1d16;
+    background: white;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #2b1d16;
+    color: white;
+}
+
+.gallery {
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns:
+    repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+}
+
+.art-card {
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    transition: 0.3s;
+}
+
+.art-card:hover {
+    transform: translateY(-8px);
+}
+
+.art-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.art-content {
+    padding: 20px;
+}
+
+.art-content h3 {
+    color: #2b1d16;
+    margin-bottom: 8px;
+}
+
+.art-content p {
+    color: #666;
+}
+
+/* =========================
+   ARTWORK MODAL
+========================= */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    z-index: 2000;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.8);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+
+    max-width: 850px;
+    width: 100%;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.close {
+    float: right;
+
+    font-size: 30px;
+
+    cursor: pointer;
+
+    color: #555;
+}
+
+/* =========================
+   BIOGRAPHY
+========================= */
+
+.biography {
+    background: white;
+}
+
+.timeline {
+    max-width: 900px;
+    margin: auto;
+
+    border-left: 4px solid #e9a23b;
+
+    padding-left: 30px;
+}
+
+.timeline-item {
+    margin-bottom: 35px;
+
+    position: relative;
+}
+
+.timeline-item::before {
+    content: "";
+
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+
+    background: #e9a23b;
+
+    border-radius: 50%;
+
+    left: -40px;
+    top: 5px;
+}
+
+.timeline-item h3 {
+    color: #2b1d16;
+}
+
+.timeline-item span {
+    color: #b46c13;
+    font-weight: bold;
+}
+
+/* =========================
+   MEDIA GALLERY
+========================= */
+
+.media {
+    background: #f2ebe3;
+}
+
+.media-grid {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 25px;
+}
+
+.media-card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.media-card img,
+.media-card iframe {
+    width: 100%;
+    height: 220px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+}
+
+.media-card h3 {
+    margin-top: 12px;
+    color: #2b1d16;
+}
+
+/* =========================
+   NEWS
+========================= */
+
+.news {
+    background: white;
+}
+
+.news-grid {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 25px;
+}
+
+.news-card {
+    background: #faf7f2;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    border-left: 5px solid #e9a23b;
+}
+
+.news-card h3 {
+    color: #2b1d16;
+}
+
+.news-date {
+    color: #b46c13;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* =========================
+   STORE
+========================= */
+
+.store {
+    background: #f2ebe3;
+}
+
+.product-grid {
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(230px, 1fr));
+
+    gap: 25px;
+}
+
+.product {
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.product img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.price {
+    color: #b46c13;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin: 10px 0;
+}
+
+/* =========================
+   CART
+========================= */
+
+.cart-box {
+    max-width: 900px;
+    margin: 40px auto 0;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    display: none;
+}
+
+.cart-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-total {
+    text-align: right;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    margin-top: 20px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    background: white;
+}
+
+.contact-container {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 40px;
+}
+
+.contact-info {
+    background: #2b1d16;
+    color: white;
+
+    padding: 35px;
+
+    border-radius: 12px;
+}
+
+.contact-info h3 {
+    color: #e9a23b;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin: 12px 0;
+}
+
+.contact-form {
+    padding: 30px;
+
+    background: #faf7f2;
+
+    border-radius: 12px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #e9a23b;
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+.newsletter {
+    background: #2b1d16;
+    color: white;
+
+    text-align: center;
+}
+
+.newsletter h2 {
+    color: #e9a23b;
+}
+
+.newsletter-form {
+    max-width: 550px;
+    margin: 25px auto 0;
+
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-form input {
+    flex: 1;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #1b120e;
+    color: white;
+
+    padding: 45px 8% 20px;
+}
+
+.footer-grid {
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 30px;
+}
+
+footer h3 {
+    color: #e9a23b;
+    margin-bottom: 15px;
+}
+
+footer a {
+    display: block;
+
+    color: #ddd;
+
+    text-decoration: none;
+
+    margin: 7px 0;
+}
+
+footer a:hover {
+    color: #e9a23b;
+}
+
+.copyright {
+    border-top: 1px solid #555;
+
+    text-align: center;
+
+    padding-top: 20px;
+
+    margin-top: 30px;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+#message {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    background: #2b1d16;
+    color: white;
+
+    padding: 15px 25px;
+
+    border-radius: 7px;
+
+    display: none;
+
+    z-index: 3000;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 800px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .about-container,
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 500px) {
+
+    section {
+        padding: 50px 5%;
+    }
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+    .hero h2 {
+        font-size: 23px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo">
+Artistry<span>Hub</span>
+</div>
+
+<nav>
+
+<ul>
+
+<li>
+<a href="#home">Home</a>
+</li>
+
+<li>
+<a href="#about">About</a>
+</li>
+
+<li>
+<a href="#portfolio">Portfolio</a>
+</li>
+
+<li>
+<a href="#biography">Biography</a>
+</li>
+
+<li>
+<a href="#media">Media</a>
+</li>
+
+<li>
+<a href="#store">Store</a>
+</li>
+
+<li>
+<a href="#contact">Contact</a>
+</li>
+
+</ul>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     HOME
+====================================================== -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+<h1>
+Emily Harris
+</h1>
+
+<h2>
+Contemporary Artist
+</h2>
+
+<p>
+Welcome to ArtistryHub, the official digital portfolio
+showcasing the artistic journey, creativity and
+achievements of renowned artist Emily Harris.
+</p>
+
+<br>
+
+<a href="#portfolio"
+class="btn btn-primary">
+
+Explore Portfolio
+
+</a>
+
+<a href="#about"
+class="btn btn-light">
+
+About the Artist
+
+</a>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+====================================================== -->
+
+<section class="about" id="about">
+
+<div class="section-title">
+
+<h2>
+About the Artist
+</h2>
+
+<p>
+Discover the story behind Emily Harris's creativity.
+</p>
+
+</div>
+
+
+<div class="about-container">
+
+<div class="about-image">
+
+<img
+src="https://images.unsplash.com/photo-1524255684952-d7185b509571?auto=format&fit=crop&w=900&q=80"
+alt="Artist Emily Harris">
+
+</div>
+
+
+<div class="about-text">
+
+<h3>
+Emily Harris
+</h3>
+
+<p>
+Emily Harris is a contemporary artist known for
+her expressive paintings, abstract compositions
+and experimental approach to color and texture.
+</p>
+
+<p>
+Her work explores human emotions, nature,
+memories and the relationship between people
+and their surroundings.
+</p>
+
+<p>
+Emily has participated in numerous exhibitions
+and art festivals and her work has been
+displayed in galleries across different cities.
+</p>
+
+
+<div class="artist-info">
+
+<div class="info-item">
+<strong>Born:</strong>
+1988
+</div>
+
+<div class="info-item">
+<strong>Profession:</strong>
+Contemporary Artist
+</div>
+
+<div class="info-item">
+<strong>Specialization:</strong>
+Painting & Mixed Media
+</div>
+
+<div class="info-item">
+<strong>Experience:</strong>
+15+ Years
+</div>
+
+</div>
+
+
+<a href="#biography"
+class="btn btn-primary">
+
+Read Full Biography
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PORTFOLIO
+====================================================== -->
+
+<section class="portfolio" id="portfolio">
+
+<div class="section-title">
+
+<h2>
+Art Portfolio
+</h2>
+
+<p>
+Explore selected artworks by Emily Harris.
+</p>
+
+</div>
+
+
+<div class="filter-buttons">
+
+<button
+class="filter-btn active"
+onclick="filterArt('all', this)">
+
+All
+
+</button>
+
+<button
+class="filter-btn"
+onclick="filterArt('painting', this)">
+
+Paintings
+
+</button>
+
+<button
+class="filter-btn"
+onclick="filterArt('abstract', this)">
+
+Abstract
+
+</button>
+
+<button
+class="filter-btn"
+onclick="filterArt('nature', this)">
+
+Nature
+
+</button>
+
+</div>
+
+
+<div class="gallery">
+
+
+<!-- ART 1 -->
+
+<div class="art-card"
+data-category="painting">
+
+<img
+src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=900&q=80"
+alt="Artwork">
+
+<div class="art-content">
+
+<h3>
+Colors of Emotion
+</h3>
+
+<p>
+A vibrant exploration of human emotions
+through expressive colors.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArt(
+'Colors of Emotion',
+'Vibrant contemporary painting exploring human emotions.',
+'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1200&q=80'
+)">
+
+View Artwork
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ART 2 -->
+
+<div class="art-card"
+data-category="abstract">
+
+<img
+src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=80"
+alt="Abstract artwork">
+
+<div class="art-content">
+
+<h3>
+Silent Dreams
+</h3>
+
+<p>
+An abstract composition inspired by dreams
+and imagination.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArt(
+'Silent Dreams',
+'Abstract artwork inspired by dreams and imagination.',
+'https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=80'
+)">
+
+View Artwork
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ART 3 -->
+
+<div class="art-card"
+data-category="nature">
+
+<img
+src="https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=900&q=80"
+alt="Nature artwork">
+
+<div class="art-content">
+
+<h3>
+Whispers of Nature
+</h3>
+
+<p>
+A peaceful artwork inspired by forests,
+mountains and natural landscapes.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArt(
+'Whispers of Nature',
+'Artwork inspired by forests and natural landscapes.',
+'https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=1200&q=80'
+)">
+
+View Artwork
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ART 4 -->
+
+<div class="art-card"
+data-category="painting">
+
+<img
+src="https://images.unsplash.com/photo-1578301978018-3005759f48f7?auto=format&fit=crop&w=900&q=80"
+alt="Painting">
+
+<div class="art-content">
+
+<h3>
+Urban Memories
+</h3>
+
+<p>
+A colorful representation of memories
+from modern city life.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArt(
+'Urban Memories',
+'Painting representing memories of modern city life.',
+'https://images.unsplash.com/photo-1578301978018-3005759f48f7?auto=format&fit=crop&w=1200&q=80'
+)">
+
+View Artwork
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ART 5 -->
+
+<div class="art-card"
+data-category="abstract">
+
+<img
+src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=900&q=80"
+alt="Abstract painting">
+
+<div class="art-content">
+
+<h3>
+Inner Universe
+</h3>
+
+<p>
+An abstract representation of thoughts
+and inner consciousness.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArt(
+'Inner Universe',
+'Abstract representation of thoughts and consciousness.',
+'https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=1200&q=80'
+)">
+
+View Artwork
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ART 6 -->
+
+<div class="art-card"
+data-category="nature">
+
+<img
+src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=900&q=80"
+alt="Nature painting">
+
+<div class="art-content">
+
+<h3>
+Golden Landscape
+</h3>
+
+<p>
+A warm landscape inspired by sunlight
+and natural beauty.
+</p>
+
+<button
+class="btn btn-primary"
+onclick="openArt(
+'Golden Landscape',
+'Landscape artwork inspired by sunlight and nature.',
+'https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1200&q=80'
+)">
+
+View Artwork
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ARTWORK MODAL
+====================================================== -->
+
+<div
+class="modal"
+id="artModal">
+
+<div class="modal-content">
+
+<span
+class="close"
+onclick="closeArt()">
+
+&times;
+
+</span>
+
+<h2 id="modalTitle">
+Artwork
+</h2>
+
+<br>
+
+<img
+id="modalImage"
+src=""
+alt="Artwork">
+
+<br><br>
+
+<p id="modalDescription">
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     BIOGRAPHY
+====================================================== -->
+
+<section
+class="biography"
+id="biography">
+
+<div class="section-title">
+
+<h2>
+Artist's Journey
+</h2>
+
+<p>
+Important milestones in Emily Harris's career.
+</p>
+
+</div>
+
+
+<div class="timeline">
+
+
+<div class="timeline-item">
+
+<span>
+2008
+</span>
+
+<h3>
+Beginning of Artistic Journey
+</h3>
+
+<p>
+Emily began her professional career after
+completing her studies in Fine Arts.
+</p>
+
+</div>
+
+
+<div class="timeline-item">
+
+<span>
+2012
+</span>
+
+<h3>
+First Major Exhibition
+</h3>
+
+<p>
+Her first major solo exhibition introduced
+her unique artistic style to a wider audience.
+</p>
+
+</div>
+
+
+<div class="timeline-item">
+
+<span>
+2016
+</span>
+
+<h3>
+International Recognition
+</h3>
+
+<p>
+Emily participated in international exhibitions
+and gained recognition for her contemporary
+artwork.
+</p>
+
+</div>
+
+
+<div class="timeline-item">
+
+<span>
+2020
+</span>
+
+<h3>
+Digital Art Collection
+</h3>
+
+<p>
+She expanded her work into digital and
+mixed-media artwork.
+</p>
+
+</div>
+
+
+<div class="timeline-item">
+
+<span>
+2026
+</span>
+
+<h3>
+ArtistryHub
+</h3>
+
+<p>
+ArtistryHub was created to digitally showcase
+her complete artistic journey and connect her
+work with audiences around the world.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MEDIA
+====================================================== -->
+
+<section
+class="media"
+id="media">
+
+<div class="section-title">
+
+<h2>
+Media Gallery
+</h2>
+
+<p>
+Photos, interviews and artistic events.
+</p>
+
+</div>
+
+
+<div class="media-grid">
+
+
+<div class="media-card">
+
+<img
+src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=900&q=80"
+alt="Art gallery">
+
+<h3>
+Gallery Exhibition
+</h3>
+
+<p>
+Emily presenting her latest collection.
+</p>
+
+</div>
+
+
+<div class="media-card">
+
+<img
+src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=900&q=80"
+alt="Artwork exhibition">
+
+<h3>
+Art Exhibition 2025
+</h3>
+
+<p>
+Selected works displayed at a contemporary
+art exhibition.
+</p>
+
+</div>
+
+
+<div class="media-card">
+
+<iframe
+src="https://www.youtube.com/embed/ScMzIvxBSi4"
+allowfullscreen>
+</iframe>
+
+<h3>
+Artist Interview
+</h3>
+
+<p>
+Watch an interview discussing Emily's
+creative process.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWS & EVENTS
+====================================================== -->
+
+<section
+class="news">
+
+<div class="section-title">
+
+<h2>
+News & Updates
+</h2>
+
+<p>
+Latest exhibitions and artistic activities.
+</p>
+
+</div>
+
+
+<div class="news-grid">
+
+
+<div class="news-card">
+
+<div class="news-date">
+August 10, 2026
+</div>
+
+<h3>
+New Collection Announced
+</h3>
+
+<p>
+Emily Harris has announced a new collection
+of contemporary paintings inspired by nature.
+</p>
+
+</div>
+
+
+<div class="news-card">
+
+<div class="news-date">
+July 25, 2026
+</div>
+
+<h3>
+Upcoming Art Exhibition
+</h3>
+
+<p>
+Emily will showcase her latest works at
+the upcoming contemporary art exhibition.
+</p>
+
+</div>
+
+
+<div class="news-card">
+
+<div class="news-date">
+June 15, 2026
+</div>
+
+<h3>
+Artist Workshop
+</h3>
+
+<p>
+An interactive painting workshop will be
+conducted for young aspiring artists.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     STORE
+====================================================== -->
+
+<section
+class="store"
+id="store">
+
+<div class="section-title">
+
+<h2>
+Art Store
+</h2>
+
+<p>
+Purchase prints and selected merchandise.
+</p>
+
+</div>
+
+
+<div class="product-grid">
+
+
+<!-- PRODUCT 1 -->
+
+<div class="product">
+
+<img
+src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=900&q=80"
+alt="Art print">
+
+<div class="product-info">
+
+<h3>
+Colors of Emotion Print
+</h3>
+
+<div class="price">
+₹2,500
+</div>
+
+<button
+class="btn btn-primary"
+onclick="addToCart(
+'Colors of Emotion Print',
+2500
+)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT 2 -->
+
+<div class="product">
+
+<img
+src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=80"
+alt="Art print">
+
+<div class="product-info">
+
+<h3>
+Silent Dreams Print
+</h3>
+
+<div class="price">
+₹3,000
+</div>
+
+<button
+class="btn btn-primary"
+onclick="addToCart(
+'Silent Dreams Print',
+3000
+)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT 3 -->
+
+<div class="product">
+
+<img
+src="https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=900&q=80"
+alt="Nature print">
+
+<div class="product-info">
+
+<h3>
+Whispers of Nature
+</h3>
+
+<div class="price">
+₹2,800
+</div>
+
+<button
+class="btn btn-primary"
+onclick="addToCart(
+'Whispers of Nature',
+2800
+)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCT 4 -->
+
+<div class="product">
+
+<img
+src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=900&q=80"
+alt="Abstract print">
+
+<div class="product-info">
+
+<h3>
+Inner Universe
+</h3>
+
+<div class="price">
+₹3,500
+</div>
+
+<button
+class="btn btn-primary"
+onclick="addToCart(
+'Inner Universe',
+3500
+)">
+
+Add to Cart
+
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- CART -->
+
+<div
+class="cart-box"
+id="cartBox">
+
+<h2>
+🛒 Shopping Cart
+</h2>
+
+<div id="cartItems">
+</div>
+
+<div class="cart-total">
+
+Total:
+₹<span id="cartTotal">
+0
+</span>
+
+</div>
+
+<br>
+
+<button
+class="btn btn-dark"
+onclick="checkout()">
+
+Proceed to Checkout
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="clearCart()">
+
+Clear Cart
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+====================================================== -->
+
+<section
+class="contact"
+id="contact">
+
+<div class="section-title">
+
+<h2>
+Contact & Booking
+</h2>
+
+<p>
+Contact Emily for exhibitions, collaborations
+and booking inquiries.
+</p>
+
+</div>
+
+
+<div class="contact-container">
+
+
+<div class="contact-info">
+
+<h3>
+Get in Touch
+</h3>
+
+<p>
+📍 Chennai, India
+</p>
+
+<p>
+📧 emilyharris@example.com
+</p>
+
+<p>
+📞 +91 98765 43210
+</p>
+
+<p>
+🎨 Art exhibitions and commissions
+</p>
+
+<p>
+🤝 Collaboration requests
+</p>
+
+</div>
+
+
+<div class="contact-form">
+
+<form
+id="contactForm">
+
+
+<div class="form-group">
+
+<label>
+Name
+</label>
+
+<input
+type="text"
+id="contactName"
+placeholder="Enter your name"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+placeholder="Enter your email"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Purpose
+</label>
+
+<select required>
+
+<option value="">
+Select purpose
+</option>
+
+<option>
+Artwork Purchase
+</option>
+
+<option>
+Exhibition Booking
+</option>
+
+<option>
+Collaboration
+</option>
+
+<option>
+General Inquiry
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Message
+</label>
+
+<textarea
+placeholder="Write your message..."
+required>
+</textarea>
+
+</div>
+
+
+<button
+type="submit"
+class="btn btn-dark">
+
+Send Message
+
+</button>
+
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWSLETTER
+====================================================== -->
+
+<section
+class="newsletter">
+
+<h2>
+Subscribe to Art Updates
+</h2>
+
+<p>
+Receive information about new artworks,
+exhibitions and events.
+</p>
+
+
+<form
+class="newsletter-form"
+id="newsletterForm">
+
+<input
+type="email"
+id="newsletterEmail"
+placeholder="Enter your email"
+required>
+
+<button
+class="btn btn-primary"
+type="submit">
+
+Subscribe
+
+</button>
+
+</form>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+<div class="footer-grid">
+
+
+<div>
+
+<h3>
+ArtistryHub
+</h3>
+
+<p>
+A digital portfolio celebrating the
+artistic journey of Emily Harris.
+</p>
+
+</div>
+
+
+<div>
+
+<h3>
+Quick Links
+</h3>
+
+<a href="#home">
+Home
+</a>
+
+<a href="#about">
+About Artist
+</a>
+
+<a href="#portfolio">
+Portfolio
+</a>
+
+<a href="#biography">
+Biography
+</a>
+
+</div>
+
+
+<div>
+
+<h3>
+Explore
+</h3>
+
+<a href="#media">
+Media Gallery
+</a>
+
+<a href="#store">
+Art Store
+</a>
+
+<a href="#contact">
+Contact
+</a>
+
+</div>
+
+
+<div>
+
+<h3>
+Social Media
+</h3>
+
+<a href="#">
+Instagram
+</a>
+
+<a href="#">
+Facebook
+</a>
+
+<a href="#">
+YouTube
+</a>
+
+<a href="#">
+Twitter
+</a>
+
+</div>
+
+
+</div>
+
+
+<div class="copyright">
+
+© 2026 ArtistryHub |
+Emily Harris Portfolio
+
+</div>
+
+</footer>
+
+
+<!-- =====================================================
+     MESSAGE
+====================================================== -->
+
+<div id="message">
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+/* =====================================================
+   MESSAGE FUNCTION
+===================================================== */
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+    setTimeout(function() {
+
+        message.style.display = "none";
+
+    }, 3000);
+}
+
+
+/* =====================================================
+   PORTFOLIO FILTER
+===================================================== */
+
+function filterArt(category, button) {
+
+    const cards =
+        document.querySelectorAll(".art-card");
+
+    const buttons =
+        document.querySelectorAll(".filter-btn");
+
+
+    buttons.forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+    });
+
+
+    button.classList.add("active");
+
+
+    cards.forEach(function(card) {
+
+        const cardCategory =
+            card.getAttribute("data-category");
+
+
+        if(
+            category === "all" ||
+            cardCategory === category
+        ) {
+
+            card.style.display = "block";
+
+        }
+
+        else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   ARTWORK MODAL
+===================================================== */
+
+function openArt(title, description, image) {
+
+    document
+    .getElementById("modalTitle")
+    .innerText = title;
+
+
+    document
+    .getElementById("modalDescription")
+    .innerText = description;
+
+
+    document
+    .getElementById("modalImage")
+    .src = image;
+
+
+    document
+    .getElementById("artModal")
+    .style.display = "flex";
+
+}
+
+
+function closeArt() {
+
+    document
+    .getElementById("artModal")
+    .style.display = "none";
+
+}
+
+
+/* Close modal when clicking outside */
+
+window.addEventListener("click", function(event) {
+
+    const modal =
+        document.getElementById("artModal");
+
+
+    if(event.target === modal) {
+
+        closeArt();
+
+    }
+
+});
+
+
+/* =====================================================
+   SHOPPING CART
+===================================================== */
+
+let cart = [];
+
+
+function addToCart(name, price) {
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+
+    updateCart();
+
+
+    showMessage(
+        name + " added to cart."
+    );
+
+}
+
+
+function updateCart() {
+
+    const cartBox =
+        document.getElementById("cartBox");
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+
+    cartBox.style.display = "block";
+
+
+    cartItems.innerHTML = "";
+
+
+    let total = 0;
+
+
+    cart.forEach(function(item, index) {
+
+        total += item.price;
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "cart-item";
+
+
+        div.innerHTML = `
+
+        <span>
+        ${item.name}
+        </span>
+
+        <strong>
+        ₹${item.price}
+        </strong>
+
+        <button
+        class="btn btn-danger"
+        onclick="removeFromCart(${index})">
+
+        Remove
+
+        </button>
+
+        `;
+
+
+        cartItems.appendChild(div);
+
+    });
+
+
+    cartTotal.innerText = total;
+
+}
+
+
+function removeFromCart(index) {
+
+    cart.splice(index, 1);
+
+    updateCart();
+
+    showMessage(
+        "Item removed from cart."
+    );
+
+}
+
+
+function clearCart() {
+
+    cart = [];
+
+    updateCart();
+
+    document
+    .getElementById("cartBox")
+    .style.display = "none";
+
+    showMessage(
+        "Shopping cart cleared."
+    );
+
+}
+
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+function checkout() {
+
+    if(cart.length === 0) {
+
+        showMessage(
+            "Your cart is empty."
+        );
+
+        return;
+    }
+
+
+    showMessage(
+        "Order placed successfully! Thank you for shopping."
+    );
+
+
+    cart = [];
+
+    updateCart();
+
+
+    document
+    .getElementById("cartBox")
+    .style.display = "none";
+
+}
+
+
+/* =====================================================
+   CONTACT FORM
+===================================================== */
+
+document
+.getElementById("contactForm")
+.addEventListener(
+"submit",
+function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document
+        .getElementById("contactName")
+        .value;
+
+
+    showMessage(
+        "Thank you " +
+        name +
+        "! Your message has been sent."
+    );
+
+
+    this.reset();
+
+});
+
+
+/* =====================================================
+   NEWSLETTER
+===================================================== */
+
+document
+.getElementById("newsletterForm")
+.addEventListener(
+"submit",
+function(event) {
+
+    event.preventDefault();
+
+
+    const email =
+        document
+        .getElementById("newsletterEmail")
+        .value;
+
+
+    showMessage(
+        email +
+        " subscribed successfully!"
+    );
+
+
+    this.reset();
+
+});
+
+
+/* =====================================================
+   SOCIAL MEDIA DEMO
+===================================================== */
+
+document
+.querySelectorAll('footer a[href="#"]')
+.forEach(function(link) {
+
+    link.addEventListener(
+    "click",
+    function(event) {
+
+        event.preventDefault();
+
+        showMessage(
+            "Social media page will open here."
+        );
+
+    });
+
+});
+
+</script>
+
+
+</body>
+</html>

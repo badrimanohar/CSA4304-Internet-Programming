@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Traffic Squad | Penalty Collection & Management</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f5f7fb;
+    color: #333;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    background: #172554;
+    color: white;
+    padding: 15px 7%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 12px rgba(0,0,0,.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #facc15;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #facc15;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 70px 10%;
+
+    background:
+    linear-gradient(rgba(10,25,60,.78), rgba(10,25,60,.82)),
+    url("https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 19px;
+    max-width: 800px;
+    line-height: 1.7;
+    margin: auto;
+}
+
+/* ================= BUTTON ================= */
+
+.btn {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
+}
+
+.btn-primary {
+    background: #facc15;
+    color: #111827;
+}
+
+.btn-primary:hover {
+    background: white;
+}
+
+.btn-blue {
+    background: #172554;
+    color: white;
+}
+
+.btn-green {
+    background: #198754;
+    color: white;
+}
+
+.btn-red {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-orange {
+    background: #f97316;
+    color: white;
+}
+
+/* ================= SECTION ================= */
+
+section {
+    padding: 70px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #172554;
+    font-size: 32px;
+}
+
+.section-title p {
+    margin-top: 10px;
+    color: #666;
+}
+
+/* ================= CARDS ================= */
+
+.card-grid {
+    display: grid;
+    grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 14px rgba(0,0,0,.08);
+}
+
+.card-icon {
+    font-size: 42px;
+}
+
+.card h3 {
+    color: #172554;
+    margin: 12px 0;
+}
+
+.number {
+    font-size: 35px;
+    font-weight: bold;
+    color: #172554;
+}
+
+/* ================= FORM ================= */
+
+.form-container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 18px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #172554;
+}
+
+/* ================= CHALLAN ================= */
+
+.challan-section {
+    background: #eef2ff;
+}
+
+.search-box {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+.challan-result {
+    max-width: 800px;
+    margin: 30px auto 0;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    display: none;
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+.challan-result h3 {
+    color: #172554;
+    margin-bottom: 15px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.pending {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.paid {
+    color: #198754;
+    font-weight: bold;
+}
+
+/* ================= CASE ================= */
+
+.case-section {
+    background: white;
+}
+
+.case-card {
+    max-width: 900px;
+    margin: auto;
+    background: #f8fafc;
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 5px solid #172554;
+}
+
+/* ================= POLICE ================= */
+
+.police-section {
+    background: #eef2ff;
+}
+
+/* ================= TABLE ================= */
+
+.table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #172554;
+    color: white;
+}
+
+th,
+td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.status-new {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-progress {
+    color: #f97316;
+    font-weight: bold;
+}
+
+.status-closed {
+    color: #198754;
+    font-weight: bold;
+}
+
+/* ================= PROOF ================= */
+
+.proof-preview {
+    margin-top: 15px;
+    display: none;
+}
+
+.proof-preview img {
+    max-width: 300px;
+    border-radius: 8px;
+}
+
+/* ================= ADMIN ================= */
+
+.admin-section {
+    background: white;
+}
+
+/* ================= MAP ================= */
+
+.map-box {
+    max-width: 1000px;
+    margin: auto;
+}
+
+#trafficMap {
+    height: 350px;
+    border-radius: 12px;
+
+    background:
+    linear-gradient(90deg, transparent 48%, #777 49%, #777 51%, transparent 52%),
+    linear-gradient(0deg, transparent 48%, #777 49%, #777 51%, transparent 52%),
+    #dbeafe;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #172554;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* ================= REPORT ================= */
+
+.report-section {
+    background: #f8fafc;
+}
+
+.report-box {
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #0f172a;
+    color: white;
+    padding: 45px 8% 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 30px;
+}
+
+footer h3 {
+    color: #facc15;
+    margin-bottom: 15px;
+}
+
+footer p,
+footer a {
+    color: #ddd;
+    margin: 8px 0;
+    text-decoration: none;
+}
+
+footer a {
+    display: block;
+}
+
+footer a:hover {
+    color: #facc15;
+}
+
+.copyright {
+    text-align: center;
+    border-top: 1px solid #475569;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+/* ================= MESSAGE ================= */
+
+#message {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #198754;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 7px;
+    display: none;
+    z-index: 2000;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width: 800px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+}
+
+@media(max-width: 500px) {
+
+    section {
+        padding: 50px 5%;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .detail-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="navbar">
+
+    <div class="logo">
+        🚦 Traffic<span>Squad</span>
+    </div>
+
+    <nav>
+
+        <ul>
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#challan">My Challan</a>
+            </li>
+
+            <li>
+                <a href="#case">Cases</a>
+            </li>
+
+            <li>
+                <a href="#police">Police</a>
+            </li>
+
+            <li>
+                <a href="#reports">Reports</a>
+            </li>
+
+            <li>
+                <a href="#admin">Admin</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+<div>
+
+    <h1>
+        Traffic Squad
+    </h1>
+
+    <p>
+        Penalty Collection & Management Based Web Application
+    </p>
+
+    <p>
+        Create and manage traffic violation cases,
+        challans, penalties and digital proof efficiently.
+    </p>
+
+    <br>
+
+    <a href="#challan">
+
+        <button class="btn btn-primary">
+            🔎 Check My Challan
+        </button>
+
+    </a>
+
+    <a href="#police">
+
+        <button class="btn btn-primary">
+            👮 Police Portal
+        </button>
+
+    </a>
+
+</div>
+
+</section>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section>
+
+<div class="section-title">
+
+    <h2>Traffic Management Dashboard</h2>
+
+    <p>
+        Current traffic enforcement statistics
+    </p>
+
+</div>
+
+
+<div class="card-grid">
+
+    <div class="card">
+
+        <div class="card-icon">🚗</div>
+
+        <h3>Total Cases</h3>
+
+        <div class="number" id="totalCases">
+            128
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">💰</div>
+
+        <h3>Total Penalty</h3>
+
+        <div class="number">
+            ₹85,400
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">✅</div>
+
+        <h3>Paid Challans</h3>
+
+        <div class="number" id="paidChallans">
+            92
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-icon">⏳</div>
+
+        <h3>Pending Challans</h3>
+
+        <div class="number" id="pendingChallans">
+            36
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- ================= USER REGISTRATION ================= -->
+
+<section class="challan-section">
+
+<div class="section-title">
+
+    <h2>User Registration</h2>
+
+    <p>
+        Register to access challan and traffic case information.
+    </p>
+
+</div>
+
+
+<div class="form-container">
+
+<form id="userRegistrationForm">
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Full Name</label>
+
+        <input
+            type="text"
+            id="userName"
+            placeholder="Enter full name"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Email</label>
+
+        <input
+            type="email"
+            placeholder="Enter email"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Mobile Number</label>
+
+        <input
+            type="tel"
+            placeholder="Enter mobile number"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Vehicle Number</label>
+
+        <input
+            type="text"
+            placeholder="TN01AB1234"
+            required>
+
+    </div>
+
+</div>
+
+
+<button
+    class="btn btn-blue"
+    type="submit">
+
+    Register
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= CHALLAN SEARCH ================= -->
+
+<section id="challan" class="challan-section">
+
+<div class="section-title">
+
+    <h2>View Challan</h2>
+
+    <p>
+        Search your traffic penalty using vehicle number.
+    </p>
+
+</div>
+
+
+<div class="search-box">
+
+<form id="challanForm">
+
+    <div class="form-group">
+
+        <label>Vehicle Registration Number</label>
+
+        <input
+            type="text"
+            id="vehicleNumber"
+            placeholder="Example: TN01AB1234"
+            required>
+
+    </div>
+
+
+    <button
+        type="submit"
+        class="btn btn-blue">
+
+        🔍 Search Challan
+
+    </button>
+
+</form>
+
+</div>
+
+
+<!-- RESULT -->
+
+<div
+    class="challan-result"
+    id="challanResult">
+
+    <h3>
+        Traffic Challan Details
+    </h3>
+
+
+    <div class="detail-row">
+
+        <strong>Vehicle Number</strong>
+
+        <span id="resultVehicle">
+            TN01AB1234
+        </span>
+
+    </div>
+
+
+    <div class="detail-row">
+
+        <strong>Owner Name</strong>
+
+        <span>
+            Arun Kumar
+        </span>
+
+    </div>
+
+
+    <div class="detail-row">
+
+        <strong>Violation</strong>
+
+        <span>
+            Over Speeding
+        </span>
+
+    </div>
+
+
+    <div class="detail-row">
+
+        <strong>Date</strong>
+
+        <span>
+            19-Aug-2026
+        </span>
+
+    </div>
+
+
+    <div class="detail-row">
+
+        <strong>Penalty</strong>
+
+        <span>
+            ₹2,000
+        </span>
+
+    </div>
+
+
+    <div class="detail-row">
+
+        <strong>Status</strong>
+
+        <span
+            class="pending"
+            id="challanStatus">
+
+            Pending
+
+        </span>
+
+    </div>
+
+
+    <br>
+
+
+    <button
+        class="btn btn-green"
+        onclick="payChallan()">
+
+        💳 Pay Penalty
+
+    </button>
+
+
+    <button
+        class="btn btn-blue"
+        onclick="downloadReceipt()">
+
+        🧾 Download Receipt
+
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- ================= CASE FILED ================= -->
+
+<section id="case" class="case-section">
+
+<div class="section-title">
+
+    <h2>Cases Filed</h2>
+
+    <p>
+        View traffic violation cases associated with your vehicle.
+    </p>
+
+</div>
+
+
+<div class="case-card">
+
+    <h3>
+        Case #TRF-2026-00125
+    </h3>
+
+    <br>
+
+    <p>
+        <strong>Vehicle:</strong>
+        TN01AB1234
+    </p>
+
+    <p>
+        <strong>Violation:</strong>
+        Signal Jump
+    </p>
+
+    <p>
+        <strong>Date:</strong>
+        18-Aug-2026
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        Anna Salai, Chennai
+    </p>
+
+    <p>
+        <strong>Fine:</strong>
+        ₹1,000
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <span class="status-progress">
+            Under Review
+        </span>
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- ================= POLICE ================= -->
+
+<section id="police" class="police-section">
+
+<div class="section-title">
+
+    <h2>Police Portal</h2>
+
+    <p>
+        Police officers can create and manage traffic violation cases.
+    </p>
+
+</div>
+
+
+<div class="form-container">
+
+<form id="caseForm">
+
+<div class="form-grid">
+
+    <div class="form-group">
+
+        <label>Vehicle Number</label>
+
+        <input
+            type="text"
+            id="caseVehicle"
+            placeholder="TN01AB1234"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Vehicle Owner</label>
+
+        <input
+            type="text"
+            id="caseOwner"
+            placeholder="Owner name"
+            required>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Violation</label>
+
+        <select id="violation" required>
+
+            <option value="">
+                Select violation
+            </option>
+
+            <option>
+                Over Speeding
+            </option>
+
+            <option>
+                Signal Jump
+            </option>
+
+            <option>
+                No Helmet
+            </option>
+
+            <option>
+                Drunk Driving
+            </option>
+
+            <option>
+                No Seat Belt
+            </option>
+
+            <option>
+                Wrong Parking
+            </option>
+
+            <option>
+                Driving Without License
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Fine Amount</label>
+
+        <input
+            type="number"
+            id="fineAmount"
+            placeholder="₹"
+            required>
+
+    </div>
+
+</div>
+
+
+<div class="form-group">
+
+    <label>Violation Description</label>
+
+    <textarea
+        id="description"
+        placeholder="Enter violation details..."
+        required></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+    <label>
+        Upload Proof Photo
+    </label>
+
+    <input
+        type="file"
+        id="proofPhoto"
+        accept="image/*">
+
+</div>
+
+
+<div class="proof-preview" id="proofPreview">
+
+    <img id="proofImage">
+
+</div>
+
+
+<button
+    type="submit"
+    class="btn btn-blue">
+
+    📁 Create Case
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+<!-- ================= LIVE TRAFFIC ================= -->
+
+<section>
+
+<div class="section-title">
+
+    <h2>Live Traffic Information</h2>
+
+    <p>
+        Monitor current traffic reports and updates.
+    </p>
+
+</div>
+
+
+<div class="map-box">
+
+<div id="trafficMap">
+
+    🗺️ Google Maps Traffic Area
+
+</div>
+
+
+<br>
+
+<button
+    class="btn btn-blue"
+    onclick="openTrafficMap()">
+
+    🌐 Open Google Maps Traffic
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= POLICE CASE TABLE ================= -->
+
+<section class="police-section">
+
+<div class="section-title">
+
+    <h2>Traffic Case Management</h2>
+
+    <p>
+        Latest cases created by traffic police.
+    </p>
+
+</div>
+
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+    <th>Case ID</th>
+
+    <th>Vehicle</th>
+
+    <th>Owner</th>
+
+    <th>Violation</th>
+
+    <th>Fine</th>
+
+    <th>Status</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="caseTable">
+
+<tr>
+
+    <td>
+        TRF-1001
+    </td>
+
+    <td>
+        TN01AB1234
+    </td>
+
+    <td>
+        Arun Kumar
+    </td>
+
+    <td>
+        Over Speeding
+    </td>
+
+    <td>
+        ₹2,000
+    </td>
+
+    <td class="status-new">
+        New
+    </td>
+
+</tr>
+
+
+<tr>
+
+    <td>
+        TRF-1002
+    </td>
+
+    <td>
+        TN02CD5678
+    </td>
+
+    <td>
+        Priya
+    </td>
+
+    <td>
+        No Helmet
+    </td>
+
+    <td>
+        ₹500
+    </td>
+
+    <td class="status-progress">
+        Under Review
+    </td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="admin-section">
+
+<div class="section-title">
+
+    <h2>Admin Dashboard</h2>
+
+    <p>
+        Manage police accounts and monitor daily traffic reports.
+    </p>
+
+</div>
+
+
+<div class="card-grid">
+
+<div class="card">
+
+    <div class="card-icon">
+        👮
+    </div>
+
+    <h3>Registered Police</h3>
+
+    <div class="number">
+        24
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-icon">
+        📁
+    </div>
+
+    <h3>Total Cases</h3>
+
+    <div
+        class="number"
+        id="adminCases">
+
+        128
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-icon">
+        💰
+    </div>
+
+    <h3>Collected Fine</h3>
+
+    <div class="number">
+        ₹62,400
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-icon">
+        ⏳
+    </div>
+
+    <h3>Pending Fine</h3>
+
+    <div class="number">
+        ₹23,000
+    </div>
+
+</div>
+
+</div>
+
+<br><br>
+
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+    <th>Police ID</th>
+
+    <th>Name</th>
+
+    <th>Station</th>
+
+    <th>Status</th>
+
+    <th>Action</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="policeTable">
+
+<tr>
+
+    <td>
+        POL001
+    </td>
+
+    <td>
+        Raj Kumar
+    </td>
+
+    <td>
+        Anna Nagar
+    </td>
+
+    <td class="status-closed">
+        Active
+    </td>
+
+    <td>
+
+        <button
+            class="btn btn-red"
+            onclick="togglePolice(this)">
+
+            Disable
+
+        </button>
+
+    </td>
+
+</tr>
+
+
+<tr>
+
+    <td>
+        POL002
+    </td>
+
+    <td>
+        Vijay Kumar
+    </td>
+
+    <td>
+        T. Nagar
+    </td>
+
+    <td class="status-closed">
+        Active
+    </td>
+
+    <td>
+
+        <button
+            class="btn btn-red"
+            onclick="togglePolice(this)">
+
+            Disable
+
+        </button>
+
+    </td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ================= REPORTS ================= -->
+
+<section
+    id="reports"
+    class="report-section">
+
+<div class="section-title">
+
+    <h2>Daily Traffic Report</h2>
+
+    <p>
+        Traffic violation and penalty collection report.
+    </p>
+
+</div>
+
+
+<div class="report-box">
+
+<div class="card-grid">
+
+    <div class="card">
+
+        <h3>
+            Today's Cases
+        </h3>
+
+        <div class="number">
+            18
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Challans Issued
+        </h3>
+
+        <div class="number">
+            32
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Fine Collected
+        </h3>
+
+        <div class="number">
+            ₹18,500
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Pending Cases
+        </h3>
+
+        <div class="number">
+            7
+        </div>
+
+    </div>
+
+</div>
+
+<br>
+
+<button
+    class="btn btn-blue"
+    onclick="generateReport()">
+
+    📊 Generate Daily Report
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+    <h3>Traffic Squad</h3>
+
+    <p>
+        Digital traffic penalty collection
+        and management system.
+    </p>
+
+</div>
+
+
+<div>
+
+    <h3>User</h3>
+
+    <a href="#challan">
+        View Challan
+    </a>
+
+    <a href="#case">
+        View Case
+    </a>
+
+    <a href="#home">
+        User Registration
+    </a>
+
+</div>
+
+
+<div>
+
+    <h3>Police</h3>
+
+    <a href="#police">
+        Create Case
+    </a>
+
+    <a href="#police">
+        Upload Proof
+    </a>
+
+    <a href="#police">
+        Traffic Reports
+    </a>
+
+</div>
+
+
+<div>
+
+    <h3>Admin</h3>
+
+    <a href="#admin">
+        Manage Police
+    </a>
+
+    <a href="#reports">
+        Daily Reports
+    </a>
+
+</div>
+
+</div>
+
+
+<div class="copyright">
+
+    © 2026 Traffic Squad |
+    Penalty Collection & Management System
+
+</div>
+
+</footer>
+
+
+<!-- MESSAGE -->
+
+<div id="message"></div>
+
+
+<script>
+
+/* =====================================================
+   COMMON MESSAGE
+===================================================== */
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById("message");
+
+    message.innerText = text;
+
+    message.style.display = "block";
+
+    setTimeout(function() {
+
+        message.style.display = "none";
+
+    }, 3000);
+}
+
+
+/* =====================================================
+   USER REGISTRATION
+===================================================== */
+
+document
+.getElementById("userRegistrationForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("userName").value;
+
+    showMessage(
+        "Registration successful! Welcome " +
+        name
+    );
+
+    this.reset();
+
+});
+
+
+/* =====================================================
+   CHALLAN SEARCH
+===================================================== */
+
+document
+.getElementById("challanForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const vehicle =
+        document
+        .getElementById("vehicleNumber")
+        .value
+        .toUpperCase();
+
+    document
+    .getElementById("resultVehicle")
+    .innerText = vehicle;
+
+    document
+    .getElementById("challanResult")
+    .style.display = "block";
+
+    showMessage(
+        "Challan details found."
+    );
+
+});
+
+
+/* =====================================================
+   PAY CHALLAN
+===================================================== */
+
+function payChallan() {
+
+    const status =
+        document.getElementById("challanStatus");
+
+    status.innerText =
+        "Paid";
+
+    status.className =
+        "paid";
+
+    let paid =
+        document.getElementById("paidChallans");
+
+    let pending =
+        document.getElementById("pendingChallans");
+
+    paid.innerText =
+        parseInt(paid.innerText) + 1;
+
+    if(parseInt(pending.innerText) > 0) {
+
+        pending.innerText =
+            parseInt(pending.innerText) - 1;
+
+    }
+
+    showMessage(
+        "Payment successful! Challan marked as paid."
+    );
+
+}
+
+
+/* =====================================================
+   DOWNLOAD RECEIPT
+===================================================== */
+
+function downloadReceipt() {
+
+    const vehicle =
+        document
+        .getElementById("resultVehicle")
+        .innerText;
+
+    const receipt =
+`
+TRAFFIC SQUAD
+Penalty Payment Receipt
+-------------------------
+Vehicle Number: ${vehicle}
+Violation: Over Speeding
+Penalty: ₹2,000
+Status: PAID
+Date: 19-Aug-2026
+-------------------------
+Thank you.
+`;
+
+    const blob =
+        new Blob(
+            [receipt],
+            {type: "text/plain"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "traffic-challan-receipt.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    showMessage(
+        "Receipt downloaded successfully."
+    );
+
+}
+
+
+/* =====================================================
+   PROOF IMAGE PREVIEW
+===================================================== */
+
+document
+.getElementById("proofPhoto")
+.addEventListener("change", function(event) {
+
+    const file =
+        event.target.files[0];
+
+    if(!file) {
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e) {
+
+            document
+            .getElementById("proofImage")
+            .src = e.target.result;
+
+            document
+            .getElementById("proofPreview")
+            .style.display = "block";
+
+        };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+/* =====================================================
+   CREATE TRAFFIC CASE
+===================================================== */
+
+document
+.getElementById("caseForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const vehicle =
+        document
+        .getElementById("caseVehicle")
+        .value
+        .toUpperCase();
+
+    const owner =
+        document
+        .getElementById("caseOwner")
+        .value;
+
+    const violation =
+        document
+        .getElementById("violation")
+        .value;
+
+    const fine =
+        document
+        .getElementById("fineAmount")
+        .value;
+
+
+    const table =
+        document.getElementById("caseTable");
+
+
+    const row =
+        document.createElement("tr");
+
+
+    const caseId =
+        "TRF-" +
+        Math.floor(
+            1000 +
+            Math.random() * 9000
+        );
+
+
+    row.innerHTML = `
+
+        <td>${caseId}</td>
+
+        <td>${vehicle}</td>
+
+        <td>${owner}</td>
+
+        <td>${violation}</td>
+
+        <td>₹${fine}</td>
+
+        <td class="status-new">
+            New
+        </td>
+
+    `;
+
+
+    table.appendChild(row);
+
+
+    /* Update dashboard */
+
+    const totalCases =
+        document.getElementById("totalCases");
+
+    totalCases.innerText =
+        parseInt(totalCases.innerText) + 1;
+
+
+    const adminCases =
+        document.getElementById("adminCases");
+
+    adminCases.innerText =
+        parseInt(adminCases.innerText) + 1;
+
+
+    showMessage(
+        "Traffic case created successfully. Case ID: " +
+        caseId
+    );
+
+
+    this.reset();
+
+
+    document
+    .getElementById("proofPreview")
+    .style.display = "none";
+
+});
+
+
+/* =====================================================
+   GOOGLE MAPS TRAFFIC
+===================================================== */
+
+function openTrafficMap() {
+
+    window.open(
+        "https://www.google.com/maps/@13.0827,80.2707,13z/data=!5m1!1e1",
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   ADMIN POLICE ENABLE / DISABLE
+===================================================== */
+
+function togglePolice(button) {
+
+    const row =
+        button.closest("tr");
+
+    const status =
+        row.querySelector("td:nth-child(4)");
+
+
+    if(button.innerText === "Disable") {
+
+        button.innerText =
+            "Enable";
+
+        button.className =
+            "btn btn-green";
+
+        status.innerText =
+            "Disabled";
+
+        status.className =
+            "status-new";
+
+        showMessage(
+            "Police account disabled."
+        );
+
+    }
+
+    else {
+
+        button.innerText =
+            "Disable";
+
+        button.className =
+            "btn btn-red";
+
+        status.innerText =
+            "Active";
+
+        status.className =
+            "status-closed";
+
+        showMessage(
+            "Police account enabled."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DAILY REPORT
+===================================================== */
+
+function generateReport() {
+
+    const report = `
+
+TRAFFIC SQUAD
+DAILY TRAFFIC REPORT
+============================
+
+Date: 19-Aug-2026
+
+Today's Cases: 18
+
+Challans Issued: 32
+
+Fine Collected: ₹18,500
+
+Pending Cases: 7
+
+============================
+Generated by Traffic Squad
+`;
+
+    const blob =
+        new Blob(
+            [report],
+            {type: "text/plain"}
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "daily-traffic-report.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    showMessage(
+        "Daily traffic report generated."
+    );
+
+}
+
+</script>
+
+</body>
+</html>
